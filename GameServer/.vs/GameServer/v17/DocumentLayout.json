@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|c:\\users\\marvin\\desktop\\project-giforgif\\gameserver\\gameserver\\models\\packets\\readme.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}",
-      "RelativeMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|solutionrelative:gameserver\\models\\packets\\readme.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}"
+      "AbsoluteMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|c:\\users\\marvin\\desktop\\project-giforgif\\gameserver\\gameserver\\stores\\connectionmapping.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|solutionrelative:gameserver\\stores\\connectionmapping.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|c:\\users\\marvin\\desktop\\project-giforgif\\gameserver\\gameserver\\handlers\\packethandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|solutionrelative:gameserver\\handlers\\packethandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|c:\\users\\marvin\\desktop\\project-giforgif\\gameserver\\gameserver\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|solutionrelative:gameserver\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|c:\\users\\marvin\\desktop\\project-giforgif\\gameserver\\gameserver\\controllers\\roomcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -19,24 +19,24 @@
       "RelativeMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|solutionrelative:gameserver\\hubs\\lobby.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|c:\\users\\marvin\\desktop\\project-giforgif\\gameserver\\gameserver\\handlers\\packethandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|solutionrelative:gameserver\\handlers\\packethandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|c:\\users\\marvin\\desktop\\project-giforgif\\gameserver\\gameserver\\stores\\roomstore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|solutionrelative:gameserver\\stores\\roomstore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|c:\\users\\marvin\\desktop\\project-giforgif\\gameserver\\gameserver\\models\\packets\\readme.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}",
+      "RelativeMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|solutionrelative:gameserver\\models\\packets\\readme.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|c:\\users\\marvin\\desktop\\project-giforgif\\gameserver\\gameserver\\models\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|solutionrelative:gameserver\\models\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|c:\\users\\marvin\\desktop\\project-giforgif\\gameserver\\gameserver\\models\\game.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|solutionrelative:gameserver\\models\\game.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|c:\\users\\marvin\\desktop\\project-giforgif\\gameserver\\gameserver\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|solutionrelative:gameserver\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|c:\\users\\marvin\\desktop\\project-giforgif\\gameserver\\gameserver\\stores\\connectionmapping.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|solutionrelative:gameserver\\stores\\connectionmapping.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|c:\\users\\marvin\\desktop\\project-giforgif\\gameserver\\gameserver\\stores\\roomstore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|solutionrelative:gameserver\\stores\\roomstore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|c:\\users\\marvin\\desktop\\project-giforgif\\gameserver\\gameserver\\models\\packets\\samplepacket.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -62,11 +62,15 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 4,
           "Children": [
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
+            {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 6,
               "Title": "Readme.md",
               "DocumentMoniker": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Models\\Packets\\Readme.md",
               "RelativeDocumentMoniker": "GameServer\\Models\\Packets\\Readme.md",
@@ -78,8 +82,121 @@
               "EditorCaption": ""
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Program.cs",
+              "RelativeDocumentMoniker": "GameServer\\Program.cs",
+              "ToolTip": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Program.cs",
+              "RelativeToolTip": "GameServer\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-11T14:03:38.419Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "RoomStore.cs",
+              "DocumentMoniker": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Stores\\RoomStore.cs",
+              "RelativeDocumentMoniker": "GameServer\\Stores\\RoomStore.cs",
+              "ToolTip": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Stores\\RoomStore.cs",
+              "RelativeToolTip": "GameServer\\Stores\\RoomStore.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-11T14:13:18.406Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ConnectionMapping.cs",
+              "DocumentMoniker": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Stores\\ConnectionMapping.cs",
+              "RelativeDocumentMoniker": "GameServer\\Stores\\ConnectionMapping.cs",
+              "ToolTip": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Stores\\ConnectionMapping.cs",
+              "RelativeToolTip": "GameServer\\Stores\\ConnectionMapping.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-11T14:49:21.183Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "RoomController.cs",
+              "DocumentMoniker": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Controllers\\RoomController.cs",
+              "RelativeDocumentMoniker": "GameServer\\Controllers\\RoomController.cs",
+              "ToolTip": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Controllers\\RoomController.cs",
+              "RelativeToolTip": "GameServer\\Controllers\\RoomController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-11T14:11:37.831Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "PacketHandler.cs",
+              "DocumentMoniker": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Handlers\\PacketHandler.cs",
+              "RelativeDocumentMoniker": "GameServer\\Handlers\\PacketHandler.cs",
+              "ToolTip": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Handlers\\PacketHandler.cs",
+              "RelativeToolTip": "GameServer\\Handlers\\PacketHandler.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADMAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-11T14:27:40.934Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Lobby.cs",
+              "DocumentMoniker": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Hubs\\Lobby.cs",
+              "RelativeDocumentMoniker": "GameServer\\Hubs\\Lobby.cs",
+              "ToolTip": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Hubs\\Lobby.cs",
+              "RelativeToolTip": "GameServer\\Hubs\\Lobby.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAABCAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-11T14:12:13.389Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "PacketJsonConverter.cs",
+              "DocumentMoniker": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Models\\Packets\\PacketJsonConverter.cs",
+              "RelativeDocumentMoniker": "GameServer\\Models\\Packets\\PacketJsonConverter.cs",
+              "ToolTip": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Models\\Packets\\PacketJsonConverter.cs",
+              "RelativeToolTip": "GameServer\\Models\\Packets\\PacketJsonConverter.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAIBJwBgAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-11T14:37:23.402Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Game.cs",
+              "DocumentMoniker": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Models\\Game.cs",
+              "RelativeDocumentMoniker": "GameServer\\Models\\Game.cs",
+              "ToolTip": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Models\\Game.cs",
+              "RelativeToolTip": "GameServer\\Models\\Game.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-11T14:43:40.853Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Player.cs",
+              "DocumentMoniker": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Models\\Player.cs",
+              "RelativeDocumentMoniker": "GameServer\\Models\\Player.cs",
+              "ToolTip": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Models\\Player.cs",
+              "RelativeToolTip": "GameServer\\Models\\Player.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-11T14:43:51.302Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -96,71 +213,6 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "ConnectionMapping.cs",
-              "DocumentMoniker": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Stores\\ConnectionMapping.cs",
-              "RelativeDocumentMoniker": "GameServer\\Stores\\ConnectionMapping.cs",
-              "ToolTip": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Stores\\ConnectionMapping.cs",
-              "RelativeToolTip": "GameServer\\Stores\\ConnectionMapping.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-11T14:49:21.183Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Player.cs",
-              "DocumentMoniker": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Models\\Player.cs",
-              "RelativeDocumentMoniker": "GameServer\\Models\\Player.cs",
-              "ToolTip": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Models\\Player.cs",
-              "RelativeToolTip": "GameServer\\Models\\Player.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-11T14:43:51.302Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Game.cs",
-              "DocumentMoniker": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Models\\Game.cs",
-              "RelativeDocumentMoniker": "GameServer\\Models\\Game.cs",
-              "ToolTip": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Models\\Game.cs",
-              "RelativeToolTip": "GameServer\\Models\\Game.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAjAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-11T14:43:40.853Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "PacketJsonConverter.cs",
-              "DocumentMoniker": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Models\\Packets\\PacketJsonConverter.cs",
-              "RelativeDocumentMoniker": "GameServer\\Models\\Packets\\PacketJsonConverter.cs",
-              "ToolTip": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Models\\Packets\\PacketJsonConverter.cs",
-              "RelativeToolTip": "GameServer\\Models\\Packets\\PacketJsonConverter.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAABgAAAAQAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-11T14:37:23.402Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "PacketHandler.cs",
-              "DocumentMoniker": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Handlers\\PacketHandler.cs",
-              "RelativeDocumentMoniker": "GameServer\\Handlers\\PacketHandler.cs",
-              "ToolTip": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Handlers\\PacketHandler.cs",
-              "RelativeToolTip": "GameServer\\Handlers\\PacketHandler.cs",
-              "ViewState": "AgIAACYAAAAAAAAAAAAwwDMAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-11T14:27:40.934Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 11,
               "Title": "Packet.cs",
               "DocumentMoniker": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Models\\Packets\\Packet.cs",
@@ -170,58 +222,6 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-11T14:21:29.457Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "RoomStore.cs",
-              "DocumentMoniker": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Stores\\RoomStore.cs",
-              "RelativeDocumentMoniker": "GameServer\\Stores\\RoomStore.cs",
-              "ToolTip": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Stores\\RoomStore.cs",
-              "RelativeToolTip": "GameServer\\Stores\\RoomStore.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAzAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-11T14:13:18.406Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Lobby.cs",
-              "DocumentMoniker": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Hubs\\Lobby.cs",
-              "RelativeDocumentMoniker": "GameServer\\Hubs\\Lobby.cs",
-              "ToolTip": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Hubs\\Lobby.cs",
-              "RelativeToolTip": "GameServer\\Hubs\\Lobby.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAxwEAAAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-11T14:12:13.389Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Program.cs",
-              "RelativeDocumentMoniker": "GameServer\\Program.cs",
-              "ToolTip": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Program.cs",
-              "RelativeToolTip": "GameServer\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAzAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-11T14:03:38.419Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "RoomController.cs",
-              "DocumentMoniker": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Controllers\\RoomController.cs",
-              "RelativeDocumentMoniker": "GameServer\\Controllers\\RoomController.cs",
-              "ToolTip": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Controllers\\RoomController.cs",
-              "RelativeToolTip": "GameServer\\Controllers\\RoomController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-11T14:11:37.831Z",
               "EditorCaption": ""
             },
             {

@@ -29,7 +29,7 @@ namespace GameServer.Hubs
 
             await Groups.AddToGroupAsync(Context.ConnectionId, roomName);
             // clients informieren das wer gejoined ist
-            // await Clients.Group(roomName).SendAsync("ShowWhoJoined", $"{Context.ConnectionId} has joined '{roomName}'.");
+            await Clients.Group(roomName).SendAsync("ReceivePacket", $"{Context.ConnectionId} has joined '{roomName}'.");
             _connectionMapping.Add(Context.ConnectionId, roomName);
         }
 
