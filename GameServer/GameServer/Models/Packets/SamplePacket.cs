@@ -6,7 +6,8 @@
         public override string Type => "SAMPLE";
 
         // Zusätzliche Daten hinzufügen
-        public string SAMEPLE_STRING { get; set; }
+        public string SAMPLE_STRING { get; set; }
         public int SAMPLE_INTEGER { get; set; }
+        public int CamelCase { get; set; }
     }
 }

@@ -3,56 +3,67 @@
   "WorkspaceRootPath": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|c:\\users\\marvin\\desktop\\project-giforgif\\gameserver\\gameserver\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|solutionrelative:gameserver\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|c:\\users\\marvin\\desktop\\project-giforgif\\gameserver\\gameserver\\controllers\\roomcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|solutionrelative:gameserver\\controllers\\roomcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|c:\\users\\marvin\\desktop\\project-giforgif\\gameserver\\gameserver\\hubs\\lobby.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|solutionrelative:gameserver\\hubs\\lobby.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|c:\\users\\marvin\\desktop\\project-giforgif\\gameserver\\gameserver\\handlers\\packethandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|solutionrelative:gameserver\\handlers\\packethandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|c:\\users\\marvin\\desktop\\project-giforgif\\gameserver\\gameserver\\stores\\connectionmapping.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|solutionrelative:gameserver\\stores\\connectionmapping.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|c:\\users\\marvin\\desktop\\project-giforgif\\gameserver\\gameserver\\stores\\roomstore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|solutionrelative:gameserver\\stores\\roomstore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|c:\\users\\marvin\\desktop\\project-giforgif\\gameserver\\gameserver\\models\\packets\\readme.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}",
-      "RelativeMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|solutionrelative:gameserver\\models\\packets\\readme.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|c:\\users\\marvin\\desktop\\project-giforgif\\gameserver\\gameserver\\models\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|solutionrelative:gameserver\\models\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|c:\\users\\marvin\\desktop\\project-giforgif\\gameserver\\gameserver\\models\\game.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|solutionrelative:gameserver\\models\\game.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|c:\\users\\marvin\\desktop\\project-giforgif\\gameserver\\gameserver\\models\\packets\\samplepacket.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|solutionrelative:gameserver\\models\\packets\\samplepacket.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|c:\\users\\marvin\\desktop\\project-giforgif\\gameserver\\gameserver\\models\\packets\\packetjsonconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|solutionrelative:gameserver\\models\\packets\\packetjsonconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|c:\\users\\marvin\\desktop\\project-giforgif\\gameserver\\gameserver\\models\\packets\\packet.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|solutionrelative:gameserver\\models\\packets\\packet.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|c:\\users\\marvin\\desktop\\project-giforgif\\gameserver\\gameserver\\hubs\\lobby.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|solutionrelative:gameserver\\hubs\\lobby.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|c:\\users\\marvin\\desktop\\project-giforgif\\gameserver\\gameserver\\models\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|solutionrelative:gameserver\\models\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|c:\\users\\marvin\\desktop\\project-giforgif\\gameserver\\gameserver\\stores\\connectionmapping.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|solutionrelative:gameserver\\stores\\connectionmapping.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|c:\\users\\marvin\\desktop\\project-giforgif\\gameserver\\gameserver\\models\\roomrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|solutionrelative:gameserver\\models\\roomrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|c:\\users\\marvin\\desktop\\project-giforgif\\gameserver\\gameserver\\stores\\roomstore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|solutionrelative:gameserver\\stores\\roomstore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|c:\\users\\marvin\\desktop\\project-giforgif\\gameserver\\gameserver\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|solutionrelative:gameserver\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|c:\\users\\marvin\\desktop\\project-giforgif\\gameserver\\gameserver\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|solutionrelative:gameserver\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|c:\\users\\marvin\\desktop\\project-giforgif\\gameserver\\gameserver\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|solutionrelative:gameserver\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|c:\\users\\marvin\\desktop\\project-giforgif\\gameserver\\gameserver\\controllers\\roomcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|solutionrelative:gameserver\\controllers\\roomcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|c:\\users\\marvin\\desktop\\project-giforgif\\gameserver\\gameserver\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|solutionrelative:gameserver\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|c:\\users\\marvin\\desktop\\project-giforgif\\gameserver\\gameserver\\models\\game.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|solutionrelative:gameserver\\models\\game.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|c:\\users\\marvin\\desktop\\project-giforgif\\gameserver\\gameserver\\handlers\\packethandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|solutionrelative:gameserver\\handlers\\packethandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Marvin\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.21.0\\build\\Container.targets||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|c:\\users\\marvin\\desktop\\project-giforgif\\gameserver\\gameserver\\models\\packets\\packetjsonconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1999D8F5-A6D8-48E0-AA15-E135E87C6400}|GameServer\\GameServer.csproj|solutionrelative:gameserver\\models\\packets\\packetjsonconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -62,51 +73,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 10,
           "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "Readme.md",
-              "DocumentMoniker": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Models\\Packets\\Readme.md",
-              "RelativeDocumentMoniker": "GameServer\\Models\\Packets\\Readme.md",
-              "ToolTip": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Models\\Packets\\Readme.md",
-              "RelativeToolTip": "GameServer\\Models\\Packets\\Readme.md",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAABgAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001818|",
-              "WhenOpened": "2024-11-11T15:01:20.327Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Program.cs",
-              "RelativeDocumentMoniker": "GameServer\\Program.cs",
-              "ToolTip": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Program.cs",
-              "RelativeToolTip": "GameServer\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-11T14:03:38.419Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "RoomStore.cs",
-              "DocumentMoniker": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Stores\\RoomStore.cs",
-              "RelativeDocumentMoniker": "GameServer\\Stores\\RoomStore.cs",
-              "ToolTip": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Stores\\RoomStore.cs",
-              "RelativeToolTip": "GameServer\\Stores\\RoomStore.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAzAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-11T14:13:18.406Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Document",
               "DocumentIndex": 4,
@@ -115,33 +83,20 @@
               "RelativeDocumentMoniker": "GameServer\\Stores\\ConnectionMapping.cs",
               "ToolTip": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Stores\\ConnectionMapping.cs",
               "RelativeToolTip": "GameServer\\Stores\\ConnectionMapping.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-11T14:49:21.183Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "RoomController.cs",
-              "DocumentMoniker": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Controllers\\RoomController.cs",
-              "RelativeDocumentMoniker": "GameServer\\Controllers\\RoomController.cs",
-              "ToolTip": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Controllers\\RoomController.cs",
-              "RelativeToolTip": "GameServer\\Controllers\\RoomController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAASAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-11T14:11:37.831Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 13,
               "Title": "PacketHandler.cs",
               "DocumentMoniker": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Handlers\\PacketHandler.cs",
               "RelativeDocumentMoniker": "GameServer\\Handlers\\PacketHandler.cs",
               "ToolTip": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Handlers\\PacketHandler.cs",
               "RelativeToolTip": "GameServer\\Handlers\\PacketHandler.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAADMAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAABAAAAAAAAAAAAAgwCoAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-11T14:27:40.934Z",
               "EditorCaption": ""
@@ -154,33 +109,44 @@
               "RelativeDocumentMoniker": "GameServer\\Hubs\\Lobby.cs",
               "ToolTip": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Hubs\\Lobby.cs",
               "RelativeToolTip": "GameServer\\Hubs\\Lobby.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAABCAAAAAAAAAA==",
+              "ViewState": "AgIAABMAAAAAAAAAAAAgwCIAAABLAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-11T14:12:13.389Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 14,
+              "Title": "Container.targets",
+              "DocumentMoniker": "C:\\Users\\Marvin\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.21.0\\build\\Container.targets",
+              "RelativeDocumentMoniker": "..\\..\\..\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.21.0\\build\\Container.targets",
+              "ToolTip": "C:\\Users\\Marvin\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.21.0\\build\\Container.targets",
+              "RelativeToolTip": "..\\..\\..\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.21.0\\build\\Container.targets",
+              "ViewState": "AgIAAMMAAAAAAAAAAADgv9UAAABsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003801|",
+              "WhenOpened": "2024-11-26T08:37:02.843Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
               "Title": "PacketJsonConverter.cs",
               "DocumentMoniker": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Models\\Packets\\PacketJsonConverter.cs",
               "RelativeDocumentMoniker": "GameServer\\Models\\Packets\\PacketJsonConverter.cs",
               "ToolTip": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Models\\Packets\\PacketJsonConverter.cs",
               "RelativeToolTip": "GameServer\\Models\\Packets\\PacketJsonConverter.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAIBJwBgAAAAQAAAAAAAAAA==",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABgAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-11T14:37:23.402Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-11T14:37:23.402Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 12,
               "Title": "Game.cs",
               "DocumentMoniker": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Models\\Game.cs",
               "RelativeDocumentMoniker": "GameServer\\Models\\Game.cs",
               "ToolTip": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Models\\Game.cs",
               "RelativeToolTip": "GameServer\\Models\\Game.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAjAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-11T14:43:40.853Z",
               "EditorCaption": ""
@@ -188,6 +154,75 @@
             {
               "$type": "Document",
               "DocumentIndex": 7,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Program.cs",
+              "RelativeDocumentMoniker": "GameServer\\Program.cs",
+              "ToolTip": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Program.cs",
+              "RelativeToolTip": "GameServer\\Program.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAAAB8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-11T14:03:38.419Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "RoomStore.cs",
+              "DocumentMoniker": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Stores\\RoomStore.cs",
+              "RelativeDocumentMoniker": "GameServer\\Stores\\RoomStore.cs",
+              "ToolTip": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Stores\\RoomStore.cs",
+              "RelativeToolTip": "GameServer\\Stores\\RoomStore.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAgwBMAAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-11T14:13:18.406Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "RoomRequest.cs",
+              "DocumentMoniker": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Models\\RoomRequest.cs",
+              "RelativeDocumentMoniker": "GameServer\\Models\\RoomRequest.cs",
+              "ToolTip": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Models\\RoomRequest.cs",
+              "RelativeToolTip": "GameServer\\Models\\RoomRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-11T14:12:40.088Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Packet.cs",
+              "DocumentMoniker": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Models\\Packets\\Packet.cs",
+              "RelativeDocumentMoniker": "GameServer\\Models\\Packets\\Packet.cs",
+              "ToolTip": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Models\\Packets\\Packet.cs",
+              "RelativeToolTip": "GameServer\\Models\\Packets\\Packet.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-11T14:21:29.457Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "SamplePacket.cs",
+              "DocumentMoniker": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Models\\Packets\\SamplePacket.cs",
+              "RelativeDocumentMoniker": "GameServer\\Models\\Packets\\SamplePacket.cs",
+              "ToolTip": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Models\\Packets\\SamplePacket.cs",
+              "RelativeToolTip": "GameServer\\Models\\Packets\\SamplePacket.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-11T14:55:32.799Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "Player.cs",
               "DocumentMoniker": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Models\\Player.cs",
               "RelativeDocumentMoniker": "GameServer\\Models\\Player.cs",
@@ -200,41 +235,54 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "SamplePacket.cs",
-              "DocumentMoniker": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Models\\Packets\\SamplePacket.cs",
-              "RelativeDocumentMoniker": "GameServer\\Models\\Packets\\SamplePacket.cs",
-              "ToolTip": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Models\\Packets\\SamplePacket.cs",
-              "RelativeToolTip": "GameServer\\Models\\Packets\\SamplePacket.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAhAAAAAAAAAA==",
+              "DocumentIndex": 10,
+              "Title": "RoomController.cs",
+              "DocumentMoniker": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Controllers\\RoomController.cs",
+              "RelativeDocumentMoniker": "GameServer\\Controllers\\RoomController.cs",
+              "ToolTip": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Controllers\\RoomController.cs",
+              "RelativeToolTip": "GameServer\\Controllers\\RoomController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-11T14:55:32.799Z",
+              "WhenOpened": "2024-11-11T14:11:37.831Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Dockerfile",
+              "DocumentMoniker": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Dockerfile",
+              "RelativeDocumentMoniker": "GameServer\\Dockerfile",
+              "ToolTip": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Dockerfile",
+              "RelativeToolTip": "GameServer\\Dockerfile",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAALAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2024-12-01T14:30:28.514Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\appsettings.json",
+              "RelativeDocumentMoniker": "GameServer\\appsettings.json",
+              "ToolTip": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\appsettings.json",
+              "RelativeToolTip": "GameServer\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-12-01T15:04:03.342Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 11,
-              "Title": "Packet.cs",
-              "DocumentMoniker": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Models\\Packets\\Packet.cs",
-              "RelativeDocumentMoniker": "GameServer\\Models\\Packets\\Packet.cs",
-              "ToolTip": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Models\\Packets\\Packet.cs",
-              "RelativeToolTip": "GameServer\\Models\\Packets\\Packet.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-11T14:21:29.457Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "RoomRequest.cs",
-              "DocumentMoniker": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Models\\RoomRequest.cs",
-              "RelativeDocumentMoniker": "GameServer\\Models\\RoomRequest.cs",
-              "ToolTip": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Models\\RoomRequest.cs",
-              "RelativeToolTip": "GameServer\\Models\\RoomRequest.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-11T14:12:40.088Z",
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "GameServer\\Properties\\launchSettings.json",
+              "ToolTip": "C:\\Users\\Marvin\\Desktop\\project-giforgif\\GameServer\\GameServer\\Properties\\launchSettings.json",
+              "RelativeToolTip": "GameServer\\Properties\\launchSettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-12-01T15:08:07.476Z",
               "EditorCaption": ""
             }
           ]
