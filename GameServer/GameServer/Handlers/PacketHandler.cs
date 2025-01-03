@@ -16,20 +16,22 @@ namespace GameServer.Handlers
         private readonly Dictionary<string, Func<Packet, HubCallerContext, Task>> _packetFunctions = new();
         private readonly IHubContext<Lobby> _lobbyContext;
         private readonly ConnectionMapping _connectionMapping;
+        private readonly GameHandler _gameHandler;
 
         public PacketHandler(IHubContext<Lobby> lobbyContext, ConnectionMapping connectionMapping)
         {
             _lobbyContext = lobbyContext;
+            _gameHandler = new GameHandler(lobbyContext, connectionMapping);
 
             // Hier ein neues packet registrieren
             _packetFunctions.Add("SAMPLE", HandleSamplePacket);
             _packetFunctions.Add("REGISTER", HandleRegisterPacket);
             _packetFunctions.Add("START", HandleStartPacket);
-			_packetFunctions.Add("ROLL_DICE", HandleRollDicePacket);
             _packetFunctions.Add("CREATE_ROOM", HandleCreateRoomPacket);
             _packetFunctions.Add("JOIN_ROOM", HandleJoinRoomPacket);
             _packetFunctions.Add("WANT_STATUS", HandleWantStatusPacket);
             _packetFunctions.Add("LEAVE_ROOM", HandleLeaveRoomPacket);
+			_packetFunctions.Add("ROLL_DICE", _gameHandler.HandleRollDicePacket);
             _connectionMapping = connectionMapping;
         }
 
@@ -183,35 +185,6 @@ namespace GameServer.Handlers
             string packetJson = JsonSerializer.Serialize(packet);
             await _lobbyContext.Clients.All.SendAsync("ReceivePacket", packetJson);
         }
-	
-		private async Task HandleRollDicePacket(Packet packet, HubCallerContext context)
-		{
-			RollDicePacket parsedpacket = (RollDicePacket)packet;
-
-			Game game = GetGame(context);
-
-			if (game.CurrentMover == null || game.CurrentMover.Name != parsedpacket.PlayerName)
-				return;
-
-			int rolled = game.RollDice();
-
-			RolledPacket rolledPacket = new RolledPacket();
-			rolledPacket.PlayerName = parsedpacket.PlayerName;
-			rolledPacket.RolledNumber = rolled;
-
-			string packetJson = JsonSerializer.Serialize(rolledPacket);
-			await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", packetJson); 
-
-			// game.continue after roll
-
-			// move player to new field -> and check if passed Go field
-			// check on ownership of field
-			// if not owned sent packet if they want to buy
-			// if owner exists than check field for current rent -> state game -> houses -> rent? -> pay Player2 so und so viel money 
-
-		}
-
-
 
         private string GetRoomName(HubCallerContext context)
         {
