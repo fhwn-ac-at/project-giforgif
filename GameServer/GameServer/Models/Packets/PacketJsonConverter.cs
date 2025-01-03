@@ -10,6 +10,7 @@ namespace GameServer.Models.Packets
         public PacketJsonConverter() {
             _packetTypeMappings.Add("SAMPLE", typeof(SamplePacket));
             _packetTypeMappings.Add("REGISTER", typeof(RegisterPacket));
+            _packetTypeMappings.Add("START", typeof(StartGamePacket));
             _packetTypeMappings.Add("ROLL_DICE", typeof(RollDicePacket));
         }
 
