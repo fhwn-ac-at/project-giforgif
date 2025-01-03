@@ -28,7 +28,16 @@ namespace YourNamespace.Controllers
         public IActionResult GetRooms()
         {
             var rooms = RoomStore.GetAllRoomNames();
-            return Ok(rooms);
+
+            List<RoomResponse> responses = new List<RoomResponse>();
+
+            foreach (var room in rooms)
+            {
+                Game game = RoomStore.GetGame(room);
+                responses.Add(new RoomResponse(room, game.Started, game.Players.Count));
+            }
+
+            return Ok(responses);
         }
     }
 }
