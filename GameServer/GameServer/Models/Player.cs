@@ -6,7 +6,7 @@
         public string ConnectionId { get; set; }
         public string Name { get; set; }
         public int Currency { get; set; }
-        public IField CurrentField { get; set; }
+        public IField CurrentPosition { get; set; }
 
         public Player(string name, string connectionId)
         {
