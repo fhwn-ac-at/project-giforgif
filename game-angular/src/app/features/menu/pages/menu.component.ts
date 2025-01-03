@@ -7,6 +7,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SharedModule } from '../../../shared/shared.module';
 import { PacketService } from '../../../shared/services/packet/packet.service';
 import { SamplePacket } from '../../../shared/packets/sample-packet';
+import { RegisterPacket } from '../../../shared/packets/register-packet';
+import { Packet } from '../../../shared/packets/packet';
 
 @Component({
   selector: 'app-menu',
@@ -23,11 +25,16 @@ export class MenuComponent {
   private readonly fb = inject(FormBuilder);
   private readonly signalRService = inject(PacketService);
 
+  private readonly handler = new Map<string, (packet: Packet) => void>();
+
   constructor() {
     this.fetchRooms();
     this.roomForm = this.fb.group({
       roomName: [null, Validators.required],
     });
+
+    this.handler.set("PLAYER_JOINED", this.handlePlayerJoinedPacket);
+    this.signalRService.receiveMessage().subscribe(this.handlePacket);
   }
 
   protected fetchRooms() {
@@ -54,23 +61,26 @@ export class MenuComponent {
     });
   }
 
-  protected joinRoom() {
-    this.signalRService.startConnection().subscribe(() => {
-      this.signalRService.receiveMessage().subscribe((message) => {
-        console.log(message);
-
-        const packet = parsePacket(message);
-
-        if (packet.type == 'SAMPLE') {
-          const sample = packet as SamplePacket;
-          console.log('SAMÖ', sample);
-          console.log(sample.camelCase);
-        }
-      });
-    });
+  protected joinRoom(room: string) {
+    this.signalRService.joinRoom(room);
   }
 
-  protected test() {
-    this.signalRService.tgest('Hallo');
+  protected handlePacket(message: string) {
+    console.log(message);
+
+    const packet = parsePacket(message);
+    const handler = this.handler.get(packet.type);
+    
+    if (!handler) {
+      return;
+    }
+
+    handler(packet);
   }
+
+  protected handlePlayerJoinedPacket(packet: Packet) {
+    // const player_joined = packet as PlayerJoined
+    console.log(packet);
+  }
+
 }
