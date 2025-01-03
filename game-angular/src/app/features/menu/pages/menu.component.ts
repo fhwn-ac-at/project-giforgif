@@ -1,14 +1,18 @@
 import { Component, inject } from '@angular/core';
 import { ModalTemplateComponent } from '../../../shared/components/modal-template/modal-template.component';
-import { RoomService } from '../../../shared/services/room/room.service';
 import { parsePacket, Perform } from '../../../shared/class';
 import { Room } from '../../../shared/types';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SharedModule } from '../../../shared/shared.module';
 import { PacketService } from '../../../shared/services/packet/packet.service';
-import { SamplePacket } from '../../../shared/packets/sample-packet';
-import { RegisterPacket } from '../../../shared/packets/register-packet';
 import { Packet } from '../../../shared/packets/packet';
+import { CreateRoomPacket } from '../../../shared/packets/rooms/create-room';
+import { TRoomsUpdatedPacket } from '../../../shared/packets/rooms/rooms-updated';
+import { TErrorPacket } from '../../../shared/packets/util/error';
+import { ToastService } from '../../../shared/services/toast/toast.service';
+import { JoinRoomPacket } from '../../../shared/packets/rooms/join-room';
+import { Handler } from '../../../shared/class/handler';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -16,33 +20,25 @@ import { Packet } from '../../../shared/packets/packet';
   templateUrl: './menu.component.html',
   styles: ``,
 })
-export class MenuComponent {
-  protected rooms = new Perform<Room[]>();
+export class MenuComponent extends Handler {
+  protected rooms: Room[] = [];
   protected create = new Perform<Room>();
   protected roomForm: FormGroup;
 
-  private readonly roomService = inject(RoomService);
   private readonly fb = inject(FormBuilder);
-  private readonly signalRService = inject(PacketService);
+  private readonly router = inject(Router);
 
-  private readonly handler = new Map<string, (packet: Packet) => void>();
-
-  constructor() {
-    this.fetchRooms();
+  constructor(
+    private readonly signalRService: PacketService,
+    private readonly toastService: ToastService
+  ) {
+    super(signalRService, toastService);
     this.roomForm = this.fb.group({
       roomName: [null, Validators.required],
     });
 
-    this.handler.set("PLAYER_JOINED", this.handlePlayerJoinedPacket);
-    this.signalRService.receiveMessage().subscribe(this.handlePacket);
-  }
-
-  protected fetchRooms() {
-    this.rooms.load(this.roomService.getRooms(), {
-      toast: {
-        error: 'Ein Fehler ist aufgetreten, bitte versuchen Sie es erneut',
-      },
-    });
+    this.handler.set('ROOMS_UPDATED', this.handleRoomsUpdatedPacket.bind(this));
+    this.handler.set('PLAYER_JOINED', this.handleJoinedRoomPacket.bind(this));
   }
 
   protected createRoom() {
@@ -50,37 +46,24 @@ export class MenuComponent {
       return;
     }
 
-    this.create.load(this.roomService.createRoom(this.roomForm.value), {
-      toast: {
-        info: 'Raum erfolgreich erstellt',
-        error: 'Ein Fehler ist aufgetreten, bitte versuchen Sie es erneut',
-      },
-      touch: async () => {
-        this.fetchRooms();
-      },
-    });
+    const packet = new CreateRoomPacket();
+    packet.RoomName = this.roomForm.controls['roomName'].value;
+
+    this.signalRService.sendPacket(packet);
   }
 
   protected joinRoom(room: string) {
-    this.signalRService.joinRoom(room);
+    const packet = new JoinRoomPacket();
+    packet.RoomName = room;
+    this.signalRService.sendPacket(packet);
   }
 
-  protected handlePacket(message: string) {
-    console.log(message);
-
-    const packet = parsePacket(message);
-    const handler = this.handler.get(packet.type);
-    
-    if (!handler) {
-      return;
-    }
-
-    handler(packet);
+  protected handleJoinedRoomPacket(packet: Packet) {
+    this.router.navigate(['lobby']);
   }
 
-  protected handlePlayerJoinedPacket(packet: Packet) {
-    // const player_joined = packet as PlayerJoined
-    console.log(packet);
+  protected handleRoomsUpdatedPacket(packet: Packet) {
+    const parsed = packet as TRoomsUpdatedPacket;
+    this.rooms = parsed.Rooms;
   }
-
 }
