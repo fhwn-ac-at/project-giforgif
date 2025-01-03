@@ -1,4 +1,5 @@
-﻿using System.Collections.Concurrent;
+﻿using GameServer.Models;
+using System.Collections.Concurrent;
 
 namespace GameServer.Stores
 {
