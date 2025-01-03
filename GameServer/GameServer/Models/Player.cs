@@ -13,5 +13,18 @@
             this.Name = name;
             this.ConnectionId = connectionId;
         }
+
+        public bool TransferCurrency(Player recipient, int amount)
+        {
+            if (this.Currency < amount)
+            {
+                return false;
+            }
+
+            this.Currency -= amount;
+            recipient.Currency += amount;
+
+            return true;
+        }
     }
 }
