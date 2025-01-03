@@ -3,6 +3,7 @@ using GameServer.Stores;
 using GameServer.Models.Packets;
 using System.Text.Json;
 using GameServer.Handlers;
+using GameServer.Models;
 
 namespace GameServer.Hubs
 {
@@ -25,15 +26,25 @@ namespace GameServer.Hubs
                 return;
             }
 
+            Game game = RoomStore.GetGame(roomName);
+
+            if (game.Started || game.Players.Count >= 4)
+            {
+                return;
+            }
+
+            Player player = PlayerStore.GetPlayer(Context.ConnectionId);    
+            game.Players.Add(player);
+            _connectionMapping.Add(Context.ConnectionId, roomName);
+
             // checks machen das nur joinable wenn nicht started und so zeug
 
-            await Groups.AddToGroupAsync(Context.ConnectionId, roomName);
-            // clients informieren das wer gejoined ist
-            SamplePacket packet = new SamplePacket();
-            packet.SAMPLE_INTEGER = 10;
-            packet.CamelCase = 10;
+            PlayerJoinedPacket packet = new PlayerJoinedPacket();
+            packet.PlayerName = player.Name;
             await Clients.Group(roomName).SendAsync("ReceivePacket", packet);
-            _connectionMapping.Add(Context.ConnectionId, roomName);
+
+            await Groups.AddToGroupAsync(Context.ConnectionId, roomName);
+            
         }
 
         public async Task LeaveRoom(string roomName)
