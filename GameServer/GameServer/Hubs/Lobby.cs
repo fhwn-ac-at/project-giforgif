@@ -18,35 +18,6 @@ namespace GameServer.Hubs
             _connectionMapping = connectionMapping;
         }
 
-        public async Task JoinRoom(string roomName)
-        {
-            if (!RoomStore.Exists(roomName))
-            {
-                await Clients.Caller.SendAsync("Error", $"Room '{roomName}' does not exist.");
-                return;
-            }
-
-            Game game = RoomStore.GetGame(roomName);
-
-            if (game.Started || game.Players.Count >= 4)
-            {
-                return;
-            }
-
-            Player player = PlayerStore.GetPlayer(Context.ConnectionId);    
-            game.Players.Add(player);
-            _connectionMapping.Add(Context.ConnectionId, roomName);
-
-            // checks machen das nur joinable wenn nicht started und so zeug
-
-            PlayerJoinedPacket packet = new PlayerJoinedPacket();
-            packet.PlayerName = player.Name;
-            await Clients.Group(roomName).SendAsync("ReceivePacket", packet);
-
-            await Groups.AddToGroupAsync(Context.ConnectionId, roomName);
-            
-        }
-
         public async Task LeaveRoom(string roomName)
         {
             await Groups.RemoveFromGroupAsync(Context.ConnectionId, roomName);
