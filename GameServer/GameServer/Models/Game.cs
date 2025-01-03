@@ -8,6 +8,8 @@
         private static Random rng = new Random();
         private GameBoard? _board;
 
+        public Action<string, Player> Callback { get; set; }
+
         public void Setup()
         {
             if (this.Players.Count < 2)
@@ -25,6 +27,15 @@
             }
 
             _board = new GameBoard();
+
+            _board.AddField(new Site()
+            {
+                Name = "GO",
+                BuyingPrice = 100,
+                RentPrices = new int[6] { 100, 200, 300, 400, 500, 600 },
+                Housecount = 0,
+                Group = null
+            });
         }
 
         private void RandomizePlayerOrder()
