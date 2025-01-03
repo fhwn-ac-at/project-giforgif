@@ -6,6 +6,7 @@
         public List<Player> Players { get; set; } = [];
         public bool Started { get; set; }
         private static Random rng = new Random();
+        private GameBoard? _board;
 
 
         public void Setup()
@@ -23,6 +24,8 @@
             {
                 player.Currency = 1500;
             }
+
+            _board = new GameBoard();
         }
 
         private void RandomizePlayerOrder()
@@ -39,5 +42,10 @@
 
             return rolled;
 		}
-    }
+
+		public void MovePlayer(Player player, int rolled)
+		{
+            //_board.Move(player, rolled);
+		}
+	}
 }
