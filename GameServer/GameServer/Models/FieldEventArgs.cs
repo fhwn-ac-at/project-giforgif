@@ -2,13 +2,13 @@
 {
 	public class FieldEventArgs
 	{
-		private string messageType;
-		private object? data;
+		public string MessageType { get; set; }
+		public object? Data { get; set; }
 
 		public FieldEventArgs(string messageType, object? data)
 		{
-			this.messageType = messageType;
-			this.data = data;
+			this.MessageType = messageType;
+			this.Data = data;
 		}
 	}
 }
