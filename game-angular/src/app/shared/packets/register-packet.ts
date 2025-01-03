@@ -1,6 +1,4 @@
-abstract class Packet {
-  constructor(public Type: string) {}
-}
+import { Packet } from "./packet";
 
 export class RegisterPacket extends Packet {
   constructor() {

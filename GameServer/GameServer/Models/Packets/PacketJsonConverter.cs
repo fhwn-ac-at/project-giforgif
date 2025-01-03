@@ -1,5 +1,7 @@
 ﻿using System.Text.Json.Serialization;
 using System.Text.Json;
+using GameServer.Models.Packets.Rooms;
+using GameServer.Models.Packets.Lobby;
 
 namespace GameServer.Models.Packets
 {
@@ -10,6 +12,10 @@ namespace GameServer.Models.Packets
         public PacketJsonConverter() {
             _packetTypeMappings.Add("SAMPLE", typeof(SamplePacket));
             _packetTypeMappings.Add("REGISTER", typeof(RegisterPacket));
+            _packetTypeMappings.Add("CREATE_ROOM", typeof(CreateRoomPacket));
+            _packetTypeMappings.Add("JOIN_ROOM", typeof(JoinRoomPacket));
+            _packetTypeMappings.Add("WANT_STATUS", typeof(WantStatusPacket));
+            _packetTypeMappings.Add("LEAVE_ROOM", typeof(LeaveRoomPacket));
         }
 
         public override Packet Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
