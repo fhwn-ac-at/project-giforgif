@@ -9,6 +9,7 @@ namespace GameServer.Models.Packets
 
         public PacketJsonConverter() {
             _packetTypeMappings.Add("SAMPLE", typeof(SamplePacket));
+            _packetTypeMappings.Add("REGISTER", typeof(RegisterPacket));
         }
 
         public override Packet Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
@@ -18,7 +19,7 @@ namespace GameServer.Models.Packets
             {
                 var type = typeElement.GetString();
 
-                if (type != null && _packetTypeMappings.TryGetValue(type, out Type packetType))
+                if (type != null && _packetTypeMappings.TryGetValue(type, out Type? packetType))
                 {
                     return (Packet) document.Deserialize(packetType, options);
                 }

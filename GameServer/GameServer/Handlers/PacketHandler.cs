@@ -2,6 +2,7 @@
 using GameServer.Models;
 using GameServer.Models.Packets;
 using GameServer.Stores;
+using GameServer.Util;
 using Microsoft.AspNetCore.SignalR;
 using System.Text.Json;
 
@@ -19,7 +20,18 @@ namespace GameServer.Handlers
 
             // Hier ein neues packet registrieren
             _packetFunctions.Add("SAMPLE", HandleSamplePacket);
+            _packetFunctions.Add("REGISTER", HandleRegisterPacket);
             _connectionMapping = connectionMapping;
+        }
+
+        public async Task HandleRegisterPacket(Packet packet, HubCallerContext context)
+        {
+            RegisterPacket parsed = (RegisterPacket) packet;
+
+            string playerName = parsed.PlayerName ?? GamertagGenerator.GenerateRandomGamertag();
+            string connectionId = context.ConnectionId;
+
+            PlayerStore.Add(playerName, connectionId);
         }
 
         public async Task HandlePacket(Packet packet, HubCallerContext context)
