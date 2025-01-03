@@ -16,6 +16,8 @@ namespace GameServer.Models.Packets
             _packetTypeMappings.Add("JOIN_ROOM", typeof(JoinRoomPacket));
             _packetTypeMappings.Add("WANT_STATUS", typeof(WantStatusPacket));
             _packetTypeMappings.Add("LEAVE_ROOM", typeof(LeaveRoomPacket));
+            _packetTypeMappings.Add("START", typeof(StartGamePacket));
+            _packetTypeMappings.Add("ROLL_DICE", typeof(RollDicePacket));
         }
 
         public override Packet Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
