@@ -23,6 +23,8 @@ namespace GameServer.Handlers
 			RollDicePacket parsedpacket = (RollDicePacket)packet;
 
 			Game game = GetGame(context);
+			game.Callback = GameEventOccured;
+
 
 			if (game.CurrentMover == null || game.CurrentMover.Name != parsedpacket.PlayerName)
 				return;
@@ -44,6 +46,14 @@ namespace GameServer.Handlers
 			// if not owned sent packet if they want to buy
 			// if owner exists than check field for current rent -> state game -> houses -> rent? -> pay Player2 so und so viel money 
 
+		}
+
+		private void GameEventOccured(string eventType, Player player)
+		{
+			if (eventType == "PAYMENT")
+			{
+                
+            }
 		}
 
 		private string GetRoomName(HubCallerContext context)

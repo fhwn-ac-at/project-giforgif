@@ -26,5 +26,10 @@
 
             return _fields[newPositionIndex];
         }
+
+        public void AddField(IField field)
+        {
+            _fields.Add(field);
+        }
 	}
 }
