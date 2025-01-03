@@ -21,6 +21,7 @@ namespace GameServer.Handlers
             // Hier ein neues packet registrieren
             _packetFunctions.Add("SAMPLE", HandleSamplePacket);
             _packetFunctions.Add("REGISTER", HandleRegisterPacket);
+            _packetFunctions.Add("START", HandleStartPacket);
             _connectionMapping = connectionMapping;
         }
 
@@ -39,6 +40,16 @@ namespace GameServer.Handlers
             // checken obs das überhaupt gibt 
 
             await _packetFunctions[packet.Type](packet, context);
+        }
+
+        public async Task HandleStartPacket(Packet packet, HubCallerContext context)
+        {
+            StartGamePacket parsed = (StartGamePacket) packet;
+
+            Game game = GetGame(context);
+
+            // Determine Player Order
+            game.Setup();
         }
 
         private async Task HandleSamplePacket(Packet packet, HubCallerContext context)
