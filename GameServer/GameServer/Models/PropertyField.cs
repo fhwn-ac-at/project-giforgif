@@ -1,22 +1,17 @@
 ﻿namespace GameServer.Models
 {
-    public class PropertyField : IField
-    {
+	public abstract class PropertyField : IField
+	{
         public Player? Owner { get; set; }
-        public int HouseCount { get; set; }
-        public IProperty Property { get; set; }
 
-        public void LandOn(Player player)
-        {
-            if (Owner == null)
-            {
+        public string Name { get; set; }
 
-            }
-        }
+        public int BuyingPrice { get; set; }
 
-        public void Pass(Player player)
-        {
-            throw new NotImplementedException();
-        }
+		public PropertyGroup Group { get; set; } // muss halt noch befüllt werden
+
+        public abstract void LandOn(Player player);
+
+        public abstract void Pass(Player player);
     }
 }
