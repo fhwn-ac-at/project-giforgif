@@ -48,12 +48,12 @@ namespace GameServer.Handlers
 
 		}
 
-		private void GameEventOccured(string eventType, Player player)
+		private async void GameEventOccured(Packet data)
 		{
-			if (eventType == "PAYMENT")
-			{
-                
-            }
+			// TODO: HubCallerContext hier irgndwie rein bringen 
+
+			//string packetJson = JsonSerializer.Serialize(data);
+			//await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", packetJson); 
 		}
 
 		private string GetRoomName(HubCallerContext context)
