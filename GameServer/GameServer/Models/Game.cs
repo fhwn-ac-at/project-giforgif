@@ -28,14 +28,36 @@
 
             _board = new GameBoard();
 
-            _board.AddField(new Site()
+            var field = new Site()
             {
                 Name = "GO",
                 BuyingPrice = 100,
                 RentPrices = new int[6] { 100, 200, 300, 400, 500, 600 },
                 Housecount = 0,
                 Group = null
-            });
+            };
+
+            field.FieldEventOccurred += OnFieldEventOccurred;
+
+            _board.AddField(field);
+        }
+
+        private void OnFieldEventOccurred(object? sender, FieldEventArgs e)
+        {
+            switch (e.MessageType)
+            {
+                case "BUY":
+                    this.Callback("BUY", e.Data as Player);
+                    break;
+                case "PAYMENT":
+                    this.Callback("PAYMENT", e.Data as Player);
+                    break;
+                case "INFO":
+                    this.Callback("INFO", e.Data as Player);
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void RandomizePlayerOrder()
