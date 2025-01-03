@@ -39,11 +39,11 @@ export class PacketService {
     });
   }
 
-  sendMessage(message: string): void {
-    this.hubConnection.invoke('SendPacketToServer', message);
+  sendPacket<T>(packet: T): void {
+    this.hubConnection.invoke('SendPacketToServer', JSON.stringify(packet));
   }
 
-  tgest(message: string): void {
+  joinRoom(message: string): void {
     this.hubConnection.invoke('JoinRoom', message);
   }
 }
