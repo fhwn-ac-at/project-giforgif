@@ -6,5 +6,10 @@
         {
             throw new NotImplementedException();
         }
+
+        public void Pass(Player player)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

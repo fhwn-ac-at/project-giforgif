@@ -7,5 +7,6 @@
         public int NormalPrice { get; set; }
         // Rent Prices for 0, 1, 2, 3, 4 houses and hotel
         public int[] RentPrices { get; set; }
+        public Player? Owner { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
     }
 }
