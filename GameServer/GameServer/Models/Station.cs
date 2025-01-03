@@ -2,6 +2,6 @@
 {
     public class Station : IProperty
     {
-        public 
+        public Player? Owner { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
     }
 }
