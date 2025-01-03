@@ -1,12 +1,19 @@
 ﻿namespace GameServer.Models
 {
-    public abstract class Site : IProperty
-    {
-        public string Name { get; set; }
-        public int MortgagePrice { get; set; }
-        public int NormalPrice { get; set; }
-        // Rent Prices for 0, 1, 2, 3, 4 houses and hotel
-        public int[] RentPrices { get; set; }
-        public Player? Owner { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-    }
+	public class Site : PropertyField
+	{
+		public int Housecount { get; set; }
+		// Rent Prices for 0, 1, 2, 3, 4 houses and hotel
+		public int[] RentPrices { get; set; }
+
+		public override void LandOn(Player player)
+		{
+			// möglich sein, hat der owner dieser site alle felder von dieser gruppe 
+		}
+
+		public override void Pass(Player player)
+		{
+			throw new NotImplementedException();
+		}
+	}
 }
