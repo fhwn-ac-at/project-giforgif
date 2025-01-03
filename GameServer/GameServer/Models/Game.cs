@@ -49,7 +49,8 @@
 				throw new ArgumentNullException("The instance of the gameBoard must not be null");
 			}
 
-			_board.Move(player, rolled);
+			IField newPosition = _board.Move(player, rolled);
+            newPosition.LandOn(player);
 		}
 	}
 }
