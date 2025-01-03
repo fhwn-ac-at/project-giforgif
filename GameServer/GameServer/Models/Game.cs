@@ -8,7 +8,6 @@
         private static Random rng = new Random();
         private GameBoard? _board;
 
-
         public void Setup()
         {
             if (this.Players.Count < 2)
@@ -45,7 +44,12 @@
 
 		public void MovePlayer(Player player, int rolled)
 		{
-            //_board.Move(player, rolled);
+			if (_board == null)
+			{
+				throw new ArgumentNullException("The instance of the gameBoard must not be null");
+			}
+
+			_board.Move(player, rolled);
 		}
 	}
 }
