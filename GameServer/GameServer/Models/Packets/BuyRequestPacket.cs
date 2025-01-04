@@ -4,8 +4,8 @@
 	{
 		public override string Type => "BUY_REQUEST";
 
-		public Player? Player { get; set; }
+		public string? PlayerName { get; set; }
 
-		public IField? Field { get; set; }
+		public string? FieldName { get; set; }
 	}
 }
