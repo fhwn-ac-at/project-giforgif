@@ -7,6 +7,7 @@ namespace GameServer.Models
         private static Random rng = new Random();
         private GameBoard? _board;
         private Thread? _startGameCounter;
+        private int counterId = 0;
 
         public event EventHandler<Game>? OnGameStarted;
         public bool Started { get; set; }
@@ -57,7 +58,14 @@ namespace GameServer.Models
             _counterStarted = true;
             _startGameCounter = new Thread(() =>
             {
+                int myId = counterId;
                 Thread.Sleep(10 * 1000);
+
+                if (counterId != myId)
+                {
+                    return;
+                }
+
                 Started = true;
                 OnGameStarted?.Invoke(this, this);
             });
@@ -72,7 +80,7 @@ namespace GameServer.Models
                 return;
             }
 
-            _startGameCounter?.Abort();
+            counterId++;
             _counterStarted = false;
         }
 

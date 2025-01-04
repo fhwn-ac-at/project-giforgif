@@ -177,8 +177,13 @@ namespace GameServer.Handlers
 
             if (game.Players.Count >= 3)
             {
-                await _lobbyContext.Clients.Group(parsed.RoomName).SendAsync("ReceivePacket", JsonSerializer.Serialize(new StartPacket()));
-                game.StartCounter();
+                new Thread(async () =>
+                {
+                    Thread.Sleep(3000);
+                    await _lobbyContext.Clients.Group(parsed.RoomName).SendAsync("ReceivePacket", JsonSerializer.Serialize(new StartPacket()));
+                    game.StartCounter();
+                }).Start();
+
             }
         }
 
