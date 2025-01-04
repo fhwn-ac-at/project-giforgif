@@ -76,6 +76,7 @@ namespace GameServer.Handlers
             string packetJson = JsonSerializer.Serialize(pkg);
             await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", packetJson);
             await _lobbyContext.Groups.RemoveFromGroupAsync(context.ConnectionId, GetRoomName(context));
+            game.StopCounter();
             await SendRoomUpdate(context);
         }
 
@@ -96,15 +97,20 @@ namespace GameServer.Handlers
                 return;
             }
 
-            if (RoomStore.Add(parsed.RoomName))
+            Game? game = RoomStore.Add(parsed.RoomName);
+
+            if (game != null)
             {
+                game.OnGameStarted += async (obj, game) =>
+                {
+                    await SendRoomUpdate(context);
+                };
                 await SendRoomUpdate(context);
                 return;
             }
 
             await _lobbyContext.Clients.Client(connectionId).SendAsync("ReceivePacket", JsonSerializer.Serialize(new ErrorPacket("INTERNAL_ERROR", "Something went wrong while creating the room")));
         }
-
         private async Task HandleSamplePacket(Packet packet, HubCallerContext context)
         {
             // schauen wer das packet egschickt hat und diesen player getten,
@@ -168,6 +174,12 @@ namespace GameServer.Handlers
 
             string packetJson = JsonSerializer.Serialize(pkg);
             await _lobbyContext.Clients.Group(parsed.RoomName).SendAsync("ReceivePacket", packetJson);
+
+            if (game.Players.Count >= 3)
+            {
+                await _lobbyContext.Clients.Group(parsed.RoomName).SendAsync("ReceivePacket", JsonSerializer.Serialize(new StartPacket()));
+                game.StartCounter();
+            }
         }
 
         private async Task SendRoomUpdate(HubCallerContext context)

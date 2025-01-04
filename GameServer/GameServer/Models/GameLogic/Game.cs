@@ -4,13 +4,15 @@ namespace GameServer.Models
 {
     public class Game
     {
-        public Player? CurrentMover;
-        public List<Player> Players { get; set; } = [];
-        public bool Started { get; set; }
         private static Random rng = new Random();
         private GameBoard? _board;
+        private Thread? _startGameCounter;
 
+        public event EventHandler<Game>? OnGameStarted;
+        public bool Started { get; set; }
+        public Player? CurrentMover;
         public Action<Packet> Callback { get; set; }
+        public List<Player> Players { get; set; } = [];
 
         public void Setup()
         {
@@ -42,6 +44,23 @@ namespace GameServer.Models
             field.FieldEventOccurred += OnFieldEventOccurred;
 
             _board.AddField(field);
+        }
+
+        public void StartCounter()
+        {
+            _startGameCounter = new Thread(() =>
+            {
+                Thread.Sleep(10 * 1000);
+                Started = true;
+                OnGameStarted?.Invoke(this, this);
+            });
+
+            _startGameCounter.Start();
+        }
+
+        public void StopCounter()
+        {
+            _startGameCounter.Abort();
         }
 
         private void OnFieldEventOccurred(object? sender, Packet e)

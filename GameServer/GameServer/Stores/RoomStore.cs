@@ -8,9 +8,16 @@ namespace GameServer.Stores
     {
         private static readonly ConcurrentDictionary<string, Game> _rooms = new();
 
-        public static bool Add(string roomName)
+        public static Game? Add(string roomName)
         {
-            return _rooms.TryAdd(roomName, new Game());
+            Game game = new Game();
+
+            if(!_rooms.TryAdd(roomName, game))
+            {
+                return null;
+            }
+
+            return game;
         }
 
         public static bool Exists(string roomName) => _rooms.ContainsKey(roomName);
