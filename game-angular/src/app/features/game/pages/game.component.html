@@ -1,3 +1,32 @@
-<div class="w-full min-h-screen flex justify-center items-center">
+<div
+  class="w-full min-h-screen flex justify-between items-center bg-[url(/334.jpg)] bg-cover px-10"
+>
+  <div class="flex flex-col gap-y-4 items-start h-full">
+    <app-player-card
+      [player]="{ name: 'frederick', currency: 200, color: 'blue' }"
+    ></app-player-card>
+    <app-player-card
+      [player]="{ name: 'frederdawdick', currency: 200, color: 'red' }"
+    ></app-player-card>
+    <app-player-card
+      [player]="{ name: 'frederick', currency: 200, color: 'yellow' }"
+    ></app-player-card>
+    <app-player-card
+      [player]="{ name: 'frederick', currency: 200, color: 'green' }"
+    ></app-player-card>
+  </div>
   <app-board></app-board>
+  <div>
+    <button
+      class="mt-4 hidden rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:block"
+      (click)="handleDicePress()"
+    >
+      Würfeln
+    </button>
+  </div>
 </div>
+
+<app-dice></app-dice>
+<app-buy-tile></app-buy-tile>
+<app-auction></app-auction>
+<app-event-card></app-event-card>
