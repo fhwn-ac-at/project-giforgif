@@ -14,7 +14,6 @@ namespace GameServer.Models
 		{
 			if (Owner != null && Owner == player)
 			{
-				//RaiseEvent("INFO", $"{player.Name} ist auf der eigenen Utility gelandet.");
 				return;
 			}
 
@@ -34,19 +33,18 @@ namespace GameServer.Models
 
 				if (player.TransferCurrency(Owner, amount))
 				{
-					RaiseEvent("PAY_PLAYER", new PayPlayerPacket() { From = player.Name, To = Owner.Name, Amount = amount, Successful = true });
+					RaiseEvent("PAY_PLAYER", new PayPlayerPacket() { From = player.Name, To = Owner.Name, Amount = amount});
 				}
 				else
 				{
-					RaiseEvent("PAY_PLAYER", new PayPlayerPacket() { From = player.Name, To = Owner.Name, Amount = amount, Successful = false });
-					// bancrupcy
+					RaiseEvent("BANKRUPTCY", new BankruptcyPacket() { PlayerName = player.Name });
+					player.DeclareBankruptcyToPlayer(Owner);
 				}
 
 				return;
 			}
 
 			RaiseEvent("BUY_REQUEST", new BuyRequestPacket() { PlayerName = player.Name, FieldName = this.Name });
-
 		}
 
 		public override void Pass(Player player)
