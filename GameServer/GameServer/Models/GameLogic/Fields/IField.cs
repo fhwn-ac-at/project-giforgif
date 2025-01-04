@@ -4,7 +4,9 @@ namespace GameServer.Models
 {
     public interface IField
     {
-		event EventHandler<Packet> FieldEventOccurred;
+        public string Name { get; set; }
+
+        event EventHandler<Packet> FieldEventOccurred;
 
 		void RaiseEvent(string messageType, Packet data);
 
