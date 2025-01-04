@@ -18,11 +18,11 @@ namespace GameServer.Models
 			{
 				int amount = 100;
 				player.TransferCurrency(Owner, amount); // TODO: price anpassen und häuser checken und schauen ob player zahlen kann
-				RaiseEvent("PAY_PLAYER", new PayPlayerPacket() { From = player, To = Owner, Amount = amount});
+				RaiseEvent("PAY_PLAYER", new PayPlayerPacket() { From = player.Name, To = Owner.Name, Amount = amount});
 			}
 
 			// wilst du zahlen? 
-			RaiseEvent("BUY_REQUEST", new BuyRequestPacket() { Player = player, Field = this});
+			RaiseEvent("BUY_REQUEST", new BuyRequestPacket() { PlayerName = player.Name, FieldName = this.Name});
 		}
 
 		public override void Pass(Player player)
