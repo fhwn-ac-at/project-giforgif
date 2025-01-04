@@ -47,6 +47,68 @@ namespace GameServer.Handlers
 			// if owner exists than check field for current rent -> state game -> houses -> rent? -> pay Player2 so und so viel money 
 
 		}
+        public async Task HandlePaymentDecision(Packet packet, HubCallerContext context)
+        {
+            PaymentDecisionPacket parsedPacket = (PaymentDecisionPacket)packet;
+
+			Game game = GetGame(context);
+
+			var currentMover = game.CurrentMover;
+
+			if (currentMover == null || currentMover.Name != parsedPacket.PlayerName)
+				return;
+
+			if (parsedPacket.WantsToBuy)
+			{
+				if (currentMover.BuyCurrentField())
+				{
+					BuySuccessfulPacket buySuccessfulPacket = new BuySuccessfulPacket();
+					buySuccessfulPacket.PlayerName = currentMover.Name;
+					buySuccessfulPacket.PropertyName = currentMover.CurrentPosition.Name;
+
+					string packetJson = JsonSerializer.Serialize(buySuccessfulPacket);
+					await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", packetJson);
+				}
+				else
+				{
+					BuyFailedPacket buyFailedPacket = new BuyFailedPacket();
+					buyFailedPacket.PlayerName = currentMover.Name;
+					buyFailedPacket.PropertyName = currentMover.CurrentPosition.Name;
+
+					string packetJson = JsonSerializer.Serialize(buyFailedPacket);
+					await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", packetJson);
+				}
+				return;
+			}
+
+			// Player does not want to buy, auction
+			StartAuctionPacket auctionPacket = new StartAuctionPacket();
+			auctionPacket.PropertyName = currentMover.CurrentPosition.Name;
+
+			string auctionPacketJson = JsonSerializer.Serialize(auctionPacket);
+			await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", auctionPacketJson);
+
+
+        }
+        public async Task HandleAuctionBid(Packet packet, HubCallerContext context)
+        {
+            AuctionBidPacket parsedPacket = (AuctionBidPacket)packet;
+
+
+        }
+
+
+   //     private async Task HandleAuctionResult(Packet packet, HubCallerContext context)
+   //     {
+   //         AuctionResultPacket parsedPacket = (AuctionResultPacket)packet;
+
+			//Game game = GetGame(context);
+
+			//if (game.CurrentMover.CurrentPosition != typeof(PropertyField))
+   //             return;
+
+			//game.Players.First(p => p.Name == parsedPacket.WinnerName).BuyField((PropertyField)game.CurrentMover.CurrentPosition, parsedPacket.Price);
+   //     }
 
 		private async void GameEventOccured(Packet data)
 		{
@@ -68,5 +130,6 @@ namespace GameServer.Handlers
 			string roomName = GetRoomName(context);
 			return RoomStore.GetGame(roomName);
 		}
-	}
+
+    }
 }
