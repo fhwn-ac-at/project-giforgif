@@ -60,7 +60,9 @@ namespace GameServer.Handlers
 
 			if (parsedPacket.WantsToBuy)
 			{
-				if (currentMover.BuyCurrentField())
+				PropertyField field = (PropertyField)currentMover.CurrentPosition;
+
+				if (currentMover.BuyField(field, field.BuyingPrice))
 				{
 					BuySuccessfulPacket buySuccessfulPacket = new BuySuccessfulPacket();
 					buySuccessfulPacket.PlayerName = currentMover.Name;
@@ -87,7 +89,6 @@ namespace GameServer.Handlers
 
 			string auctionPacketJson = JsonSerializer.Serialize(auctionPacket);
 			await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", auctionPacketJson);
-
 
         }
         public async Task HandleAuctionBid(Packet packet, HubCallerContext context)

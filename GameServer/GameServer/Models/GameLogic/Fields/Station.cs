@@ -4,24 +4,33 @@ namespace GameServer.Models
 {
 	public class Station : PropertyField
 	{
-		public int[] RentPrices { get; set; }
+		// rent for 1, 2, 3 & 4 Stations owned 
+		public int[] RentPrices { get; set; } = [];
 
 		public override void LandOn(Player player)
 		{
 			if (Owner != null && Owner == player)
 			{
-				//RaiseEvent("INFO", $"{player.Name} ist auf der eigenen Station gelandet.");
 				return;
 			}
 
 			if (Owner != null && Owner != player) 
 			{
-				int amount = 100;
-				player.TransferCurrency(Owner, amount); // TODO: price anpassen und häuser checken und schauen ob player zahlen kann
-				RaiseEvent("PAY_PLAYER", new PayPlayerPacket() { From = player.Name, To = Owner.Name, Amount = amount});
+				int amount = RentPrices[Group.AmountOfWOwnedProperties(Owner) - 1];
+
+				if (player.TransferCurrency(Owner, amount))
+				{
+					RaiseEvent("PAY_PLAYER", new PayPlayerPacket() { From = player.Name, To = Owner.Name, Amount = amount });
+				}
+				else
+				{
+					RaiseEvent("BANKRUPTCY", new BankruptcyPacket() { PlayerName = player.Name });
+					player.DeclareBankruptcyToPlayer(Owner);
+				}
+
+				return;
 			}
 
-			// wilst du zahlen? 
 			RaiseEvent("BUY_REQUEST", new BuyRequestPacket() { PlayerName = player.Name, FieldName = this.Name});
 		}
 

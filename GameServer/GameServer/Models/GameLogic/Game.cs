@@ -1,4 +1,5 @@
-﻿using GameServer.Models.Packets;
+﻿using GameServer.Models.GameLogic;
+using GameServer.Models.Packets;
 
 namespace GameServer.Models
 {
@@ -46,6 +47,8 @@ namespace GameServer.Models
             field.FieldEventOccurred += OnFieldEventOccurred;
 
             _board.AddField(field);
+
+            _board.AddCard(new Card() { Name = "Get Out Of Jail Free!" });
         }
 
         public void StartCounter()
@@ -87,29 +90,12 @@ namespace GameServer.Models
         private void OnFieldEventOccurred(object? sender, Packet e)
         {
             this.Callback(e);
-
-            //switch (e.MessageType)
-            //{
-            //    case "BUY":
-            //        this.Callback("BUY", e.Data);
-            //        break;
-            //    case "PAYMENT":
-            //        this.Callback("PAYMENT", e.Data);
-            //        break;
-            //    case "INFO":
-            //        this.Callback("INFO", e.Data);
-            //        break;
-            //    default:
-            //        break;
-            //}
         }
 
         private void RandomizePlayerOrder()
         {
             Players = Players.OrderBy(a => rng.Next()).ToList();
         }
-        // TODO ganzer game state mit movement und dies und das
-
 
         public int RollDice()
         {
@@ -127,6 +113,15 @@ namespace GameServer.Models
 			}
 
 			IField newPosition = _board.Move(player, rolled);
+
+            if (newPosition.GetType() == typeof(Utility))
+            {
+                Utility utility = (Utility)newPosition;
+                utility.RolledDice = rolled;
+                utility.LandOn(player);
+                return;
+            }
+
             newPosition.LandOn(player);
 		}
 	}

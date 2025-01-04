@@ -10,5 +10,10 @@
         {
            return Properties.Select(p => p.Owner == player).Count();
         }
+
+        public bool AllPropertiesOwnedBy(Player player)
+        {
+            return Properties.All(p => p.Owner == player);
+        }
     }
 }
