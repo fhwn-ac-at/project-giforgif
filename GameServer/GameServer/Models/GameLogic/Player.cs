@@ -26,5 +26,38 @@
 
             return true;
         }
+
+        public bool BuyCurrentField()
+        {
+            if (this.CurrentPosition != typeof(PropertyField))
+            {
+                return false;
+            }
+
+            PropertyField field = (PropertyField)this.CurrentPosition;
+
+            if (this.Currency < field.BuyingPrice)
+            {
+                return false;
+            }
+
+            this.Currency -= field.BuyingPrice;
+            field.Owner = this;
+
+            return true;
+        }
+
+        public bool BuyField(PropertyField field, int price)
+        {
+            if (this.Currency < price)
+            {
+                return false;
+            }
+
+            this.Currency -= price;
+            field.Owner = this;
+
+            return true;
+        }
     }
 }
