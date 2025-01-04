@@ -10,6 +10,7 @@ namespace GameServer.Models
 
         public event EventHandler<Game>? OnGameStarted;
         public bool Started { get; set; }
+        private bool _counterStarted = false;
         public Player? CurrentMover;
         public Action<Packet> Callback { get; set; }
         public List<Player> Players { get; set; } = [];
@@ -48,6 +49,12 @@ namespace GameServer.Models
 
         public void StartCounter()
         {
+            if (_counterStarted)
+            {
+                return;
+            }
+            
+            _counterStarted = true;
             _startGameCounter = new Thread(() =>
             {
                 Thread.Sleep(10 * 1000);
@@ -60,7 +67,13 @@ namespace GameServer.Models
 
         public void StopCounter()
         {
-            _startGameCounter.Abort();
+            if (!_counterStarted)
+            {
+                return;
+            }
+
+            _startGameCounter?.Abort();
+            _counterStarted = false;
         }
 
         private void OnFieldEventOccurred(object? sender, Packet e)
