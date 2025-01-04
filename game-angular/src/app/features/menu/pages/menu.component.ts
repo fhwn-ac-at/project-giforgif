@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnDestroy } from '@angular/core';
 import { ModalTemplateComponent } from '../../../shared/components/modal-template/modal-template.component';
 import { parsePacket, Perform } from '../../../shared/class';
 import { Room } from '../../../shared/types';
@@ -20,7 +20,7 @@ import { Router } from '@angular/router';
   templateUrl: './menu.component.html',
   styles: ``,
 })
-export class MenuComponent extends Handler {
+export class MenuComponent extends Handler implements OnDestroy {
   protected rooms: Room[] = [];
   protected create = new Perform<Room>();
   protected roomForm: FormGroup;
@@ -39,6 +39,10 @@ export class MenuComponent extends Handler {
 
     this.handler.set('ROOMS_UPDATED', this.handleRoomsUpdatedPacket.bind(this));
     this.handler.set('PLAYER_JOINED', this.handleJoinedRoomPacket.bind(this));
+  }
+
+  public ngOnDestroy(): void {
+    this.stopHandler();
   }
 
   protected createRoom() {
