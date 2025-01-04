@@ -1,3 +1,4 @@
+import { TStartPacket } from './lobby/start';
 import { TStatusPacket } from './lobby/status';
 import { Packet } from './packet';
 import { TPlayerJoinedPacket } from './rooms/player-joined';
@@ -14,6 +15,7 @@ const packetTypeMap: { [key: string]: PacketParserFunction } = {
   ERROR: (obj: any) => obj as TErrorPacket,
   STATUS: (obj: any) => obj as TStatusPacket,
   PLAYER_LEFT: (obj: any) => obj as TPlayerLeftPacket,
+  START: (obj: any) => obj as TStartPacket,
   // Add entries for other packet types
 };
 

@@ -64,7 +64,7 @@
             <p class="whitespace-nowrap">{{ room.playerCount }} / 4 Spieler</p>
           </div>
         </div>
-        @if (!room.running || room.playerCount < 4) {
+        @if (!room.running && room.playerCount < 4) {
         <div class="flex flex-none items-center gap-x-4">
           <button
             (click)="joinRoom(room.name)"
@@ -76,21 +76,12 @@
         }
       </li>
       }
-      <li class="flex items-center justify-between gap-x-6 py-5">
-        <div class="min-w-0">
-          <div class="flex items-start gap-x-3">
-            <p class="text-sm/6 font-semibold text-gray-900">WAD-DAV-XAD</p>
-            <p
-              class="mt-0.5 whitespace-nowrap rounded-md bg-gray-50 px-1.5 py-0.5 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10"
-            >
-              Läuft bereits
-            </p>
-          </div>
-          <div class="mt-1 flex items-center gap-x-2 text-xs/5 text-gray-500">
-            <p class="whitespace-nowrap">4 / 4 Spieler</p>
-          </div>
+      @if (rooms.length == 0) {
+        <div class="text-gray-900 py-5 text-center flex flex-col gap-y-2 items-center">
+          <span class="pi pi-times text-xl text-red-600"></span>
+          Leider keine Räume
         </div>
-      </li>
+      }
     </ul>
   </div>
 </div>

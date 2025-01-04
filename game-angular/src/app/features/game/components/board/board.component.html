@@ -1,19 +1,19 @@
-<div class="grid grid-cols-11 grid-rows-11 w-fit bg-indigo-100">
+<div class="grid grid-cols-11 grid-rows-11 w-fit bg-gray-900">
   @for (item of board[0]; track $index) {
   <div class="col-span-1 size-[70px] relative" [ngClass]="item.style">
     <div class="absolute h-auto right-0 left-0 bottom-full flex justify-evenly">
       @if (item.owner) {
-      <!-- COLOR  -->
+
       <div
-        class="w-0 h-0 border-l-[20px] border-l-transparent border-b-[20px] border-b-yellow-500 border-r-[20px] border-r-transparent"
+        class="w-0 h-0 border-l-[20px] border-l-transparent border-b-[20px] border-r-[20px] border-r-transparent"
+        [ngClass]="'border-b-' + item.owner.color + '-600'"
       ></div>
       }
     </div>
     <div class="absolute h-auto right-0 left-0 bottom-1 flex justify-evenly">
-      <div class="size-2 bg-green-500"></div>
-      <div class="size-2 bg-green-500"></div>
-      <div class="size-2 bg-green-500"></div>
-      <div class="size-2 bg-green-500"></div>
+      @for (building of item.buildings; track $index) {
+      <div class="size-2" [ngClass]="building.style"></div>
+      }
     </div>
     <app-avatar
       [players]="fields.get(item.index)"
@@ -21,50 +21,51 @@
     ></app-avatar>
   </div>
   } @for (row of [1, 2, 3, 4, 5, 6, 7, 8, 9]; track $index) {
-  <div
-    class="col-span-1 bg-orange-500 size-[70px] relative"
-    [ngClass]="board[row][0]"
-  >
+  <div class="col-span-1 size-[70px] relative" [ngClass]="board[row][0].style">
     <app-avatar
       [players]="fields.get(board[row][0].index)"
       class="p-1 flex h-full flex-wrap"
     ></app-avatar>
 
     <div class="absolute right-1 top-0 bottom-0 flex flex-col justify-evenly">
-      <div class="size-2 bg-green-500"></div>
-      <div class="size-2 bg-green-500"></div>
-      <div class="size-2 bg-green-500"></div>
-      <div class="size-2 bg-green-500"></div>
+      @for (building of board[row][0].buildings; track $index) {
+      <div class="size-2" [ngClass]="building.style"></div>
+      }
     </div>
-    <div class="absolute right-full top-0 bottom-0 flex justify-evenly">
-      @if (board[row][1].owner) {
-      <!-- COLOR  -->
+    <div
+      class="absolute right-full bottom-1/2 translate-y-1/2 flex justify-evenly"
+    >
+      @if (board[row][0].owner) {
+
       <div
-        class="w-0 h-0 border-t-[20px] border-t-transparent border-r-[20px] border-r-blue-500 border-b-[20px] border-b-transparent"
+        class="w-0 h-0 border-t-[20px] border-t-transparent border-r-[20px] border-b-[20px] border-b-transparent"
+        [ngClass]="'border-r-' + board[row][0].owner.color + '-600'"
       ></div>
 
       }
     </div>
   </div>
   <div
-    class="col-span-1 col-start-11 bg-green-300 size-[70px] relative"
-    [ngClass]="board[row][1]"
+    class="col-span-1 col-start-11 size-[70px] relative"
+    [ngClass]="board[row][1].style"
   >
     <app-avatar
       [players]="fields.get(board[row][1].index)"
       class="p-1 flex h-full flex-wrap w-full items-end justify-end"
     ></app-avatar>
     <div class="absolute left-1 top-0 bottom-0 flex flex-col justify-evenly">
-      <div class="size-2 bg-green-500"></div>
-      <div class="size-2 bg-green-500"></div>
-      <div class="size-2 bg-green-500"></div>
-      <div class="size-2 bg-green-500"></div>
+      @for (building of board[row][1].buildings; track $index) {
+      <div class="size-2" [ngClass]="building.style"></div>
+      }
     </div>
-    <div class="absolute left-full top-0 bottom-0 flex justify-evenly">
+    <div
+      class="absolute left-full bottom-1/2 translate-y-1/2 flex justify-evenly"
+    >
       @if (board[row][1].owner) {
-      <!-- COLOR  -->
+
       <div
-        class="w-0 h-0 border-t-[20px] border-t-transparent border-l-[20px] border-l-green-500 border-b-[20px] border-b-transparent"
+        class="w-0 h-0 border-t-[20px] border-t-transparent border-l-[20px] border-l-green-600 border-b-[20px] border-b-transparent"
+        [ngClass]="'border-l-' + board[row][1].owner.color + '-600'"
       ></div>
 
       }
@@ -78,121 +79,18 @@
     ></app-avatar>
 
     <div class="absolute h-10 right-0 left-0 top-1 flex justify-evenly">
-      <div class="size-2 bg-green-500"></div>
-      <div class="size-2 bg-green-500"></div>
-      <div class="size-2 bg-green-500"></div>
-      <div class="size-2 bg-green-500"></div>
+      @for (building of item.buildings; track $index) {
+      <div class="size-2" [ngClass]="building.style"></div>
+      }
     </div>
     <div class="absolute h-10 right-0 left-0 top-full flex justify-evenly">
       @if (item.owner) {
-      <!-- COLOR  -->
       <div
-        class="w-0 h-0 border-l-[20px] border-l-transparent border-t-[20px] border-t-red-500 border-r-[20px] border-r-transparent"
+        class="w-0 h-0 border-l-[20px] border-l-transparent border-t-[20px] border-t-red-600 border-r-[20px] border-r-transparent"
+        [ngClass]="'border-t-' + item.owner.color + '-600'"
       ></div>
       }
     </div>
   </div>
   }
 </div>
-<!-- 
-<div class="grid grid-cols-11 grid-rows-11 w-fit bg-indigo-100">
-  <div class="col-span-1 bg-black size-[70px]"></div>
-  <div class="col-span-1 bg-red-300 size-[70px]"></div>
-  <div class="col-span-1 bg-gray-500 size-[70px]"></div>
-  <div class="col-span-1 bg-red-400 size-[70px]"></div>
-  <div class="col-span-1 bg-red-500 size-[70px]"></div>
-  <div class="col-span-1 bg-slate-300 size-[70px]"></div>
-  <div class="col-span-1 bg-yellow-300 size-[70px]"></div>
-  <div class="col-span-1 bg-yellow-400 size-[70px]"></div>
-  <div class="col-span-1 bg-indigo-300 size-[70px]"></div>
-  <div class="col-span-1 bg-yellow-500 size-[70px]"></div>
-  <div class="col-span-1 bg-black size-[70px]"></div>
-
-  <div class="col-span-1 bg-orange-500 size-[70px]"></div>
-  <div class="col-span-1 col-start-11 bg-green-300 size-[70px]"></div>
-
-  <div
-    class="col-span-1 bg-orange-400 size-[70px] items-center justify-center flex flex-wrap gap-1"
-  >
-    <img
-      class="size-7 rounded-full border-indigo-600 border-2"
-      [src]="
-        'https://api.dicebear.com/9.x/big-smile/svg?backgroundType=gradientLinear&backgroundColor=b6e3f4,c0aede,d1d4f9&seed=lebenswille'
-      "
-      alt="avatar"
-    />
-    <img
-      class="size-7 rounded-full border-indigo-600 border-2"
-      [src]="
-        'https://api.dicebear.com/9.x/big-smile/svg?backgroundType=gradientLinear&backgroundColor=b6e3f4,c0aede,d1d4f9&seed=lebenswille'
-      "
-      alt="avatar"
-    />
-    <img
-      class="size-7 rounded-full border-indigo-600 border-2"
-      [src]="
-        'https://api.dicebear.com/9.x/big-smile/svg?backgroundType=gradientLinear&backgroundColor=b6e3f4,c0aede,d1d4f9&seed=lebenswille'
-      "
-      alt="avatar"
-    />
-    <img
-      class="size-7 rounded-full border-indigo-600 border-2"
-      [src]="
-        'https://api.dicebear.com/9.x/big-smile/svg?backgroundType=gradientLinear&backgroundColor=b6e3f4,c0aede,d1d4f9&seed=lebenswille'
-      "
-      alt="avatar"
-    />
-  </div>
-  <div class="col-span-1 col-start-11 bg-green-400 size-[70px]"></div>
-
-  <div class="col-span-1 bg-fuchsia-500 size-[70px]"></div>
-  <div class="col-span-1 col-start-11 bg-fuchsia-500 size-[70px]"></div>
-
-  <div class="col-span-1 bg-orange-300 size-[70px]"></div>
-  <div class="col-span-1 col-start-11 bg-green-500 size-[70px]"></div>
-
-  <div class="col-span-1 bg-slate-300 size-[70px]"></div>
-  <div class="col-span-1 col-start-11 bg-slate-300 size-[70px]"></div>
-
-  <div class="col-span-1 bg-pink-500 size-[70px]"></div>
-  <div class="col-span-1 col-start-11 bg-gray-500 size-[70px]"></div>
-
-  <div class="col-span-1 bg-pink-400 size-[70px]"></div>
-  <div class="col-span-1 col-start-11 bg-blue-600 size-[70px]"></div>
-
-  <div class="col-span-1 bg-indigo-400 size-[70px]"></div>
-  <div class="col-span-1 col-start-11 bg-gray-600 size-[70px]"></div>
-
-  <div class="col-span-1 bg-pink-300 size-[70px]"></div>
-  <div class="col-span-1 col-start-11 bg-blue-700 size-[70px]"></div>
-
-  <div class="col-span-1 bg-black size-[70px]"></div>
-  <div class="col-span-1 bg-sky-500 size-[70px]"></div>
-  <div class="col-span-1 bg-sky-400 size-[70px]"></div>
-  <div class="col-span-1 bg-gray-500 size-[70px]"></div>
-  <div class="col-span-1 bg-sky-300 size-[70px]"></div>
-  <div class="col-span-1 bg-slate-300 size-[70px]">
-    @for (player of fields.get(5); track $index) {
-    <app-avatar [name]="player"></app-avatar>
-    }
-  </div>
-  <div class="col-span-1 bg-gray-600 size-[70px]"></div>
-  <div class="col-span-1 bg-orange-900 size-[70px]"></div>
-  <div class="col-span-1 bg-fuchsia-500 size-[70px]">
-    @for (player of fields.get(3); track $index) {
-    <app-avatar [name]="player"></app-avatar>
-    }
-  </div>
-  <div class="col-span-1 bg-orange-950 size-[70px]">
-    @for (player of fields.get(2); track $index) {
-    <app-avatar [name]="player"></app-avatar>
-    }
-  </div>
-  <div class="col-span-1 bg-black size-[70px]">
-    @for (player of fields.get(1); track $index) {
-    <app-avatar [name]="player"></app-avatar>
-    }
-  </div>
-</div> -->
-
-<!-- <button (click)="test()" class="mt-10">TEST</button> -->

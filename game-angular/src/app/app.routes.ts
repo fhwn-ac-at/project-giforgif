@@ -20,7 +20,7 @@ export const routes: Routes = [
       import('./features/lobby/pages/lobby.component').then(
         (c) => c.LobbyComponent
       ),
-    // canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: 'menu',
