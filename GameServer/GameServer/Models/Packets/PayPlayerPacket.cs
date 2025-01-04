@@ -9,7 +9,5 @@
 		public string? To { get; set; }
 
 		public int Amount { get; set; }
-
-		public bool Successful { get; set; }
 	}
 }
