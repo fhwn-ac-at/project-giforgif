@@ -4,10 +4,12 @@
 	{
 		public override string Type => "PAY_PLAYER";
 
-		public string From { get; set; }
+		public string? From { get; set; }
 
-		public string To { get; set; }
+		public string? To { get; set; }
 
 		public int Amount { get; set; }
+
+		public bool Successful { get; set; }
 	}
 }
