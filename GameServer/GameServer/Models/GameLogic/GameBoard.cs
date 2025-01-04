@@ -1,10 +1,13 @@
-﻿namespace GameServer.Models
+﻿using GameServer.Models.GameLogic;
+
+namespace GameServer.Models
 {
 	public class GameBoard
 	{
-		private List<IField> _fields { get; set; }
+		private List<IField> _fields { get; set; } = [];
+        private List<Card> _cards { get; set; } = [];
 
-		public IField Move (Player player, int steps)
+		public IField Move(Player player, int steps)
 		{
             int currentPositionIndex = _fields.IndexOf(player.CurrentPosition);
 
@@ -30,6 +33,11 @@
         public void AddField(IField field)
         {
             _fields.Add(field);
+        }
+
+        public void AddCard(Card card)
+        {
+            _cards.Add(card);
         }
 	}
 }
