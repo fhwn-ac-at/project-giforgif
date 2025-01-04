@@ -127,6 +127,15 @@ namespace GameServer.Models
 			}
 
 			IField newPosition = _board.Move(player, rolled);
+
+            if (newPosition.GetType() == typeof(Utility))
+            {
+                Utility utility = (Utility)newPosition;
+                utility.RolledDice = rolled;
+                utility.LandOn(player);
+                return;
+            }
+
             newPosition.LandOn(player);
 		}
 	}
