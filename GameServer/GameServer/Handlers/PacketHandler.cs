@@ -32,6 +32,8 @@ namespace GameServer.Handlers
             _packetFunctions.Add("WANT_STATUS", HandleWantStatusPacket);
             _packetFunctions.Add("LEAVE_ROOM", HandleLeaveRoomPacket);
 			_packetFunctions.Add("ROLL_DICE", _gameHandler.HandleRollDicePacket);
+			_packetFunctions.Add("PAYMENT_DECISION", _gameHandler.HandlePaymentDecision);
+			_packetFunctions.Add("AUCTION_BID", _gameHandler.HandleAuctionBid);
             _connectionMapping = connectionMapping;
         }
 
