@@ -1,0 +1,10 @@
+@for (name of players; track $index) {
+<img
+  class="size-7 rounded-full border-indigo-600 border-2"
+  [src]="
+    'https://api.dicebear.com/9.x/big-smile/svg?backgroundType=gradientLinear&backgroundColor=b6e3f4,c0aede,d1d4f9&seed=' +
+    name
+  "
+  alt="avatar"
+/>
+}
