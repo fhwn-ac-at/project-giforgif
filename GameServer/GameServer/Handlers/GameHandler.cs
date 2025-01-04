@@ -23,7 +23,7 @@ namespace GameServer.Handlers
 			RollDicePacket parsedpacket = (RollDicePacket)packet;
 
 			Game game = GetGame(context);
-			game.Callback = GameEventOccured;
+			game.Callback = (packet) => GameEventOccured(context, packet);
 
 
 			if (game.CurrentMover == null || game.CurrentMover.Name != parsedpacket.PlayerName)
@@ -111,12 +111,12 @@ namespace GameServer.Handlers
 			//game.Players.First(p => p.Name == parsedPacket.WinnerName).BuyField((PropertyField)game.CurrentMover.CurrentPosition, parsedPacket.Price);
    //     }
 
-		private async void GameEventOccured(Packet data)
+		private async void GameEventOccured(HubCallerContext context, Packet data)
 		{
 			// TODO: HubCallerContext hier irgndwie rein bringen 
 
-			//string packetJson = JsonSerializer.Serialize(data);
-			//await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", packetJson); 
+			string packetJson = JsonSerializer.Serialize(data);
+			await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", packetJson);
 		}
 
 		private string GetRoomName(HubCallerContext context)
