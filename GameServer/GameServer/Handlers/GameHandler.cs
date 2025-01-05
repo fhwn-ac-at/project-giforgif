@@ -27,14 +27,15 @@ namespace GameServer.Handlers
 			game.FieldEventOccurred += async (sender, packet) => await Game_FieldEventOccurredAsync(sender, context, packet);
 			//game.Callback = (packet) => GameEventOccured(context, packet);
 
+			Player player = PlayerStore.GetPlayer(context.ConnectionId);
 
-			if (game.CurrentMover == null || game.CurrentMover.Name != parsedpacket.PlayerName)
+			if (game.CurrentMover == null || game.CurrentMover != player)
 				return;
 
 			int rolled = game.RollDice();
 
 			RolledPacket rolledPacket = new RolledPacket();
-			rolledPacket.PlayerName = parsedpacket.PlayerName;
+			rolledPacket.PlayerName = game.CurrentMover.Name;
 			rolledPacket.RolledNumber = rolled;
 
 			string packetJson = JsonSerializer.Serialize(rolledPacket);
@@ -61,10 +62,11 @@ namespace GameServer.Handlers
             PaymentDecisionPacket parsedPacket = (PaymentDecisionPacket)packet;
 
 			Game game = GetGame(context);
+			Player player = PlayerStore.GetPlayer(context.ConnectionId);
 
 			var currentMover = game.CurrentMover;
 
-			if (currentMover == null || currentMover.Name != parsedPacket.PlayerName)
+			if (currentMover == null || currentMover != player)
 				return;
 
 			if (parsedPacket.WantsToBuy)
