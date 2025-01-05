@@ -1,7 +1,6 @@
-﻿using GameServer.Models.Packets;
-using System.Text.Json;
+﻿using GameServer.GameLogic;
 
-namespace GameServer.Models
+namespace GameServer.Models.Fields
 {
 	public class Site : PropertyField
 	{

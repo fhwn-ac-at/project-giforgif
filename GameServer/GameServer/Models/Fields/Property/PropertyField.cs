@@ -1,7 +1,7 @@
-﻿
+﻿using GameServer.GameLogic;
 using GameServer.Models.Packets;
 
-namespace GameServer.Models
+namespace GameServer.Models.Fields
 {
 	public abstract class PropertyField : IField
 	{
@@ -12,6 +12,7 @@ namespace GameServer.Models
         public int BuyingPrice { get; set; }
 
 		public PropertyGroup? Group { get; set; } // muss halt noch befüllt werden
+		public int Id { get; set; }
 
 		public event EventHandler<Packet>? FieldEventOccurred;
 

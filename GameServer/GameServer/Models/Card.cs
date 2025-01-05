@@ -1,4 +1,6 @@
-﻿namespace GameServer.Models.GameLogic
+﻿using GameServer.GameLogic;
+
+namespace GameServer.Models
 {
 	public class Card // evtl. unterscheidung zwischen Karten die man besitzen kann und nicht besitzen kann
 	{

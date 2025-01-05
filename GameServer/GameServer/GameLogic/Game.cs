@@ -1,8 +1,9 @@
-﻿using GameServer.Models.GameLogic;
+﻿using GameServer.Models;
+using GameServer.Models.Fields;
 using GameServer.Models.Packets;
 using System.Net.Sockets;
 
-namespace GameServer.Models
+namespace GameServer.GameLogic
 {
     public class Game
     {

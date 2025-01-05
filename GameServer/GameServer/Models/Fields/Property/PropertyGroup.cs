@@ -1,4 +1,6 @@
-﻿namespace GameServer.Models
+﻿using GameServer.GameLogic;
+
+namespace GameServer.Models.Fields
 {
     public class PropertyGroup
     {

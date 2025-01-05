@@ -1,6 +1,8 @@
-﻿namespace GameServer.Models
+﻿using GameServer.GameLogic;
+
+namespace GameServer.Models.Fields
 {
-	public class CommunityChest : ActionField
+	public class GoToJail : ActionField
 	{
 		public override void Accept(IFieldVisitor visitor, Player player, bool isLanding)
 		{

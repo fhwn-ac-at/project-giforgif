@@ -1,6 +1,5 @@
-﻿using GameServer.Models.Packets;
-
-namespace GameServer.Models
+﻿using GameServer.GameLogic;
+namespace GameServer.Models.Fields
 {
 	public class Station : PropertyField
 	{

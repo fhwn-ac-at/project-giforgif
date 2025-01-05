@@ -1,10 +1,12 @@
-﻿using GameServer.Models.Packets;
+﻿using GameServer.GameLogic;
+using GameServer.Models.Packets;
 
-namespace GameServer.Models
+namespace GameServer.Models.Fields
 {
     public interface IField
     {
-        public string Name { get; set; }
+        int Id { get; set; }
+        string Name { get; set; }
 
         event EventHandler<Packet> FieldEventOccurred;
 

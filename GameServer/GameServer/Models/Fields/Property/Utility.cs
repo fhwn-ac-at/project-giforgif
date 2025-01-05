@@ -1,6 +1,6 @@
-﻿using GameServer.Models.Packets;
+﻿using GameServer.GameLogic;
 
-namespace GameServer.Models
+namespace GameServer.Models.Fields
 {
 	public class Utility : PropertyField
 	{

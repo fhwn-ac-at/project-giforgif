@@ -1,6 +1,7 @@
-﻿using GameServer.Models.GameLogic;
+﻿using GameServer.Models;
+using GameServer.Models.Fields;
 
-namespace GameServer.Models
+namespace GameServer.GameLogic
 {
 	public class Player
 	{
@@ -8,7 +9,7 @@ namespace GameServer.Models
 		public string ConnectionId { get; set; }
 		public string Name { get; set; }
 		public int Currency { get; set; }
-		public IField CurrentPosition { get; set; }
+		public int CurrentPositionFieldId { get; set; }
 
 		public GameBoard Board;
 		public List<Card> Cards { get; set; } = new();
@@ -17,6 +18,7 @@ namespace GameServer.Models
 		{
 			this.Name = name;
 			this.ConnectionId = connectionId;
+			this.CurrentPositionFieldId = 1;
 		}
 
 		public bool TransferCurrency(Player recipient, int amount)

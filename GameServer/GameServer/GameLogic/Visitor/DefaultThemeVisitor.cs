@@ -1,7 +1,7 @@
-﻿using GameServer.Models.Packets;
-using System.Text.RegularExpressions;
+﻿using GameServer.Models.Fields;
+using GameServer.Models.Packets;
 
-namespace GameServer.Models.GameLogic
+namespace GameServer.GameLogic
 {
 	public class DefaultThemeVisitor : IFieldVisitor
 	{
@@ -47,7 +47,7 @@ namespace GameServer.Models.GameLogic
 					return;
 				}
 
-				site.RaiseEvent("BUY_REQUEST", new BuyRequestPacket() { PlayerName = player.Name, FieldName = site.Name });
+				site.RaiseEvent("BUY_REQUEST", new BuyRequestPacket() { PlayerName = player.Name, FieldID = site.Id });
 			}
 			else
 			{
@@ -84,7 +84,7 @@ namespace GameServer.Models.GameLogic
 					return;
 				}
 
-				station.RaiseEvent("BUY_REQUEST", new BuyRequestPacket() { PlayerName = player.Name, FieldName = station.Name });
+				station.RaiseEvent("BUY_REQUEST", new BuyRequestPacket() { PlayerName = player.Name, FieldID = station.Id });
 			}
 			else 
 			{ 
@@ -131,7 +131,7 @@ namespace GameServer.Models.GameLogic
 					return;
 				}
 
-				utility.RaiseEvent("BUY_REQUEST", new BuyRequestPacket() { PlayerName = player.Name, FieldName = utility.Name });
+				utility.RaiseEvent("BUY_REQUEST", new BuyRequestPacket() { PlayerName = player.Name, FieldID = utility.Id });
 
 			}
 			else

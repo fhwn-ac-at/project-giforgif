@@ -1,4 +1,6 @@
-﻿namespace GameServer.Models
+﻿using GameServer.Models.Fields;
+
+namespace GameServer.GameLogic
 {
 	public interface IFieldVisitor
 	{

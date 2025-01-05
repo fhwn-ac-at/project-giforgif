@@ -1,15 +1,18 @@
-﻿using GameServer.Models.GameLogic;
+﻿using GameServer.Models;
+using GameServer.Models.Fields;
 
-namespace GameServer.Models
+namespace GameServer.GameLogic
 {
 	public class GameBoard
 	{
-		private List<IField> _fields { get; set; } = [];
+		//private List<IField> _fields { get; set; } = [];
+
+		private Dictionary<int, IField> _fields { get; set; } = [];
 		private List<Card> _cards { get; set; } = [];
 
 		public IField Move(IFieldVisitor fieldVisitor, Player player, int steps)
 		{
-			int currentPositionIndex = _fields.IndexOf(player.CurrentPosition);
+			int currentPositionIndex = player.CurrentPositionFieldId;
 
 			if (currentPositionIndex == -1)
 			{
@@ -25,14 +28,19 @@ namespace GameServer.Models
 				_fields[passPositionIndex].Accept(fieldVisitor, player, false);
 			}
 
-			player.CurrentPosition = _fields[newPositionIndex];
+			player.CurrentPositionFieldId = _fields[newPositionIndex].Id;
 
 			return _fields[newPositionIndex];
 		}
 
 		public void AddField(IField field)
 		{
-			_fields.Add(field);
+			_fields[field.Id] = field;
+		}
+
+		public IField? GetFieldById(int id)
+		{
+			return _fields.TryGetValue(id, out var field) ? field : null;
 		}
 
 		public void AddCard(Card card)
@@ -43,14 +51,14 @@ namespace GameServer.Models
 		public List<PropertyField>? GetPropertyFieldsOf(Player player)
 		{
 			if (_fields.Count == 0)
-				return null;
+				return [];
 
-			return _fields.OfType<PropertyField>().Where(p => p.Owner == player).ToList();
+			return _fields.Values.OfType<PropertyField>().Where(f => f.Owner == player).ToList();
 		}
 
-		public PropertyField? GetPropertyByName(string name)
-		{
-			return _fields.OfType<PropertyField>().Where(p => p.Name == name).FirstOrDefault();
-		}
+		//public PropertyField? GetPropertyByName(string name)
+		//{
+		//	return _fields.OfType<PropertyField>().Where(p => p.Name == name).FirstOrDefault();
+		//}
 	}
 }
