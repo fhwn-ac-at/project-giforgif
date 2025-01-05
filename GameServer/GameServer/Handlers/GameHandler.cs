@@ -141,5 +141,55 @@ namespace GameServer.Handlers
 			return RoomStore.GetGame(roomName);
 		}
 
-    }
+		public async Task HandleBuyingHouse(Packet packet, HubCallerContext context)
+		{
+			BuyHousePacket parsedPacket = (BuyHousePacket)packet;
+			string connectionId = context.ConnectionId;
+
+			Game game = GetGame(context);
+			Player player = PlayerStore.GetPlayer(connectionId);
+
+			if (game.CurrentMover != player)
+				return;
+
+			PropertyField property = player.Board.GetPropertyByName(parsedPacket.PropertyName);
+
+			if (property == null || !(property is Site site))
+			{
+				await _lobbyContext.Clients.Client(connectionId).SendAsync("ReceivePacket", JsonSerializer.Serialize(new ErrorPacket("INTERNAL_ERROR", "Property not found or is not a property that a house can be build on.")));
+				return;
+			}
+
+			if (site.Owner != player)
+			{
+				await _lobbyContext.Clients.Client(connectionId).SendAsync("ReceivePacket", JsonSerializer.Serialize(new ErrorPacket("NOT_OWNER", "You don't own this property.")));
+				return;
+			}
+
+			if (!site.CanBuildHouse(player))
+			{
+				await _lobbyContext.Clients.Client(connectionId).SendAsync("ReceivePacket", JsonSerializer.Serialize(new ErrorPacket("CANNOT_BUILD", "You cannot build a house on this property.")));
+				return;
+			}
+
+			if (!player.CanAfford(site.BuildingPrice))
+			{
+				await _lobbyContext.Clients.Client(connectionId).SendAsync("ReceivePacket", JsonSerializer.Serialize(new ErrorPacket("CANT_AFFORD", "You don't have enough money to buy a house.")));
+				return;
+			}
+
+			if (site.BuildHouse(player))
+			{
+				HouseBuiltPacket buildPacket = new HouseBuiltPacket();
+				buildPacket.PropertyName = site.Name;
+
+				string jsonPacket = JsonSerializer.Serialize(buildPacket);
+				await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", jsonPacket);
+			}
+			else 
+			{
+				await _lobbyContext.Clients.Client(connectionId).SendAsync("ReceivePacket", JsonSerializer.Serialize(new ErrorPacket("BUILD_FAILED", "Failed to build a house in this property.")));
+			}
+		}
+	}
 }
