@@ -47,5 +47,10 @@ namespace GameServer.Models
 
 			return _fields.OfType<PropertyField>().Where(p => p.Owner == player).ToList();
 		}
+
+		public PropertyField? GetPropertyByName(string name)
+		{
+			return _fields.OfType<PropertyField>().Where(p => p.Name == name).FirstOrDefault();
+		}
 	}
 }
