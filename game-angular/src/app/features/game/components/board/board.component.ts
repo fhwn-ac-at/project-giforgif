@@ -15,13 +15,12 @@ import { GameService } from '../../../../shared/services/game/game.service';
 export class BoardComponent {
   private readonly gameService = inject(GameService);
   protected board: Tile[][] = this.gameService.board;
-
-  public fields = new Map<number, string[]>();
+  protected fields = this.gameService.fields;
 
   public test() {
-    this.fields.set(35, ['Capibara', '1', '2', '3']);
-    this.fields.set(33, ['Capibara']);
-    this.fields.set(40, ['Capibara']);
-    this.fields.set(10, ['Capibara']);
+    // this.fields.set(35, ['Capibara', '1', '2', '3']);
+    // this.fields.set(33, ['Capibara']);
+    // this.fields.set(40, ['Capibara']);
+    // this.fields.set(10, ['Capibara']);
   }
 }

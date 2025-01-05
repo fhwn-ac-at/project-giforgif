@@ -3,16 +3,36 @@
 >
   <div class="flex flex-col gap-y-4 items-start h-full">
     <app-player-card
-      [player]="{ name: 'frederick', currency: 200, color: 'blue' }"
+      [player]="{
+        name: 'frederick',
+        currency: 200,
+        color: 'blue',
+        currentPosition: 1
+      }"
     ></app-player-card>
     <app-player-card
-      [player]="{ name: 'frederdawdick', currency: 200, color: 'red' }"
+      [player]="{
+        name: 'frederdawdick',
+        currency: 200,
+        color: 'red',
+        currentPosition: 1
+      }"
     ></app-player-card>
     <app-player-card
-      [player]="{ name: 'frederick', currency: 200, color: 'yellow' }"
+      [player]="{
+        name: 'frederick',
+        currency: 200,
+        color: 'yellow',
+        currentPosition: 1
+      }"
     ></app-player-card>
     <app-player-card
-      [player]="{ name: 'frederick', currency: 200, color: 'green' }"
+      [player]="{
+        name: 'frederick',
+        currency: 200,
+        color: 'green',
+        currentPosition: 1
+      }"
     ></app-player-card>
   </div>
   <app-board></app-board>
@@ -26,7 +46,8 @@
   </div>
 </div>
 
-<app-dice></app-dice>
+<app-dice (onStoppedDicing)="movePlayer($event)"></app-dice>
 <app-buy-tile></app-buy-tile>
 <app-auction></app-auction>
 <app-event-card></app-event-card>
+<app-next-turn></app-next-turn>

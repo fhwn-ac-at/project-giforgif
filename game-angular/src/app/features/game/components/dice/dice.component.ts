@@ -1,8 +1,10 @@
 import {
   Component,
+  EventEmitter,
   Input,
   OnChanges,
   OnDestroy,
+  Output,
   SimpleChanges,
 } from '@angular/core';
 import { interval, Subscription } from 'rxjs';
@@ -15,6 +17,9 @@ import { Player } from '../../../../shared/types/game/player';
   styles: ``,
 })
 export class DiceComponent implements OnChanges, OnDestroy {
+  @Output()
+  public onStoppedDicing: EventEmitter<number> = new EventEmitter();
+
   public diced: number | null = null;
   public player: Player | null = null;
 
@@ -61,6 +66,7 @@ export class DiceComponent implements OnChanges, OnDestroy {
       this.animationSubscription = null;
     }
 
+    this.onStoppedDicing.emit(this.diced!);
     this.player = null;
     this.diced = null;
     this.visible = false;
