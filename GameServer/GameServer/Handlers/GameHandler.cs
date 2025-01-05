@@ -1,10 +1,10 @@
 ﻿using GameServer.Hubs;
 using GameServer.Models.Packets;
-using GameServer.Models;
 using Microsoft.AspNetCore.SignalR;
 using System.Text.Json;
 using GameServer.Stores;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+using GameServer.GameLogic;
+using GameServer.Models.Fields;
 
 namespace GameServer.Handlers
 {
@@ -53,6 +53,12 @@ namespace GameServer.Handlers
 
 		private async Task Game_FieldEventOccurredAsync(object? sender, HubCallerContext context, Packet e)
 		{
+			if (e is BuyRequestPacket buyRequestPacket)
+			{
+				string packet = JsonSerializer.Serialize(e);
+				await _lobbyContext.Clients.Client(context.ConnectionId).SendAsync("ReceivePacket", packet);
+			}
+
 			string packetJson = JsonSerializer.Serialize(e);
 			await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", packetJson);
 		}
@@ -71,42 +77,44 @@ namespace GameServer.Handlers
 
 			if (parsedPacket.WantsToBuy)
 			{
-				PropertyField field = (PropertyField)currentMover.CurrentPosition;
+				PropertyField field = (PropertyField)player.Board.GetFieldById(player.CurrentPositionFieldId);
 
 				if (currentMover.BuyField(field, field.BuyingPrice))
 				{
-					BuySuccessfulPacket buySuccessfulPacket = new BuySuccessfulPacket();
+					BoughtFieldPacket buySuccessfulPacket = new BoughtFieldPacket();
 					buySuccessfulPacket.PlayerName = currentMover.Name;
-					buySuccessfulPacket.PropertyName = currentMover.CurrentPosition.Name;
-
+					buySuccessfulPacket.FieldId = currentMover.CurrentPositionFieldId;
+					
 					string packetJson = JsonSerializer.Serialize(buySuccessfulPacket);
 					await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", packetJson);
+					return;
 				}
 				else
 				{
-					BuyFailedPacket buyFailedPacket = new BuyFailedPacket();
-					buyFailedPacket.PlayerName = currentMover.Name;
-					buyFailedPacket.PropertyName = currentMover.CurrentPosition.Name;
+					//BuyFailedPacket buyFailedPacket = new BuyFailedPacket();
+					//buyFailedPacket.PlayerName = currentMover.Name;
+					//buyFailedPacket.PropertyName = currentMover.CurrentPosition.Name;
 
-					string packetJson = JsonSerializer.Serialize(buyFailedPacket);
-					await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", packetJson);
+					//string packetJson = JsonSerializer.Serialize(buyFailedPacket);
+					//await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", packetJson);
+					await _lobbyContext.Clients.Client(context.ConnectionId).SendAsync("ReceivePacket", JsonSerializer.Serialize(new ErrorPacket("BUY_FAILED", "You can not afford to buy this property.")));
 				}
-				return;
 			}
 
 			// Player does not want to buy, auction
 			StartAuctionPacket auctionPacket = new StartAuctionPacket();
-			auctionPacket.PropertyName = currentMover.CurrentPosition.Name;
+			auctionPacket.FieldId = currentMover.CurrentPositionFieldId;
 
 			string auctionPacketJson = JsonSerializer.Serialize(auctionPacket);
 			await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", auctionPacketJson);
 
-        }
-        public async Task HandleAuctionBid(Packet packet, HubCallerContext context)
+		}
+		public async Task HandleAuctionBid(Packet packet, HubCallerContext context)
         {
             AuctionBidPacket parsedPacket = (AuctionBidPacket)packet;
 
-
+			// start biding thread und immer packets abfangen 
+			// wenn nach 10 sek kein aaction bid packet kommt, wird autionresult geschickt + gewinner kauft feld logic 
         }
 
 
@@ -152,7 +160,7 @@ namespace GameServer.Handlers
 			if (game.CurrentMover != player)
 				return;
 
-			PropertyField property = player.Board.GetPropertyByName(parsedPacket.PropertyName);
+			PropertyField property = (PropertyField)player.Board.GetFieldById(parsedPacket.FieldId);
 
 			if (property == null || !(property is Site site))
 			{
@@ -181,7 +189,7 @@ namespace GameServer.Handlers
 			if (site.BuildHouse(player))
 			{
 				HouseBuiltPacket buildPacket = new HouseBuiltPacket();
-				buildPacket.PropertyName = site.Name;
+				buildPacket.FieldId = site.Id;
 
 				string jsonPacket = JsonSerializer.Serialize(buildPacket);
 				await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", jsonPacket);
