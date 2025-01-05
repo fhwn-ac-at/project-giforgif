@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { RegisterPacket } from '../../../shared/packets/register-packet';
+import { RegisterPacket } from '../../../shared/packets/register/register-packet';
 import { PacketService } from '../../../shared/services/packet/packet.service';
 import { ToastService } from '../../../shared/services/toast/toast.service';
 import { SharedModule } from '../../../shared/shared.module';
