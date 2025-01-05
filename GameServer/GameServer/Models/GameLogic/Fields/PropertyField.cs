@@ -11,13 +11,15 @@ namespace GameServer.Models
 
         public int BuyingPrice { get; set; }
 
-		public PropertyGroup Group { get; set; } // muss halt noch befüllt werden
+		public PropertyGroup? Group { get; set; } // muss halt noch befüllt werden
 
 		public event EventHandler<Packet>? FieldEventOccurred;
 
-		public abstract void LandOn(Player player);
+		public abstract void Accept(IFieldVisitor visitor, Player player, bool isLanding);
 
-        public abstract void Pass(Player player);
+		//public abstract void LandOn(Player player);
+
+		//public abstract void Pass(Player player);
 
 		// hier könnte der MessageType weg genommen werden, da nix damit passiert, aber bleibt noch zur übersicht
 		public void RaiseEvent(string messageType, Packet packet)
