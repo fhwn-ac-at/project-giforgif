@@ -1,3 +1,4 @@
+import { TRolledDicePacket } from './game/dice/rolled-dice';
 import { TStartPacket } from './lobby/start';
 import { TStatusPacket } from './lobby/status';
 import { Packet } from './packet';
@@ -16,6 +17,8 @@ const packetTypeMap: { [key: string]: PacketParserFunction } = {
   STATUS: (obj: any) => obj as TStatusPacket,
   PLAYER_LEFT: (obj: any) => obj as TPlayerLeftPacket,
   START: (obj: any) => obj as TStartPacket,
+  ROLLED: (obj: any) => obj as TRolledDicePacket,
+  PLAYERS_TURN: (obj: any) => obj as TRolledDicePacket,
   // Add entries for other packet types
 };
 
