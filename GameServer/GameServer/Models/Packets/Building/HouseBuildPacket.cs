@@ -2,8 +2,8 @@
 {
 	public class HouseBuiltPacket : Packet
 	{
-		public override string Type => "HOUSE_BUILD";
+		public override string Type => "HOUSE_BUILT";
 
-		public string? PropertyName;
+		public int? FieldId;
 	}
 }

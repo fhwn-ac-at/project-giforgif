@@ -6,6 +6,6 @@
 
 		public string? PlayerName { get; set; }
 
-		public string? FieldName { get; set; }
+		public int FieldID { get; set; }
 	}
 }

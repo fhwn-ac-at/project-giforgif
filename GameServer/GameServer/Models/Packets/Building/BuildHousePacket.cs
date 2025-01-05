@@ -4,6 +4,6 @@
 	{
 		public override string Type => "BUILD_HOUSE";
 
-		public string? PropertyName { get; set; }
+		public int FieldId { get; set; }
 	}
 }

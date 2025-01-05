@@ -4,6 +4,6 @@
     {
         public override string Type => "AUCTION_START";
 
-        public string PropertyName { get; set; }
+        public int FieldId { get; set; }
     }
 }
