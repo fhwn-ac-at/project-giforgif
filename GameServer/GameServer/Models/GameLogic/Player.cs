@@ -21,7 +21,7 @@ namespace GameServer.Models
 
 		public bool TransferCurrency(Player recipient, int amount)
 		{
-			if (this.Currency < amount)
+			if (!CanAfford(amount))
 			{
 				return false;
 			}
@@ -32,29 +32,14 @@ namespace GameServer.Models
 			return true;
 		}
 
-		//public bool BuyCurrentField()
-		//{
-		//    if (this.CurrentPosition != typeof(PropertyField))
-		//    {
-		//        return false;
-		//    }
-
-		//    PropertyField field = (PropertyField)this.CurrentPosition;
-
-		//    if (this.Currency < field.BuyingPrice)
-		//    {
-		//        return false;
-		//    }
-
-		//    this.Currency -= field.BuyingPrice;
-		//    field.Owner = this;
-
-		//    return true;
-		//}
+		public bool CanAfford(int amount)
+		{
+			return Currency >= amount;
+		}
 
 		public bool BuyField(PropertyField field, int price)
 		{
-			if (this.Currency < price)
+			if (!CanAfford(price))
 			{
 				return false;
 			}
@@ -111,6 +96,11 @@ namespace GameServer.Models
 			}
 
 			Cards.Clear(); // Or return do deck if there is only a specific number of cards, and cards have to be returned
+		}
+
+		public void DeductCurrency(int amount)
+		{
+			Currency -= amount;
 		}
 	}
 }
