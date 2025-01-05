@@ -1,26 +1,29 @@
 ﻿using GameServer.Models.Packets;
+using System.Net.Sockets;
 
 namespace GameServer.Models
 {
-    public class ActionField : IField
+    public abstract class ActionField : IField
     {
         public string Name { get; set; }
 
-        public event EventHandler<Packet> FieldEventOccurred;
+        public event EventHandler<Packet>? FieldEventOccurred;
 
-        public void LandOn(Player player)
-        {
-            throw new NotImplementedException();
-        }
+        public abstract void Accept(IFieldVisitor visitor, Player player, bool isLanding);
 
-        public void Pass(Player player)
-        {
-            throw new NotImplementedException();
-        }
+		//public void LandOn(Player player)
+  //      {
+  //          throw new NotImplementedException();
+  //      }
+
+  //      public void Pass(Player player)
+  //      {
+  //          throw new NotImplementedException();
+  //      }
 
         public void RaiseEvent(string messageType, Packet data)
         {
-            throw new NotImplementedException();
-        }
+			FieldEventOccurred?.Invoke(this, data);
+		}
     }
 }
