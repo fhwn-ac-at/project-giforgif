@@ -57,12 +57,26 @@ namespace GameServer.Handlers
         public async Task HandleStartPacket(Packet packet, HubCallerContext context)
         {
             StartGamePacket parsed = (StartGamePacket) packet;
-
+            string connectionId = context.ConnectionId;
             Game game = GetGame(context);
 
             // Determine Player Order
             game.Setup();
-        }
+
+            // start game by sending PlayersTurn
+            PlayersTurnPacket playersTurn = new PlayersTurnPacket();
+
+            if (game.CurrentMover == null)
+            {
+				await _lobbyContext.Clients.Client(connectionId).SendAsync("ReceivePacket", JsonSerializer.Serialize(new ErrorPacket("EMPTY_CURRENTMOVER", "No CurrentPlayer was set.")));
+                return;
+            }
+
+			playersTurn.PlayerName = game.CurrentMover.Name;
+
+			string packetJson = JsonSerializer.Serialize(playersTurn);
+			await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", packetJson);
+		}
         
         public async Task HandleLeaveRoomPacket(Packet packet, HubCallerContext context)
         {
