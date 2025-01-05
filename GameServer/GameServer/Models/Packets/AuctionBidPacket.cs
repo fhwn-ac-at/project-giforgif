@@ -4,7 +4,7 @@
     {
         public override string Type => "AUCTION_BID";
 
-        public string PlayerName { get; set; }
+        //public string PlayerName { get; set; }
         public int Bid { get; set; }
     }
 }
