@@ -10,12 +10,54 @@ export class GameService {
   public board: Tile[][] = [];
   public players: Player[] = [];
   public me: Player | null = null;
+  public fields = new Map<number, string[]>();
 
   public currentMover: Player | null = null;
 
   constructor() {
     this.setupDefaultTiles();
     this.setupBoard();
+    this.setUpFields();
+  }
+
+  public getPlayerByName(name: string): Player | undefined {
+    return { name: name, currency: 0, color: 'blue', currentPosition: 1 };
+
+    return this.players.find((p) => p.name === name);
+  }
+
+  public movePlayer(value: number) {
+    if (!this.currentMover) {
+      return;
+    }
+
+    const field = this.fields.get(this.currentMover.currentPosition);
+
+    if (!field) {
+      return;
+    }
+
+    this.fields.set(this.currentMover.currentPosition, [
+      ...field.filter((name) => name !== this.currentMover?.name),
+    ]);
+
+    let newPosition = (this.currentMover.currentPosition += value);
+
+    if (newPosition > 40) {
+      newPosition -= 40;
+    }
+
+    this.currentMover.currentPosition = newPosition;
+
+    this.fields
+      .get(this.currentMover.currentPosition)
+      ?.push(this.currentMover.color);
+  }
+
+  private setUpFields() {
+    for (let i = 1; i < 41; i++) {
+      this.fields.set(i, []);
+    }
   }
 
   private setupDefaultTiles() {
@@ -68,6 +110,7 @@ export class GameService {
     this.tiles.set(4, new Tile(4, 'bg-orange-950', []));
     this.tiles.set(3, new Tile(3, 'bg-fuchsia-50', []));
     this.tiles.set(2, new Tile(2, 'bg-orange-900', []));
+    this.tiles.set(1, new Tile(1, 'bg-black', []));
   }
 
   private setupBoard() {
@@ -106,6 +149,7 @@ export class GameService {
       this.tiles.get(4)!,
       this.tiles.get(3)!,
       this.tiles.get(2)!,
+      this.tiles.get(1)!,
     ]);
   }
 }
