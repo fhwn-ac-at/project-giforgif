@@ -11,14 +11,14 @@ namespace GameServer.GameLogic
 		public int Currency { get; set; }
 		public int CurrentPositionFieldId { get; set; }
 
-		public GameBoard Board;
+		public GameBoard? Board;
 		public List<Card> Cards { get; set; } = new();
 
 		public Player(string name, string connectionId) 
 		{
-			this.Name = name;
-			this.ConnectionId = connectionId;
-			this.CurrentPositionFieldId = 1;
+			Name = name;
+			ConnectionId = connectionId;
+			CurrentPositionFieldId = 1;
 		}
 
 		public bool TransferCurrency(Player recipient, int amount)
@@ -28,7 +28,7 @@ namespace GameServer.GameLogic
 				return false;
 			}
 
-			this.Currency -= amount;
+			Currency -= amount;
 			recipient.Currency += amount;
 
 			return true;
@@ -46,7 +46,7 @@ namespace GameServer.GameLogic
 				return false;
 			}
 
-			this.Currency -= price;
+			Currency -= price;
 			field.Owner = this;
 
 			return true;

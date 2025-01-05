@@ -57,6 +57,13 @@ namespace GameServer.Handlers
 			{
 				string packet = JsonSerializer.Serialize(e);
 				await _lobbyContext.Clients.Client(context.ConnectionId).SendAsync("ReceivePacket", packet);
+				return;
+			}
+
+			if (e is StartAuctionPacket startAuctionPacket)
+			{
+				Game game = GetGame(context);
+				game.StartAuction(startAuctionPacket.FieldId);
 			}
 
 			string packetJson = JsonSerializer.Serialize(e);
@@ -77,9 +84,9 @@ namespace GameServer.Handlers
 
 			if (parsedPacket.WantsToBuy)
 			{
-				PropertyField field = (PropertyField)player.Board.GetFieldById(player.CurrentPositionFieldId);
+				PropertyField? field = player.Board.GetFieldById(player.CurrentPositionFieldId) as PropertyField;
 
-				if (currentMover.BuyField(field, field.BuyingPrice))
+				if (field != null && currentMover.BuyField(field, field.BuyingPrice))
 				{
 					BoughtFieldPacket buySuccessfulPacket = new BoughtFieldPacket();
 					buySuccessfulPacket.PlayerName = currentMover.Name;
@@ -112,29 +119,24 @@ namespace GameServer.Handlers
 		public async Task HandleAuctionBid(Packet packet, HubCallerContext context)
         {
             AuctionBidPacket parsedPacket = (AuctionBidPacket)packet;
+			int currentBid = parsedPacket.Bid;
+			Player player = PlayerStore.GetPlayer(context.ConnectionId);
+			
+			Game game = GetGame(context);
 
-			// start biding thread und immer packets abfangen 
-			// wenn nach 10 sek kein aaction bid packet kommt, wird autionresult geschickt + gewinner kauft feld logic 
-        }
+			if (!game.HandleAuctionBid(player, currentBid))
+			{
+				await _lobbyContext.Clients.Client(context.ConnectionId).SendAsync("ReceivePacket", JsonSerializer.Serialize(new ErrorPacket("BID_FAILED", "You can not afford to bid for this property.")));
+				return;
+			}
 
+			AuctionBidUpdatePacket auctionBidUpdate = new AuctionBidUpdatePacket();
+			auctionBidUpdate.CurrentBid = currentBid;
+			auctionBidUpdate.HighestBidderName = player.Name;
 
-   //     private async Task HandleAuctionResult(Packet packet, HubCallerContext context)
-   //     {
-   //         AuctionResultPacket parsedPacket = (AuctionResultPacket)packet;
-
-			//Game game = GetGame(context);
-
-			//if (game.CurrentMover.CurrentPosition != typeof(PropertyField))
-   //             return;
-
-			//game.Players.First(p => p.Name == parsedPacket.WinnerName).BuyField((PropertyField)game.CurrentMover.CurrentPosition, parsedPacket.Price);
-   //     }
-
-		//private async void GameEventOccured(HubCallerContext context, Packet data)
-		//{
-		//	string packetJson = JsonSerializer.Serialize(data);
-		//	await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", packetJson);
-		//}
+			string auctionPacketJson = JsonSerializer.Serialize(auctionBidUpdate);
+			await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", auctionPacketJson);
+		}
 
 		private string GetRoomName(HubCallerContext context)
 		{
@@ -160,7 +162,7 @@ namespace GameServer.Handlers
 			if (game.CurrentMover != player)
 				return;
 
-			PropertyField property = (PropertyField)player.Board.GetFieldById(parsedPacket.FieldId);
+			PropertyField? property = player.Board.GetFieldById(parsedPacket.FieldId) as PropertyField;
 
 			if (property == null || !(property is Site site))
 			{

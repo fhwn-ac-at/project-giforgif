@@ -7,17 +7,17 @@ namespace GameServer.GameLogic
 {
     public class Game
     {
-        private static Random rng = new Random();
+        private static readonly Random Rng = new();
         private GameBoard? _board;
         private Thread? _startGameCounter;
-        private int counterId = 0;
+        private int _counterId = 0;
         private IFieldVisitor? _fieldVisitor;
+        private AuctionState? _currentAuction;
 
         public event EventHandler<Game>? OnGameStarted;
         public bool Started { get; set; }
         private bool _counterStarted = false;
         public Player? CurrentMover;
-        //public Action<Packet> Callback { get; set; }
 		public event EventHandler<Packet>? FieldEventOccurred;
 		public List<Player> Players { get; set; } = [];
 
@@ -68,10 +68,10 @@ namespace GameServer.GameLogic
             _counterStarted = true;
             _startGameCounter = new Thread(() =>
             {
-                int myId = counterId;
+                int myId = _counterId;
                 Thread.Sleep(10 * 1000);
 
-                if (counterId != myId)
+                if (_counterId != myId)
                 {
                     return;
                 }
@@ -90,27 +90,23 @@ namespace GameServer.GameLogic
                 return;
             }
 
-            counterId++;
+            _counterId++;
             _counterStarted = false;
         }
 
         private void OnFieldEventOccurred(object? sender, Packet e)
         {
-            //Callback(e);
 			FieldEventOccurred?.Invoke(this, e);
 		}
 
         private void RandomizePlayerOrder()
         {
-            Players = Players.OrderBy(a => rng.Next()).ToList();
+            Players = Players.OrderBy(a => Rng.Next()).ToList();
         }
 
         public int RollDice()
         {
-			Random random = new Random();
-			int rolled = random.Next(1, 7) + random.Next(1, 7);
-
-            return rolled;
+			return Rng.Next(1, 7) + Rng.Next(1, 7);
 		}
 
 		public void MovePlayer(Player player, int rolled)
@@ -119,6 +115,12 @@ namespace GameServer.GameLogic
 			{
 				throw new ArgumentNullException("The instance of the gameBoard must not be null");
 			}
+
+            if (_fieldVisitor == null)
+            {
+                throw new ArgumentNullException("The instance of the field Visitor must not be null");
+			}
+
 
 			IField newPosition = _board.Move(_fieldVisitor, player, rolled);
 
@@ -131,6 +133,51 @@ namespace GameServer.GameLogic
             }
 
             newPosition.Accept(_fieldVisitor, player, true);
+		}
+
+		public void StartAuction(int fieldId)
+		{
+			_currentAuction = new AuctionState(fieldId);
+			_currentAuction.AuctionEnded += _currentAuction_AuctionEnded;
+            _currentAuction.StartTimer();
+		}
+
+		private void _currentAuction_AuctionEnded(AuctionState auctionState)
+		{
+            Player winner = auctionState.HighestBidder;
+
+            if (winner == null)
+            {
+                // If the auction failed, because noone has bid
+                OnFieldEventOccurred(this, new AuctionResultPacket() { WinnerPlayerName = null, WinningBid = 0 });
+            }
+            else 
+            {
+                // if the auction was successfull 
+                PropertyField? field = _board.GetFieldById(auctionState.FieldId) as PropertyField;
+
+                if (field == null)
+                    return;
+
+                winner.BuyField(field, auctionState.HighestBid);
+
+                OnFieldEventOccurred(this, new AuctionResultPacket() { WinnerPlayerName = winner.Name, WinningBid = auctionState.HighestBid }); 
+            }
+
+            _currentAuction = null;
+		}
+
+		public bool HandleAuctionBid(Player player, int amount)
+		{
+            if (_currentAuction == null)
+                return false;
+
+            if (!_currentAuction.PlaceBid(player, amount))
+            {
+                return false;
+            }
+
+            return true;
 		}
 	}
 }
