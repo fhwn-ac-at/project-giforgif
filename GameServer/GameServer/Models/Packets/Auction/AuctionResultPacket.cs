@@ -4,7 +4,7 @@
     {
         public override string Type => "AUCTION_RESULT";
 
-        public string PlayerName { get; set; }
-        public int Price { get; set; } // vllt auch nicht 
+        public string? WinnerPlayerName { get; set; }
+        public int WinningBid { get; set; } 
     }
 }
