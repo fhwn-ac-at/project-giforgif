@@ -1,4 +1,6 @@
-﻿namespace GameServer.Models.Packets.Lobby
+﻿using GameServer.GameLogic;
+
+namespace GameServer.Models.Packets.Lobby
 {
     public class StatusPacket : Packet
     {
