@@ -1,5 +1,6 @@
 ﻿using GameServer.Models.GameLogic;
 using GameServer.Models.Packets;
+using System.Net.Sockets;
 
 namespace GameServer.Models
 {
@@ -9,32 +10,37 @@ namespace GameServer.Models
         private GameBoard? _board;
         private Thread? _startGameCounter;
         private int counterId = 0;
+        private IFieldVisitor? _fieldVisitor;
 
         public event EventHandler<Game>? OnGameStarted;
         public bool Started { get; set; }
         private bool _counterStarted = false;
         public Player? CurrentMover;
-        public Action<Packet> Callback { get; set; }
-        public List<Player> Players { get; set; } = [];
+        //public Action<Packet> Callback { get; set; }
+		public event EventHandler<Packet>? FieldEventOccurred;
+		public List<Player> Players { get; set; } = [];
 
         public void Setup()
         {
-            if (this.Players.Count < 2)
+            _fieldVisitor = new DefaultThemeVisitor();
+
+            if (Players.Count < 2)
             {
                 throw new InvalidOperationException("Not enough players registered to start the game");
             }
 
-            this.RandomizePlayerOrder();
+            RandomizePlayerOrder();
 
-            this.CurrentMover = this.Players.First();
+            CurrentMover = Players.First();
+			_board = new GameBoard();
 
-            foreach (Player player in this.Players)
+			foreach (Player player in Players)
             {
                 player.Currency = 1500;
+                player.Board = _board;
             }
 
-            _board = new GameBoard();
-
+            // fill all of the fields and cards 
             var field = new Site()
             {
                 Name = "GO",
@@ -89,8 +95,9 @@ namespace GameServer.Models
 
         private void OnFieldEventOccurred(object? sender, Packet e)
         {
-            this.Callback(e);
-        }
+            //Callback(e);
+			FieldEventOccurred?.Invoke(this, e);
+		}
 
         private void RandomizePlayerOrder()
         {
@@ -112,17 +119,17 @@ namespace GameServer.Models
 				throw new ArgumentNullException("The instance of the gameBoard must not be null");
 			}
 
-			IField newPosition = _board.Move(player, rolled);
+			IField newPosition = _board.Move(_fieldVisitor, player, rolled);
 
-            if (newPosition.GetType() == typeof(Utility))
+            if (newPosition.GetType() == typeof(Utility)) 
             {
                 Utility utility = (Utility)newPosition;
                 utility.RolledDice = rolled;
-                utility.LandOn(player);
+                utility.Accept(_fieldVisitor, player, true);
                 return;
             }
 
-            newPosition.LandOn(player);
+            newPosition.Accept(_fieldVisitor, player, true);
 		}
 	}
 }
