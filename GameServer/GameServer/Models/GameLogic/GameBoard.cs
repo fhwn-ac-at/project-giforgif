@@ -5,39 +5,47 @@ namespace GameServer.Models
 	public class GameBoard
 	{
 		private List<IField> _fields { get; set; } = [];
-        private List<Card> _cards { get; set; } = [];
+		private List<Card> _cards { get; set; } = [];
 
-		public IField Move(Player player, int steps)
+		public IField Move(IFieldVisitor fieldVisitor, Player player, int steps)
 		{
-            int currentPositionIndex = _fields.IndexOf(player.CurrentPosition);
+			int currentPositionIndex = _fields.IndexOf(player.CurrentPosition);
 
-            if (currentPositionIndex == -1)
-            {
-                throw new InvalidOperationException("Player's current position is not on the game board.");
-            }
+			if (currentPositionIndex == -1)
+			{
+				throw new InvalidOperationException("Player's current position is not on the game board.");
+			}
 
-            int totalFields = _fields.Count;
-            int newPositionIndex = (currentPositionIndex + steps) % totalFields;
+			int totalFields = _fields.Count;
+			int newPositionIndex = (currentPositionIndex + steps) % totalFields;
 
-            for (int i = 1; i <= steps; i++)
-            {
-                int passPositionIndex = (currentPositionIndex + i) % totalFields;
-                _fields[passPositionIndex].Pass(player);
-            }
+			for (int i = 1; i <= steps; i++)
+			{
+				int passPositionIndex = (currentPositionIndex + i) % totalFields;
+				_fields[passPositionIndex].Accept(fieldVisitor, player, false);
+			}
 
-            player.CurrentPosition = _fields[newPositionIndex];
+			player.CurrentPosition = _fields[newPositionIndex];
 
-            return _fields[newPositionIndex];
-        }
+			return _fields[newPositionIndex];
+		}
 
-        public void AddField(IField field)
-        {
-            _fields.Add(field);
-        }
+		public void AddField(IField field)
+		{
+			_fields.Add(field);
+		}
 
-        public void AddCard(Card card)
-        {
-            _cards.Add(card);
-        }
+		public void AddCard(Card card)
+		{
+			_cards.Add(card);
+		}
+
+		public List<PropertyField>? GetPropertyFieldsOf(Player player)
+		{
+			if (_fields.Count == 0)
+				return null;
+
+			return _fields.OfType<PropertyField>().Where(p => p.Owner == player).ToList();
+		}
 	}
 }
