@@ -9,10 +9,11 @@ namespace GameServer.Models
 		public string Name { get; set; }
 		public int Currency { get; set; }
 		public IField CurrentPosition { get; set; }
-		public List<PropertyField> Properties { get; set; } = new();
+
+		public GameBoard Board;
 		public List<Card> Cards { get; set; } = new();
 
-		public Player(string name, string connectionId)
+		public Player(string name, string connectionId) 
 		{
 			this.Name = name;
 			this.ConnectionId = connectionId;
@@ -69,7 +70,12 @@ namespace GameServer.Models
 			recipient.Currency += Currency;
 			Currency = 0;
 
-			foreach (PropertyField property in Properties)
+			var properties = Board.GetPropertyFieldsOf(this);
+
+			if (properties == null)
+				return;
+
+			foreach (PropertyField property in properties)
 			{
 				if (property is Site site)
 				{
@@ -79,10 +85,7 @@ namespace GameServer.Models
 				}
 
 				property.Owner = recipient;
-				recipient.Properties.Add(property);
 			}
-
-			Properties.Clear();
 
 			recipient.Cards.AddRange(Cards);
 			Cards.Clear();
@@ -92,7 +95,12 @@ namespace GameServer.Models
 		{
 			Currency = 0;
 
-			foreach (PropertyField property in Properties)
+			var properties = Board.GetPropertyFieldsOf(this);
+
+			if (properties == null)
+				return;
+
+			foreach (PropertyField property in properties)
 			{
 				if (property is Site site)
 				{
@@ -101,8 +109,6 @@ namespace GameServer.Models
 
 				property.Owner = null;
 			}
-
-			Properties.Clear();
 
 			Cards.Clear(); // Or return do deck if there is only a specific number of cards, and cards have to be returned
 		}
