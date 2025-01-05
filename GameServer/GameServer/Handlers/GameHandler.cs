@@ -4,6 +4,7 @@ using GameServer.Models;
 using Microsoft.AspNetCore.SignalR;
 using System.Text.Json;
 using GameServer.Stores;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace GameServer.Handlers
 {
@@ -23,7 +24,8 @@ namespace GameServer.Handlers
 			RollDicePacket parsedpacket = (RollDicePacket)packet;
 
 			Game game = GetGame(context);
-			game.Callback = (packet) => GameEventOccured(context, packet);
+			game.FieldEventOccurred += async (sender, packet) => await Game_FieldEventOccurredAsync(sender, context, packet);
+			//game.Callback = (packet) => GameEventOccured(context, packet);
 
 
 			if (game.CurrentMover == null || game.CurrentMover.Name != parsedpacket.PlayerName)
@@ -47,7 +49,14 @@ namespace GameServer.Handlers
 			// if owner exists than check field for current rent -> state game -> houses -> rent? -> pay Player2 so und so viel money 
 
 		}
-        public async Task HandlePaymentDecision(Packet packet, HubCallerContext context)
+
+		private async Task Game_FieldEventOccurredAsync(object? sender, HubCallerContext context, Packet e)
+		{
+			string packetJson = JsonSerializer.Serialize(e);
+			await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", packetJson);
+		}
+
+		public async Task HandlePaymentDecision(Packet packet, HubCallerContext context)
         {
             PaymentDecisionPacket parsedPacket = (PaymentDecisionPacket)packet;
 
@@ -111,13 +120,11 @@ namespace GameServer.Handlers
 			//game.Players.First(p => p.Name == parsedPacket.WinnerName).BuyField((PropertyField)game.CurrentMover.CurrentPosition, parsedPacket.Price);
    //     }
 
-		private async void GameEventOccured(HubCallerContext context, Packet data)
-		{
-			// TODO: HubCallerContext hier irgndwie rein bringen 
-
-			string packetJson = JsonSerializer.Serialize(data);
-			await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", packetJson);
-		}
+		//private async void GameEventOccured(HubCallerContext context, Packet data)
+		//{
+		//	string packetJson = JsonSerializer.Serialize(data);
+		//	await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", packetJson);
+		//}
 
 		private string GetRoomName(HubCallerContext context)
 		{
