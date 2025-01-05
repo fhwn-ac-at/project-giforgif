@@ -1,0 +1,28 @@
+@if (visible) {
+    <div class="fixed top-0 left-0 right-0 bottom-0 z-[999]">
+      <div
+        class="relative z-10"
+        aria-labelledby="modal-title"
+        role="dialog"
+        aria-modal="true"
+      >
+        <div
+          class="fixed inset-0 bg-gray-900 bg-opacity-75 transition-opacity"
+          aria-hidden="true"
+        ></div>
+    
+        <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+          <div
+            class="relative flex gap-x-4 min-h-full justify-center p-4 text-center items-center sm:p-0"
+          >
+            <div
+              class="relative transform rounded-lg px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 w-full max-w-[45%] lg:max-w-[25%] sm:p-6"
+            >
+              <h2 class="stand-out text-[#FF9800]">{{ name }} ist am Zug</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    }
+    
