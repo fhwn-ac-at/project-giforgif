@@ -1,4 +1,4 @@
-﻿using GameServer.Models;
+﻿using GameServer.GameLogic;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 
