@@ -141,9 +141,9 @@ namespace GameServer.Handlers
 			return RoomStore.GetGame(roomName);
 		}
 
-		public async Task HandleBuyingHouse(Packet packet, HubCallerContext context)
+		public async Task HandleBuilding(Packet packet, HubCallerContext context)
 		{
-			BuyHousePacket parsedPacket = (BuyHousePacket)packet;
+			BuildHousePacket parsedPacket = (BuildHousePacket)packet;
 			string connectionId = context.ConnectionId;
 
 			Game game = GetGame(context);

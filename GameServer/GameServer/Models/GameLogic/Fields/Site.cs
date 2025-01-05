@@ -5,7 +5,7 @@ namespace GameServer.Models
 {
 	public class Site : PropertyField
 	{
-		public int Housecount { get; set; }
+		public int Housecount { get; set; } 
 
 		public int BuildingPrice { get; set; }
 		// Rent Prices for 0, 1, 2, 3, 4 houses and hotel
@@ -29,6 +29,9 @@ namespace GameServer.Models
 
 			if (Housecount > minHousesInGroup)
 				return false;
+
+			//if (Housecount >= 4)
+				// hotel bauen
 
 			return true;
 		}
