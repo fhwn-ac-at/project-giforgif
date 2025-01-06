@@ -60,17 +60,17 @@ namespace GameServer.Handlers
 				return;
 			}
 
-			if (e is StartAuctionPacket startAuctionPacket)
-			{
-				Game game = GetGame(context);
-				game.StartAuction(startAuctionPacket.FieldId);
-			}
+			//if (e is StartAuctionPacket startAuctionPacket) // ? TODO: Versteh ich nicht mehr kommt warsch weg
+			//{
+			//	Game game = GetGame(context);
+			//	game.StartAuction(startAuctionPacket.FieldId);
+			//}
 
 			string packetJson = JsonSerializer.Serialize(e);
 			await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", packetJson);
 		}
 
-		public async Task HandlePaymentDecision(Packet packet, HubCallerContext context)
+		public async Task HandlePaymentDecisionPacket(Packet packet, HubCallerContext context)
         {
             PaymentDecisionPacket parsedPacket = (PaymentDecisionPacket)packet;
 
@@ -84,7 +84,7 @@ namespace GameServer.Handlers
 
 			if (parsedPacket.WantsToBuy)
 			{
-				PropertyField? field = player.Board.GetFieldById(player.CurrentPositionFieldId) as PropertyField;
+				PropertyField? field = currentMover.Board.GetFieldById(currentMover.CurrentPositionFieldId) as PropertyField;
 
 				if (field != null && currentMover.BuyField(field, field.BuyingPrice))
 				{
@@ -108,15 +108,17 @@ namespace GameServer.Handlers
 				}
 			}
 
-			// Player does not want to buy, auction
+			// Player does not want to buy, auction or can't afford 
 			StartAuctionPacket auctionPacket = new StartAuctionPacket();
-			auctionPacket.FieldId = currentMover.CurrentPositionFieldId;
+			auctionPacket.FieldId = currentMover.CurrentPositionFieldId; // Startaution 
 
 			string auctionPacketJson = JsonSerializer.Serialize(auctionPacket);
 			await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", auctionPacketJson);
 
+			game.StartAuction(auctionPacket.FieldId);
 		}
-		public async Task HandleAuctionBid(Packet packet, HubCallerContext context)
+
+		public async Task HandleAuctionBidPacket(Packet packet, HubCallerContext context)
         {
             AuctionBidPacket parsedPacket = (AuctionBidPacket)packet;
 			int currentBid = parsedPacket.Bid;
@@ -151,7 +153,7 @@ namespace GameServer.Handlers
 			return RoomStore.GetGame(roomName);
 		}
 
-		public async Task HandleBuilding(Packet packet, HubCallerContext context)
+		public async Task HandleBuildingPacket(Packet packet, HubCallerContext context)
 		{
 			BuildHousePacket parsedPacket = (BuildHousePacket)packet;
 			string connectionId = context.ConnectionId;
@@ -200,6 +202,39 @@ namespace GameServer.Handlers
 			{
 				await _lobbyContext.Clients.Client(connectionId).SendAsync("ReceivePacket", JsonSerializer.Serialize(new ErrorPacket("BUILD_FAILED", "Failed to build a house in this property.")));
 			}
+		}
+
+		public async Task HandleEndTurnPacket(Packet packet, HubCallerContext context)
+		{
+			Player player = PlayerStore.GetPlayer(context.ConnectionId);
+			Game game = GetGame(context);
+
+			if (player != game.CurrentMover)
+				return;
+
+			Player newCurrent = game.GetNextPlayer();
+			PlayersTurnPacket playersTurn = new PlayersTurnPacket();
+			playersTurn.PlayerName = newCurrent.Name;
+			
+			string jsonPacket = JsonSerializer.Serialize(playersTurn);
+			await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", jsonPacket);
+		}
+
+		public async Task HandleUseCardPacket(Packet packet, HubCallerContext context)
+		{
+			UseCardPacket useCardPacket = (UseCardPacket)packet;
+
+			Player player = PlayerStore.GetPlayer(context.ConnectionId);
+			Game game = GetGame(context);
+
+			if (player != game.CurrentMover)
+				return;
+
+			int cardId = useCardPacket.CardId;
+
+			// get card from cardDealder and invoke action
+
+			// sende to groupe that card was used
 		}
 	}
 }
