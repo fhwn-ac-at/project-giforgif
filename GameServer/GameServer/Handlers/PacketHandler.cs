@@ -33,10 +33,12 @@ namespace GameServer.Handlers
             _packetFunctions.Add("WANT_STATUS", HandleWantStatusPacket);
             _packetFunctions.Add("LEAVE_ROOM", HandleLeaveRoomPacket);
 			_packetFunctions.Add("ROLL_DICE", _gameHandler.HandleRollDicePacket);
-			_packetFunctions.Add("PAYMENT_DECISION", _gameHandler.HandlePaymentDecision);
-			_packetFunctions.Add("AUCTION_BID", _gameHandler.HandleAuctionBid);
-            _packetFunctions.Add("BUILD_HOUSE", _gameHandler.HandleBuilding);
-            _connectionMapping = connectionMapping;
+			_packetFunctions.Add("PAYMENT_DECISION", _gameHandler.HandlePaymentDecisionPacket);
+			_packetFunctions.Add("AUCTION_BID", _gameHandler.HandleAuctionBidPacket);
+            _packetFunctions.Add("BUILD_HOUSE", _gameHandler.HandleBuildingPacket);
+			_packetFunctions.Add("END_TURN", _gameHandler.HandleEndTurnPacket);
+            _packetFunctions.Add("USE_CARD", _gameHandler.HandleUseCardPacket);
+			_connectionMapping = connectionMapping;
         }
 
         public async Task HandleRegisterPacket(Packet packet, HubCallerContext context)
