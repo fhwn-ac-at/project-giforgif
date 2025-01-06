@@ -35,7 +35,7 @@ namespace GameServer.GameLogic
 
 		public void AddField(IField field)
 		{
-			_fields[field.Id] = field;
+			_fields.Add(field.Id, field);
 		}
 
 		public IField? GetFieldById(int id)
