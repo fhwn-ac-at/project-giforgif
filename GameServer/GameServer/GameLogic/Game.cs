@@ -104,6 +104,22 @@ namespace GameServer.GameLogic
             Players = Players.OrderBy(a => Rng.Next()).ToList();
         }
 
+        public Player GetNextPlayer()
+        {
+            int currentIndex = Players.IndexOf(CurrentMover);
+
+            if (currentIndex == -1)
+            {
+                throw new InvalidOperationException("Current player is not in the list of players.");
+            }
+
+            int nextPlayerIdx = (currentIndex + 1) % Players.Count;
+
+            CurrentMover = Players[nextPlayerIdx];
+
+            return CurrentMover;
+        }
+
         public int RollDice()
         {
 			return Rng.Next(1, 7) + Rng.Next(1, 7);
