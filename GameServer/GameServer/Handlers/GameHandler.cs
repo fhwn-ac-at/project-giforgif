@@ -215,6 +215,8 @@ namespace GameServer.Handlers
 			Player newCurrent = game.GetNextPlayer();
 			PlayersTurnPacket playersTurn = new PlayersTurnPacket();
 			playersTurn.PlayerName = newCurrent.Name;
+
+			// if new current mover is in jail it is not their turn
 			
 			string jsonPacket = JsonSerializer.Serialize(playersTurn);
 			await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", jsonPacket);
