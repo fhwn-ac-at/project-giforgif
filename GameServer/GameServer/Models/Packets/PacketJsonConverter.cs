@@ -20,7 +20,9 @@ namespace GameServer.Models.Packets
             _packetTypeMappings.Add("ROLL_DICE", typeof(RollDicePacket));
             _packetTypeMappings.Add("PAYMENT_DECISION", typeof(PaymentDecisionPacket));
             _packetTypeMappings.Add("BUY_HOUSE", typeof(BuildHousePacket));
-        }
+            _packetTypeMappings.Add("END_TURN", typeof(EndTurnPacket));
+			_packetTypeMappings.Add("USE_CARD", typeof(UseCardPacket));
+		}
 
         public override Packet Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
