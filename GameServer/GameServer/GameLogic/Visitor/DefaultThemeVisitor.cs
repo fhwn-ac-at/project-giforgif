@@ -149,14 +149,21 @@ namespace GameServer.GameLogic
 
 		public void Visit(CommunityChest communityChest, Player player, bool isLanding)
 		{
-			// draw from CommunityChest card deck 
-			throw new NotImplementedException();
-		}
+			if (communityChest == null)
+                return;
 
-		public void Visit(Chance chance, Player player, bool isLanding)
-		{
-			// draw from Chance card deck 
-			throw new NotImplementedException();
+			if (isLanding)
+			{
+				var drawnCard = player.Board.DrawCard();
+
+				if (drawnCard.Effect.IsInstant)
+				{
+					drawnCard.Effect.Effect.Invoke(player);
+					return;
+				}
+
+				communityChest.RaiseEvent("DRAW_CARD", new DrawCardPacket(player.Name, drawnCard.Name, drawnCard.Description));
+			}
 		}
 
 		public void Visit(GoToJail goToJail, Player player, bool isLanding)
