@@ -10,6 +10,14 @@ namespace GameServer.Models
 
 		public string? Description { get; set; }
 
-		public Action<Player>? Effect { get; set; }
+		public CardEffect Effect { get; set; }
+
+		public Card(int id, string name, string description, CardEffect effect)
+		{
+            Id = id;
+            Name = name;
+            Description = description;
+            Effect = effect;
+        }
 	}
 }
