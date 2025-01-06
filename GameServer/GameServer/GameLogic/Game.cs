@@ -2,6 +2,7 @@
 using GameServer.Models.Fields;
 using GameServer.Models.Packets;
 using System.Net.Sockets;
+using System.Xml.Linq;
 
 namespace GameServer.GameLogic
 {
@@ -23,7 +24,7 @@ namespace GameServer.GameLogic
 
         public void Setup()
         {
-            _fieldVisitor = new DefaultThemeVisitor();
+            _fieldVisitor = new DefaultThemeVisitor(this);
 
             if (Players.Count < 2)
             {
@@ -55,7 +56,7 @@ namespace GameServer.GameLogic
 
             _board.AddField(field);
 
-            _board.AddCard(new Card() { Name = "Get Out Of Jail Free!" });
+            // _board.AddCard(new Card() { Name = "Get Out Of Jail Free!" }); Load the cards somehow
         }
 
         public void StartCounter()
@@ -125,33 +126,17 @@ namespace GameServer.GameLogic
 			return Rng.Next(1, 7) + Rng.Next(1, 7);
 		}
 
-		public void MovePlayer(Player player, int rolled)
-		{
-			if (_board == null)
-			{
-				throw new ArgumentNullException("The instance of the gameBoard must not be null");
-			}
+        public void MovePlayer(Player player, int rolled)
+        {
+            MovePlayerInternal(player, rolled);
+        }
 
-            if (_fieldVisitor == null)
-            {
-                throw new ArgumentNullException("The instance of the field Visitor must not be null");
-			}
+        public void SetPlayerPosition(Player player, int fieldId)
+        {
+            MovePlayerInternal(player, fieldId, isDirectMove: true);
+        }
 
-
-			IField newPosition = _board.Move(_fieldVisitor, player, rolled);
-
-            if (newPosition.GetType() == typeof(Utility)) 
-            {
-                Utility utility = (Utility)newPosition;
-                utility.RolledDice = rolled;
-                utility.Accept(_fieldVisitor, player, true);
-                return;
-            }
-
-            newPosition.Accept(_fieldVisitor, player, true);
-		}
-
-		public void StartAuction(int fieldId)
+        public void StartAuction(int fieldId)
 		{
 			_currentAuction = new AuctionState(fieldId);
 			_currentAuction.AuctionEnded += _currentAuction_AuctionEnded;
@@ -183,7 +168,67 @@ namespace GameServer.GameLogic
             _currentAuction = null;
 		}
 
-		public bool HandleAuctionBid(Player player, int amount)
+        private void MovePlayerInternal(Player player, int stepsOrFieldId, bool isDirectMove = false)
+        {
+            if (_board == null)
+            {
+                throw new ArgumentNullException("The instance of the gameBoard must not be null");
+            }
+
+            if (_fieldVisitor == null)
+            {
+                throw new ArgumentNullException("The instance of the field Visitor must not be null");
+            }
+
+            // Get current position
+            int currentPositionIndex = player.CurrentPositionFieldId;
+
+            if (currentPositionIndex == -1)
+            {
+                throw new InvalidOperationException("Player's current position is not on the game board.");
+            }
+
+            int totalFields = _board.GetFieldCount();
+            int newPositionIndex;
+
+            if (isDirectMove)
+            {
+                // Move directly to the specified field ID
+                newPositionIndex = stepsOrFieldId;
+            }
+            else
+            {
+                // Calculate new position based on dice roll
+                newPositionIndex = (currentPositionIndex + stepsOrFieldId) % totalFields;
+
+                for (int i = 1; i <= stepsOrFieldId; i++)
+                {
+                    int passPositionIndex = (currentPositionIndex + i) % totalFields;
+                    _board.GetFieldById(passPositionIndex).Accept(_fieldVisitor, player, false);
+                }
+            }
+
+            // Update player's position
+            player.CurrentPositionFieldId = _board.GetFieldById(newPositionIndex).Id;
+
+            // Handle landing event
+            IField newPosition = _board.GetFieldById(newPositionIndex);
+
+            if (newPosition.GetType() == typeof(Utility))
+            {
+                Utility utility = (Utility)newPosition;
+                if (!isDirectMove) // Only set rolled dice for non-direct moves
+                {
+                    utility.RolledDice = stepsOrFieldId;
+                }
+                utility.Accept(_fieldVisitor, player, true);
+                return;
+            }
+
+            newPosition.Accept(_fieldVisitor, player, true);
+        }
+
+        public bool HandleAuctionBid(Player player, int amount)
 		{
             if (_currentAuction == null)
                 return false;

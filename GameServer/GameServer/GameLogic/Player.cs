@@ -66,7 +66,7 @@ namespace GameServer.GameLogic
 			{
 				if (property is Site site)
 				{
-					int sellvalue = site.Housecount * (site.BuyingPrice / 2);
+					int sellvalue = site.Housecount * (site.BuildingPrice / 2);
 					recipient.Currency += sellvalue;
 					site.Housecount = 0;
 				}
