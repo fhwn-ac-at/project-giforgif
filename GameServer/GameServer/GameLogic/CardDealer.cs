@@ -15,6 +15,8 @@ namespace GameServer.GameLogic
 
         public Card DrawCard()
         {
+            // Handle use case that there are no cards left
+
             int index = _random.Next(0, _cards.Count);
 
             _cards.Remove(index);
