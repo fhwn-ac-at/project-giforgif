@@ -5,7 +5,14 @@ namespace GameServer.GameLogic
 {
 	public class DefaultThemeVisitor : IFieldVisitor
 	{
-		public void Visit(Site site, Player player, bool isLanding)
+		private Game _game;
+
+        public DefaultThemeVisitor(Game game)
+        {
+            _game = game;
+        }
+
+        public void Visit(Site site, Player player, bool isLanding)
 		{
 			if (site == null)
 				return;
@@ -154,8 +161,13 @@ namespace GameServer.GameLogic
 
 		public void Visit(GoToJail goToJail, Player player, bool isLanding)
 		{
-			// Send player to jail 
-			throw new NotImplementedException();
+			if (goToJail == null)
+                return;
+
+			if (isLanding)
+			{
+				_game.SetPlayerPosition(player, 10); // TODO: Find out Jail Field ID
+			}
 		}
 	}
 }
