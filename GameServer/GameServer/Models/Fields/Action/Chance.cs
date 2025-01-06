@@ -6,7 +6,7 @@ namespace GameServer.Models.Fields
 	{
 		public override void Accept(IFieldVisitor visitor, Player player, bool isLanding)
 		{
-			visitor.Visit(this, player, isLanding);
+			//visitor.Visit(this, player, isLanding);
 		}
 	}
 }
