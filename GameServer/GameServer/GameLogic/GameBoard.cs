@@ -31,6 +31,11 @@ namespace GameServer.GameLogic
             _cardDealer.Add(cards);
         }
 
+		public Card DrawCard()
+		{
+            return _cardDealer.DrawCard();
+        }
+
 		public List<PropertyField>? GetPropertyFieldsOf(Player player)
 		{
 			if (_fields.Count == 0)
