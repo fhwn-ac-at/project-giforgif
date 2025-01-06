@@ -14,10 +14,10 @@ namespace GameServer.GameLogic
         private int _counterId = 0;
         private IFieldVisitor? _fieldVisitor;
         private AuctionState? _currentAuction;
+        private bool _counterStarted = false;
 
         public event EventHandler<Game>? OnGameStarted;
         public bool Started { get; set; }
-        private bool _counterStarted = false;
         public Player? CurrentMover;
 		public event EventHandler<Packet>? FieldEventOccurred;
 		public List<Player> Players { get; set; } = [];
