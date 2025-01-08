@@ -173,8 +173,48 @@ namespace GameServer.GameLogic
 
 			if (isLanding)
 			{
-				_game.SetPlayerPosition(player, 10); // TODO: Find out Jail Field ID
+				_game.SetPlayerPosition(player, 10); // TODO: Find out Jail Field ID; Solved this by hardcoding 10 (Jail Field ID)
 			}
 		}
-	}
+
+        public void Visit(Go go, Player player, bool isLanding)
+        {
+			if (go == null)
+                return;
+
+            player.Currency += 200;
+
+			// Maybe add an event here not sure
+        }
+
+        public void Visit(Jail jail, Player player, bool isLanding)
+        {
+            if (jail == null)
+                return;
+
+			if (!isLanding)
+			{
+				// Yeah idk
+			}
+        }
+
+        public void Visit(FreeParking freeParking, Player player, bool isLanding)
+        {
+			// Literally nothing happens, maybe event tho idk
+			return;
+        }
+
+        public void Visit(Tax tax, Player player, bool isLanding)
+        {
+            if (tax == null)
+                return;
+
+			if (isLanding)
+			{
+				player.DeductCurrency(tax.Amount);
+
+				// tax.RaiseEvent("TAX_PAY", new TaxPayPacket() { PlayerName = player.Name, Amount = tax.Amount });
+			}
+        }
+    }
 }
