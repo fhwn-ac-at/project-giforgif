@@ -8,7 +8,7 @@ namespace GameServer.GameLogic
 		//private List<IField> _fields { get; set; } = [];
 		public Dictionary<string, PropertyGroup> Groups { get; set; } = new Dictionary<string, PropertyGroup>();
 
-		private Dictionary<int, IField> _fields { get; set; } = [];
+		private Dictionary<int, IField> _fields { get; set; } = new Dictionary<int, IField>();
 		
         private CardDealer _cardDealer = new CardDealer();
 
@@ -20,8 +20,11 @@ namespace GameServer.GameLogic
 
 		public IField? GetFieldById(int id)
 		{
-			return _fields.TryGetValue(id, out var field) ? field : null;
-		}
+            if (_fields.ContainsKey(id) == false)
+                throw new System.Exception($"Field with id {id} not found");
+
+            return _fields[id];
+        }
 
 		public void AddCard(Card card)
 		{
