@@ -317,13 +317,13 @@ namespace GameServer.Handlers
 			if (player != game.CurrentMover)
 				return;
 
-            await Console.Out.WriteLineAsync($"B4 Next: {game.CurrentMover} with {game.CurrentMover.Currency} dollarus");
+            await Console.Out.WriteLineAsync($"B4 Next: {game.CurrentMover.Name} with {game.CurrentMover.Currency} dollarus");
 
             Player newCurrent = game.GetNextPlayer();
 			PlayersTurnPacket playersTurn = new PlayersTurnPacket();
 			playersTurn.PlayerName = newCurrent.Name;
 
-            await Console.Out.WriteLineAsync($"After Next: {game.CurrentMover} with {game.CurrentMover.Currency} dollarus");
+            await Console.Out.WriteLineAsync($"After Next: {game.CurrentMover.Name} with {game.CurrentMover.Currency} dollarus");
 
             string jsonPacket = JsonSerializer.Serialize(playersTurn);
 			await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", jsonPacket);
