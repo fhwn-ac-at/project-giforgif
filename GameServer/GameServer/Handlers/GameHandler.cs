@@ -179,13 +179,20 @@ namespace GameServer.Handlers
 			
 			Game game = GetGame(context);
 
-			if (!game.HandleAuctionBid(player, currentBid))
-			{
-				await _lobbyContext.Clients.Client(context.ConnectionId).SendAsync("ReceivePacket", JsonSerializer.Serialize(new ErrorPacket("BID_FAILED", "You can not afford to bid for this property.")));
-				return;
-			}
+            var result = false;
 
-			AuctionBidUpdatePacket auctionBidUpdate = new AuctionBidUpdatePacket();
+            lock (obj)
+            {
+                result = game.HandleAuctionBid(player, currentBid);
+            }
+
+            if (!result)
+            {
+                await _lobbyContext.Clients.Client(context.ConnectionId).SendAsync("ReceivePacket", JsonSerializer.Serialize(new ErrorPacket("BID_FAILED", "You can not afford to bid for this property.")));
+                return;
+            }
+
+            AuctionBidUpdatePacket auctionBidUpdate = new AuctionBidUpdatePacket();
 			auctionBidUpdate.CurrentBid = currentBid;
 			auctionBidUpdate.HighestBidderName = player.Name;
 
