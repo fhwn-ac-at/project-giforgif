@@ -127,7 +127,9 @@ namespace GameServer.Handlers
             PaymentDecisionPacket parsedPacket = (PaymentDecisionPacket)packet;
 
 			Game game = GetGame(context);
-			Player player = PlayerStore.GetPlayer(context.ConnectionId);
+            Player player = PlayerStore.GetPlayer(context.ConnectionId);
+            
+			game.FieldEventOccurred += async (sender, packet) => await Game_FieldEventOccurredAsync(sender, context, packet);
 
 			var currentMover = game.CurrentMover;
 
