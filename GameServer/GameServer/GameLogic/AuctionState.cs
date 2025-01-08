@@ -36,7 +36,10 @@
 
 		private void RestartTimer()
 		{
-			_timer.Change(_timeout, Timeout.Infinite);
+			lock (this)
+			{
+				_timer.Change(_timeout, Timeout.Infinite);
+			}
 		}
 
 		public void StartTimer()

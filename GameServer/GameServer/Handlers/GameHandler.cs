@@ -165,10 +165,11 @@ namespace GameServer.Handlers
 			StartAuctionPacket auctionPacket = new StartAuctionPacket();
 			auctionPacket.FieldId = currentMover.CurrentPositionFieldId; // Startaution 
 
+			game.StartAuction(auctionPacket.FieldId);
+
 			string auctionPacketJson = JsonSerializer.Serialize(auctionPacket);
 			await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", auctionPacketJson);
 
-			game.StartAuction(auctionPacket.FieldId);
 		}
 
 		public async Task HandleAuctionBidPacket(Packet packet, HubCallerContext context)
