@@ -4,6 +4,6 @@
 	{
 		public override string Type => "BUY_REQUEST";
 
-		public int FieldID { get; set; }
+		public int FieldId { get; set; }
 	}
 }

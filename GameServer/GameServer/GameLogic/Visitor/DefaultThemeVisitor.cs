@@ -54,7 +54,7 @@ namespace GameServer.GameLogic
 					return;
 				}
 
-				site.RaiseEvent("BUY_REQUEST", new BuyRequestPacket() { FieldID = site.Id });
+				site.RaiseEvent("BUY_REQUEST", new BuyRequestPacket() { FieldId = site.Id });
 			}
 			else
 			{
@@ -91,7 +91,7 @@ namespace GameServer.GameLogic
 					return;
 				}
 
-				station.RaiseEvent("BUY_REQUEST", new BuyRequestPacket() { FieldID = station.Id });
+				station.RaiseEvent("BUY_REQUEST", new BuyRequestPacket() { FieldId = station.Id });
 			}
 			else 
 			{ 
@@ -138,7 +138,7 @@ namespace GameServer.GameLogic
 					return;
 				}
 
-				utility.RaiseEvent("BUY_REQUEST", new BuyRequestPacket() { FieldID = utility.Id });
+				utility.RaiseEvent("BUY_REQUEST", new BuyRequestPacket() { FieldId = utility.Id });
 
 			}
 			else

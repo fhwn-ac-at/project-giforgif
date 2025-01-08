@@ -539,14 +539,14 @@ namespace GameServer.GameLogic
             MovePlayerInternal(player, rolled);
         }
 
-        public void SetPlayerPosition(Player player, int fieldId)
+        public void SetPlayerPosition(Player player, int FieldId)
         {
-            MovePlayerInternal(player, fieldId, isDirectMove: true);
+            MovePlayerInternal(player, FieldId, isDirectMove: true);
         }
 
-        public void StartAuction(int fieldId)
+        public void StartAuction(int FieldId)
 		{
-			_currentAuction = new AuctionState(fieldId);
+			_currentAuction = new AuctionState(FieldId);
 			_currentAuction.AuctionEnded += _currentAuction_AuctionEnded;
             _currentAuction.StartTimer();
 		}
