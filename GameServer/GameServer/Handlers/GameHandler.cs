@@ -246,9 +246,15 @@ namespace GameServer.Handlers
 				return;
 			}
 
+			if (site.Housecount >= 5)
+			{
+                await _lobbyContext.Clients.Client(connectionId).SendAsync("ReceivePacket", JsonSerializer.Serialize(new ErrorPacket("MAX_HOUSES", "You can't build more than 5 houses on a property.")));
+                return;
+            }
+
 			if (!site.CanBuildHouse(player))
 			{
-				await _lobbyContext.Clients.Client(connectionId).SendAsync("ReceivePacket", JsonSerializer.Serialize(new ErrorPacket("CANNOT_BUILD", "You cannot build a house on this property.")));
+				await _lobbyContext.Clients.Client(connectionId).SendAsync("ReceivePacket", JsonSerializer.Serialize(new ErrorPacket("CANNOT_BUILD", "You need to build houses on the other properties first.")));
 				return;
 			}
 
@@ -258,12 +264,16 @@ namespace GameServer.Handlers
 				return;
 			}
 
+
 			if (site.BuildHouse(player))
 			{
 				HouseBuiltPacket buildPacket = new HouseBuiltPacket();
 				buildPacket.FieldId = site.Id;
+				buildPacket.Cost = site.BuildingPrice;
 
-				string jsonPacket = JsonSerializer.Serialize(buildPacket);
+                await Console.Out.WriteLineAsync($"Money: {player.Currency.ToString()}");
+
+                string jsonPacket = JsonSerializer.Serialize(buildPacket);
 				await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", jsonPacket);
 			}
 			else 
