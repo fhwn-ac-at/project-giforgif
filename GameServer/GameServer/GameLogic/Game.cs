@@ -662,11 +662,22 @@ namespace GameServer.GameLogic
             else
             {
                 // Calculate new position based on dice roll
-                newPositionIndex = (currentPositionIndex + stepsOrFieldId) % totalFields;
+                newPositionIndex = currentPositionIndex + stepsOrFieldId;
+
+                if (newPositionIndex > totalFields)
+                {
+                    newPositionIndex -= totalFields;
+                }
 
                 for (int i = 1; i <= stepsOrFieldId; i++)
                 {
-                    int passPositionIndex = (currentPositionIndex + i) % totalFields;
+                    int passPositionIndex = currentPositionIndex + i;
+
+                    if (passPositionIndex > totalFields)
+                    {
+                        passPositionIndex -= totalFields;
+                    }
+
                     _board.GetFieldById(passPositionIndex).Accept(_fieldVisitor, player, false);
                 }
             }
