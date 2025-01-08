@@ -50,19 +50,15 @@ namespace GameServer.GameLogic
                 Players[i].Board = _board;
             }
 
-            // fill all of the fields and cards 
-            var field = new Site()
-            {
-                Name = "GO",
-                BuyingPrice = 100,
-                RentPrices = new int[6] { 100, 200, 300, 400, 500, 600 },
-                Housecount = 0,
-                Group = null
-            };
-
-            field.FieldEventOccurred += OnFieldEventOccurred;
-
             FillBoardWithWarhammerTheme();
+
+            for (int i=0; i < _board.GetFieldCount(); i++)
+            {
+                if (_board.GetFieldById(i) is PropertyField propertyField)
+                {
+                    propertyField.Owner = Players[0];
+                }
+            }
 
             // _board.AddCard(new Card() { Name = "Get Out Of Jail Free!" }); Load the cards somehow
         }
