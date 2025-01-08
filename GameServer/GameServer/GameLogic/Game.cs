@@ -89,6 +89,7 @@ namespace GameServer.GameLogic
             {
                 Name = "Drakwald Forest",
                 BuyingPrice = 60,
+                BuildingPrice = 50,
                 RentPrices = new int[6] { 2, 10, 30, 90, 160, 250 },
                 Housecount = 0,
                 Group = _board.Groups["purple"]
@@ -108,6 +109,7 @@ namespace GameServer.GameLogic
             {
                 Name = "Hel Fenn",
                 BuyingPrice = 60,
+                BuildingPrice = 50,
                 RentPrices = new int[6] { 4, 20, 60, 180, 320, 450 },
                 Housecount = 0,
                 Group = _board.Groups["purple"]
@@ -138,6 +140,7 @@ namespace GameServer.GameLogic
             {
                 Name = "Altdorf Outskirts",
                 BuyingPrice = 100,
+                BuildingPrice = 50,
                 RentPrices = new int[6] { 6, 30, 90, 270, 400, 550 },
                 Housecount = 0,
                 Group = _board.Groups["white"]
@@ -157,6 +160,7 @@ namespace GameServer.GameLogic
             {
                 Name = "Carroburg Docks",
                 BuyingPrice = 100,
+                BuildingPrice = 50,
                 RentPrices = new int[6] { 6, 30, 90, 270, 400, 550 },
                 Housecount = 0,
                 Group = _board.Groups["white"]
@@ -169,6 +173,7 @@ namespace GameServer.GameLogic
             {
                 Name = "Reikland Hills",
                 BuyingPrice = 120,
+                BuildingPrice = 50,
                 RentPrices = new int[6] { 8, 40, 100, 300, 450, 600 },
                 Housecount = 0,
                 Group = _board.Groups["white"]
@@ -188,6 +193,7 @@ namespace GameServer.GameLogic
             {
                 Name = "Middenheim Gate",
                 BuyingPrice = 140,
+                BuildingPrice = 100,
                 RentPrices = new int[6] { 10, 50, 150, 450, 625, 750 },
                 Housecount = 0,
                 Group = _board.Groups["pink"]
@@ -210,6 +216,7 @@ namespace GameServer.GameLogic
             {
                 Name = "Nuln Foundry",
                 BuyingPrice = 140,
+                BuildingPrice = 100,
                 RentPrices = new int[6] { 10, 50, 150, 450, 625, 750 },
                 Housecount = 0,
                 Group = _board.Groups["pink"]
@@ -222,6 +229,7 @@ namespace GameServer.GameLogic
             {
                 Name = "Averheim Market",
                 BuyingPrice = 160,
+                BuildingPrice = 100,
                 RentPrices = new int[6] { 12, 60, 180, 500, 700, 900 },
                 Housecount = 0,
                 Group = _board.Groups["pink"]
@@ -244,6 +252,7 @@ namespace GameServer.GameLogic
             {
                 Name = "Marienburg Wharf",
                 BuyingPrice = 180,
+                BuildingPrice = 100,
                 RentPrices = new int[6] { 14, 70, 200, 550, 750, 950 },
                 Housecount = 0,
                 Group = _board.Groups["orange"]
@@ -263,6 +272,7 @@ namespace GameServer.GameLogic
             {
                 Name = "Blackfire Pass",
                 BuyingPrice = 180,
+                BuildingPrice = 100,
                 RentPrices = new int[6] { 14, 70, 200, 550, 750, 950 },
                 Housecount = 0,
                 Group = _board.Groups["orange"]
@@ -275,6 +285,7 @@ namespace GameServer.GameLogic
             {
                 Name = "Talabheim Road",
                 BuyingPrice = 200,
+                BuildingPrice = 100,
                 RentPrices = new int[6] { 16, 80, 220, 600, 800, 1000 },
                 Housecount = 0,
                 Group = _board.Groups["orange"]
@@ -294,6 +305,7 @@ namespace GameServer.GameLogic
             {
                 Name = "Sylvania Crypts",
                 BuyingPrice = 220,
+                BuildingPrice = 150,
                 RentPrices = new int[6] { 18, 90, 250, 700, 875, 1050 },
                 Housecount = 0,
                 Group = _board.Groups["red"]
@@ -313,6 +325,7 @@ namespace GameServer.GameLogic
             {
                 Name = "Templehof Ruins",
                 BuyingPrice = 220,
+                BuildingPrice = 150,
                 RentPrices = new int[6] { 18, 90, 250, 700, 875, 1050 },
                 Housecount = 0,
                 Group = _board.Groups["red"]
@@ -325,6 +338,7 @@ namespace GameServer.GameLogic
             {
                 Name = "Drakenhof Castle",
                 BuyingPrice = 240,
+                BuildingPrice = 150,
                 RentPrices = new int[6] { 20, 100, 300, 750, 925, 1100 },
                 Housecount = 0,
                 Group = _board.Groups["red"]
@@ -347,6 +361,7 @@ namespace GameServer.GameLogic
             {
                 Name = "Morrslieb's Rise",
                 BuyingPrice = 260,
+                BuildingPrice = 150,
                 RentPrices = new int[6] { 22, 110, 330, 800, 975, 1150 },
                 Housecount = 0,
                 Group = _board.Groups["yellow"]
@@ -359,6 +374,7 @@ namespace GameServer.GameLogic
             {
                 Name = "Grimhold Mines",
                 BuyingPrice = 260,
+                BuildingPrice = 150,
                 RentPrices = new int[6] { 22, 110, 330, 800, 975, 1150 },
                 Housecount = 0,
                 Group = _board.Groups["yellow"]
@@ -381,6 +397,7 @@ namespace GameServer.GameLogic
             {
                 Name = "Ekrund Hold",
                 BuyingPrice = 280,
+                BuildingPrice = 150,
                 RentPrices = new int[6] { 24, 120, 360, 850, 1025, 1200 },
                 Housecount = 0,
                 Group = _board.Groups["yellow"]
@@ -400,6 +417,7 @@ namespace GameServer.GameLogic
             {
                 Name = "Karak Kadrin",
                 BuyingPrice = 300,
+                BuildingPrice = 200,
                 RentPrices = new int[6] { 26, 130, 390, 900, 1100, 1275 },
                 Housecount = 0,
                 Group = _board.Groups["green"]
@@ -412,6 +430,7 @@ namespace GameServer.GameLogic
             {
                 Name = "Karak Eight Peaks",
                 BuyingPrice = 300,
+                BuildingPrice = 200,
                 RentPrices = new int[6] { 26, 130, 390, 900, 1100, 1275 },
                 Housecount = 0,
                 Group = _board.Groups["green"]
@@ -431,6 +450,7 @@ namespace GameServer.GameLogic
             {
                 Name = "Zharr Naggrund",
                 BuyingPrice = 320,
+                BuildingPrice = 200,
                 RentPrices = new int[6] { 28, 150, 450, 1000, 1200, 1400 },
                 Housecount = 0,
                 Group = _board.Groups["green"]
@@ -460,6 +480,7 @@ namespace GameServer.GameLogic
             {
                 Name = "Naggarond",
                 BuyingPrice = 350,
+                BuildingPrice = 200,
                 RentPrices = new int[6] { 35, 175, 500, 1100, 1300, 1500 },
                 Housecount = 0,
                 Group = _board.Groups["blue"]
@@ -480,6 +501,7 @@ namespace GameServer.GameLogic
             {
                 Name = "Ulthuan",
                 BuyingPrice = 400,
+                BuildingPrice = 200,
                 RentPrices = new int[6] { 50, 200, 600, 1400, 1700, 2000 },
                 Housecount = 0,
                 Group = _board.Groups["blue"]
