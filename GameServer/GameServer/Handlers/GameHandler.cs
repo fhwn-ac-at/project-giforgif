@@ -269,6 +269,7 @@ namespace GameServer.Handlers
 			{
 				HouseBuiltPacket buildPacket = new HouseBuiltPacket();
 				buildPacket.FieldId = site.Id;
+				buildPacket.PlayerName = player.Name;
 				buildPacket.Cost = site.BuildingPrice;
 
                 await Console.Out.WriteLineAsync($"Money: {player.Currency.ToString()}");
