@@ -80,6 +80,12 @@ namespace GameServer.Handlers
 			if (game.CurrentMover == null || game.CurrentMover != player)
 				return;
 
+			if (player.RoundsLeftInJail > 0)
+			{
+                
+                return;
+            }
+
 			if (game.CurrentMoverRolled)
 			{
 				await _lobbyContext.Clients.Client(context.ConnectionId).SendAsync("ReceivePacket", JsonSerializer.Serialize(new ErrorPacket("ALREADY_ROLLED", "You have already rolled the dice.")));
@@ -123,6 +129,8 @@ namespace GameServer.Handlers
 				// First send Package that player is going to jail
                 string goToJail = JsonSerializer.Serialize(e, e.GetType());
                 await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", goToJail);
+
+				Thread.Sleep(1000);
 
 				// Then send package that next player is up
                 Game game = GetGame(context);
@@ -312,7 +320,11 @@ namespace GameServer.Handlers
 			PlayersTurnPacket playersTurn = new PlayersTurnPacket();
 			playersTurn.PlayerName = newCurrent.Name;
 
-			// if new current mover is in jail it is not their turn
+			if (game.CurrentMover.RoundsLeftInJail == 1)
+			{
+                // Last round in jail, has to buyout
+
+            }
 			
 			string jsonPacket = JsonSerializer.Serialize(playersTurn);
 			await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", jsonPacket);
@@ -334,5 +346,25 @@ namespace GameServer.Handlers
 
 			// sende to groupe that card was used
 		}
-	}
+
+        public async Task HandleJailPayoutPacket(Packet packet, HubCallerContext context)
+        {
+            Player player = PlayerStore.GetPlayer(context.ConnectionId);
+			Game game = GetGame(context);
+
+			if (player != game.CurrentMover)
+			{
+				return;
+			}
+
+			if (player.CanAfford(50))
+			{
+				await _lobbyContext.Clients.Client(context.ConnectionId).SendAsync("ReceivePacket", JsonSerializer.Serialize(new JailPayoutSucessPacket()));
+			}
+			else
+			{
+				await _lobbyContext.Clients.Client(context.ConnectionId).SendAsync("ReceivePacket", JsonSerializer.Serialize(new BankruptcyPacket() { PlayerName = player.Name}));
+			}
+        }
+    }
 }
