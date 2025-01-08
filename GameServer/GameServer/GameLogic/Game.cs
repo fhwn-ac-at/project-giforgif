@@ -21,6 +21,7 @@ namespace GameServer.GameLogic
         public Player? CurrentMover;
 		public event EventHandler<Packet>? FieldEventOccurred;
 		public List<Player> Players { get; set; } = [];
+        public int ReadyPlayers { get; set; } = 0;
 
         public void Setup()
         {
@@ -36,10 +37,16 @@ namespace GameServer.GameLogic
             CurrentMover = Players.First();
 			_board = new GameBoard();
 
-			foreach (Player player in Players)
+            List<string> colors = new List<string>() { "red", "blue", "green", "yellow"};
+
+            if (Players.Count != colors.Count)
+                throw new InvalidOperationException("The number of players must be equal to the number of colors");
+
+            for (int i = 0; i < Players.Count; i++)
             {
-                player.Currency = 1500;
-                player.Board = _board;
+                Players[i].Color = colors[i];
+                Players[i].Currency = 1500;
+                Players[i].Board = _board;
             }
 
             // fill all of the fields and cards 
