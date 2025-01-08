@@ -21,6 +21,7 @@ namespace GameServer.Models.Packets
             _packetTypeMappings.Add("ROLL_DICE", typeof(RollDicePacket));
             _packetTypeMappings.Add("PAYMENT_DECISION", typeof(PaymentDecisionPacket));
             _packetTypeMappings.Add("BUY_HOUSE", typeof(BuildHousePacket));
+            _packetTypeMappings.Add("AUCTION_BID", typeof(AuctionBidPacket));
             _packetTypeMappings.Add("END_TURN", typeof(EndTurnPacket));
 			_packetTypeMappings.Add("USE_CARD", typeof(UseCardPacket));
             _packetTypeMappings.Add("READY", typeof(ReadyPacket));

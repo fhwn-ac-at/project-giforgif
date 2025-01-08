@@ -10,9 +10,9 @@
 
 		public event Action<AuctionState> AuctionEnded;
 
-		public AuctionState(int FieldId)
+		public AuctionState(int fieldId)
 		{
-			FieldId = FieldId;
+			FieldId = fieldId;
 		}
 
 		public bool PlaceBid(Player player, int bidAmount)
