@@ -128,8 +128,6 @@ namespace GameServer.Handlers
 
 			Game game = GetGame(context);
             Player player = PlayerStore.GetPlayer(context.ConnectionId);
-            
-			game.FieldEventOccurred += async (sender, packet) => await Game_FieldEventOccurredAsync(sender, context, packet);
 
 			var currentMover = game.CurrentMover;
 
@@ -165,9 +163,10 @@ namespace GameServer.Handlers
 
 			// Player does not want to buy, auction or can't afford 
 			StartAuctionPacket auctionPacket = new StartAuctionPacket();
-			auctionPacket.FieldId = currentMover.CurrentPositionFieldId; // Startaution 
+			auctionPacket.FieldId = game.CurrentMover.CurrentPositionFieldId; // Startaution 
+            await Console.Out.WriteLineAsync(game.CurrentMover.CurrentPositionFieldId.ToString());
 
-			game.StartAuction(auctionPacket.FieldId);
+            game.StartAuction(auctionPacket.FieldId);
 
 			string auctionPacketJson = JsonSerializer.Serialize(auctionPacket);
 			await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", auctionPacketJson);
