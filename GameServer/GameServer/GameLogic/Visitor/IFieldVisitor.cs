@@ -9,5 +9,9 @@ namespace GameServer.GameLogic
 		void Visit(Utility utility, Player player, bool isLanding);
 		void Visit(CommunityChest communityChest, Player player, bool isLanding);
 		void Visit(GoToJail goToJail, Player player, bool isLanding);
+		void Visit(Go go, Player player, bool isLanding);
+		void Visit(Jail jail, Player player, bool isLanding);
+		void Visit(FreeParking freeParking, Player player, bool isLanding);
+		void Visit(Tax tax, Player player, bool isLanding);
 	}
 }
