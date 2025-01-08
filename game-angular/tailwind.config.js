@@ -26,5 +26,7 @@ module.exports = {
     "border-t-yellow-600",
     "border-t-green-600",
     "border-t-red-600",
+    "bg-green-900",
+    "bg-red-900"
   ],
 };

@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Tile } from '../../types/game/tile';
 import { Player } from '../../types/game/player';
+import { House } from '../../types/game/house';
+import { Title } from '@angular/platform-browser';
+import { Hotel } from '../../types/game/hotel';
 
 @Injectable({
   providedIn: 'root',
@@ -20,9 +23,60 @@ export class GameService {
     this.setUpFields();
   }
 
-  public getPlayerByName(name: string): Player | undefined {
-    return { name: name, currency: 0, color: 'blue', currentPosition: 1 };
+  public buildHouse(index: number) {
+    const tile = this.tiles.get(index);
 
+    if (!tile) {
+      return;
+    }
+
+    if (tile.buildings.length <= 3) {
+      tile.buildings.push(new House('bg-green-900'));
+    } else {
+      tile.buildings = [new Hotel('bg-red-900')];
+    }
+
+    this.tiles = new Map(this.tiles);
+  }
+
+  public payPlayer(from: Player, to: Player, amount: number) {
+    from.currency -= amount;
+    to.currency += amount;
+  }
+
+  public setPlayerPosition(player: Player, position: number) {
+    const current = this.fields.get(player.currentPosition);
+
+    if (!current) {
+      return;
+    }
+
+    this.fields.set(player.currentPosition, [
+      ...current.filter((name) => name !== this.currentMover?.name),
+    ]);
+
+    const field = this.fields.get(position);
+
+    if (field) {
+      field.push(player.name);
+      player.currentPosition = position;
+      this.fields = new Map(this.fields);
+      return;
+    }
+  }
+
+  public setOwner(player: Player, fieldId: number) {
+    const tile = this.tiles.get(fieldId);
+
+    if (!tile) {
+      return;
+    }
+
+    tile.owner = player;
+    this.tiles = new Map(this.tiles);
+  }
+
+  public getPlayerByName(name: string): Player | undefined {
     return this.players.find((p) => p.name === name);
   }
 
@@ -31,11 +85,17 @@ export class GameService {
       return;
     }
 
+    if (this.currentMover.currentPosition + value == 30) {
+      return;
+    }
+
     const field = this.fields.get(this.currentMover.currentPosition);
 
     if (!field) {
       return;
     }
+
+    console.log(field);
 
     this.fields.set(this.currentMover.currentPosition, [
       ...field.filter((name) => name !== this.currentMover?.name),
@@ -51,7 +111,9 @@ export class GameService {
 
     this.fields
       .get(this.currentMover.currentPosition)
-      ?.push(this.currentMover.color);
+      ?.push(this.currentMover.name);
+
+    this.fields = new Map(this.fields);
   }
 
   private setUpFields() {

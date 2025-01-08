@@ -10,10 +10,6 @@ export class NextTurnComponent {
   protected name: string = '';
   protected visible = false;
 
-  constructor() {
-    this.open('marvin');
-  }
-
   public open(name: string) {
     this.name = name;
     this.visible = true;

@@ -21,10 +21,6 @@ export class BuyTileComponent {
   protected tile: Tile | null = null;
   private readonly gameService = inject(GameService);
 
-  // constructor() {
-  //   this.showBuyOption(4);
-  // }
-
   public showBuyOption(index: number) {
     this.visible = true;
     this.tile = this.gameService.tiles.get(index)!;

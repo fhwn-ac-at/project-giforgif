@@ -3,4 +3,5 @@ export type Player = {
   currency: number;
   color: 'red' | 'green' | 'yellow' | 'blue';
   currentPosition: number,
+  isInJail: boolean,
 };
