@@ -120,7 +120,12 @@ namespace GameServer.Handlers
 
 			if (e.GetType() == typeof(GoToJailPacket))
 			{
-				Game game = GetGame(context);
+				// First send Package that player is going to jail
+                string goToJail = JsonSerializer.Serialize(e, e.GetType());
+                await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", goToJail);
+
+				// Then send package that next player is up
+                Game game = GetGame(context);
                 Player newCurrent = game.GetNextPlayer();
                 PlayersTurnPacket playersTurn = new PlayersTurnPacket();
                 playersTurn.PlayerName = newCurrent.Name;
