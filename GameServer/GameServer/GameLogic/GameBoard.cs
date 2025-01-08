@@ -6,6 +6,7 @@ namespace GameServer.GameLogic
 	public class GameBoard
 	{
 		//private List<IField> _fields { get; set; } = [];
+		public Dictionary<string, PropertyGroup> Groups { get; set; } = [];
 
 		private Dictionary<int, IField> _fields { get; set; } = [];
 		
@@ -13,6 +14,7 @@ namespace GameServer.GameLogic
 
 		public void AddField(IField field)
 		{
+			field.Id = _fields.Count;
 			_fields.Add(field.Id, field);
 		}
 
