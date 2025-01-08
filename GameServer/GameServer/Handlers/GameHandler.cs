@@ -109,7 +109,7 @@ namespace GameServer.Handlers
 
 		private async Task Game_FieldEventOccurredAsync(object? sender, HubCallerContext context, Packet e)
 		{
-			if (e is BuyRequestPacket buyRequestPacket)
+			if (e.GetType() == typeof(BuyRequestPacket))
 			{
 				string packet = JsonSerializer.Serialize(e);
 				await _lobbyContext.Clients.Client(context.ConnectionId).SendAsync("ReceivePacket", packet);
@@ -147,6 +147,7 @@ namespace GameServer.Handlers
 					BoughtFieldPacket buySuccessfulPacket = new BoughtFieldPacket();
 					buySuccessfulPacket.PlayerName = currentMover.Name;
 					buySuccessfulPacket.FieldId = currentMover.CurrentPositionFieldId;
+					buySuccessfulPacket.ReducedBy = field.BuyingPrice;
 					
 					string packetJson = JsonSerializer.Serialize(buySuccessfulPacket);
 					await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", packetJson);
