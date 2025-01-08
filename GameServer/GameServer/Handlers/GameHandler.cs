@@ -31,7 +31,8 @@ namespace GameServer.Handlers
 				if (game.ReadyPlayers == 0)
 				{
 					game.Setup();
-				}
+					game.FieldEventOccurred += async (sender, packet) => await Game_FieldEventOccurredAsync(sender, context, packet);
+                }
 
 
 				game.ReadyPlayers++;
@@ -72,7 +73,7 @@ namespace GameServer.Handlers
 			RollDicePacket parsedpacket = (RollDicePacket)packet;
 
 			Game game = GetGame(context);
-			game.FieldEventOccurred += async (sender, packet) => await Game_FieldEventOccurredAsync(sender, context, packet);
+
 			//game.Callback = (packet) => GameEventOccured(context, packet);
 
 			Player player = PlayerStore.GetPlayer(context.ConnectionId);
@@ -126,7 +127,9 @@ namespace GameServer.Handlers
 
 			if (e.GetType() == typeof(GoToJailPacket))
 			{
-				// First send Package that player is going to jail
+
+                Console.WriteLine("HELLO");
+                // First send Package that player is going to jail
                 string goToJail = JsonSerializer.Serialize(e, e.GetType());
                 await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", goToJail);
 
@@ -134,12 +137,12 @@ namespace GameServer.Handlers
 
 				// Then send package that next player is up
                 Game game = GetGame(context);
-                Player newCurrent = game.GetNextPlayer();
-                PlayersTurnPacket playersTurn = new PlayersTurnPacket();
-                playersTurn.PlayerName = newCurrent.Name;
+				Player newCurrent = game.GetNextPlayer();
+				PlayersTurnPacket playersTurn = new PlayersTurnPacket();
+				playersTurn.PlayerName = newCurrent.Name;
 
-                string jsonPacket = JsonSerializer.Serialize(playersTurn);
-                await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", jsonPacket);
+				string jsonPacket = JsonSerializer.Serialize(playersTurn);
+				await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", jsonPacket);
 				return;
             }
 
