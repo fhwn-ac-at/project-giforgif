@@ -26,15 +26,15 @@ namespace GameServer.Handlers
 		public async Task HandleReadyPacket(Packet packet, HubCallerContext context)
 		{
 			Game game = GetGame(context);
-
-			if (game.ReadyPlayers == 0)
-			{
-				game.Setup();
-			}
+            lock (obj)
+            {
+                if (game.ReadyPlayers == 0)
+				{
+					game.Setup();
+				}
 			
-			lock(obj)
-			{
-			game.ReadyPlayers++;
+			
+				game.ReadyPlayers++;
 			}
 			
             // Integer in Game incrementen

@@ -6,7 +6,7 @@ namespace GameServer.GameLogic
 	public class GameBoard
 	{
 		//private List<IField> _fields { get; set; } = [];
-		public Dictionary<string, PropertyGroup> Groups { get; set; } = [];
+		public Dictionary<string, PropertyGroup> Groups { get; set; } = new Dictionary<string, PropertyGroup>();
 
 		private Dictionary<int, IField> _fields { get; set; } = [];
 		
