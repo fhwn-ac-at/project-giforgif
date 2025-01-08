@@ -6,7 +6,7 @@ namespace GameServer.Models.Fields
     {
         //public string GroupID { get; set; }
 
-        public PropertyField[] Properties { get; set; } = [];
+        public List<PropertyField> Properties { get; set; } = [];
 
         public int AmountOfWOwnedProperties(Player player)
         {
