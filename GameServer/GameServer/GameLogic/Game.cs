@@ -39,7 +39,7 @@ namespace GameServer.GameLogic
 
             List<string> colors = new List<string>() { "red", "blue", "green", "yellow"};
 
-            if (Players.Count != colors.Count)
+            if (Players.Count > colors.Count)
                 throw new InvalidOperationException("The number of players must be equal to the number of colors");
 
             for (int i = 0; i < Players.Count; i++)
