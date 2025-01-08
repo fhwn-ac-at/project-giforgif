@@ -94,6 +94,7 @@ namespace GameServer.GameLogic
                 Group = _board.Groups["purple"]
             };
             field.FieldEventOccurred += OnFieldEventOccurred;
+            _board.Groups["purple"].Properties.Add((PropertyField)field);
             _board.AddField(field);
 
             field = new CommunityChest()
@@ -112,6 +113,7 @@ namespace GameServer.GameLogic
                 Group = _board.Groups["purple"]
             };
             field.FieldEventOccurred += OnFieldEventOccurred;
+            _board.Groups["purple"].Properties.Add((PropertyField)field);
             _board.AddField(field);
 
             field = new Tax()
@@ -129,6 +131,7 @@ namespace GameServer.GameLogic
                 Group = _board.Groups["station"]
             };
             field.FieldEventOccurred += OnFieldEventOccurred;
+            _board.Groups["station"].Properties.Add((PropertyField)field);
             _board.AddField(field);
 
             field = new Site()
@@ -140,6 +143,7 @@ namespace GameServer.GameLogic
                 Group = _board.Groups["white"]
             };
             field.FieldEventOccurred += OnFieldEventOccurred;
+            _board.Groups["white"].Properties.Add((PropertyField)field);
             _board.AddField(field);
 
             field = new Chance()
@@ -158,6 +162,7 @@ namespace GameServer.GameLogic
                 Group = _board.Groups["white"]
             };
             field.FieldEventOccurred += OnFieldEventOccurred;
+            _board.Groups["white"].Properties.Add((PropertyField)field);
             _board.AddField(field);
 
             field = new Site()
@@ -169,6 +174,7 @@ namespace GameServer.GameLogic
                 Group = _board.Groups["white"]
             };
             field.FieldEventOccurred += OnFieldEventOccurred;
+            _board.Groups["white"].Properties.Add((PropertyField)field);
             _board.AddField(field);
 
             field = new Jail()
@@ -187,6 +193,7 @@ namespace GameServer.GameLogic
                 Group = _board.Groups["pink"]
             };
             field.FieldEventOccurred += OnFieldEventOccurred;
+            _board.Groups["pink"].Properties.Add((PropertyField)field);
             _board.AddField(field);
 
             field = new Utility()
@@ -196,6 +203,7 @@ namespace GameServer.GameLogic
                 RolledDice = 0
             };
             field.FieldEventOccurred += OnFieldEventOccurred;
+            _board.Groups["utility"].Properties.Add((PropertyField)field);
             _board.AddField(field);
 
             field = new Site()
@@ -207,6 +215,7 @@ namespace GameServer.GameLogic
                 Group = _board.Groups["pink"]
             };
             field.FieldEventOccurred += OnFieldEventOccurred;
+            _board.Groups["pink"].Properties.Add((PropertyField)field);
             _board.AddField(field);
 
             field = new Site()
@@ -218,6 +227,7 @@ namespace GameServer.GameLogic
                 Group = _board.Groups["pink"]
             };
             field.FieldEventOccurred += OnFieldEventOccurred;
+            _board.Groups["pink"].Properties.Add((PropertyField)field);
             _board.AddField(field);
 
             field = new Station()
@@ -227,6 +237,7 @@ namespace GameServer.GameLogic
                 Group = _board.Groups["station"]
             };
             field.FieldEventOccurred += OnFieldEventOccurred;
+            _board.Groups["station"].Properties.Add((PropertyField)field);
             _board.AddField(field);
 
             field = new Site()
@@ -238,6 +249,7 @@ namespace GameServer.GameLogic
                 Group = _board.Groups["orange"]
             };
             field.FieldEventOccurred += OnFieldEventOccurred;
+            _board.Groups["orange"].Properties.Add((PropertyField)field);
             _board.AddField(field);
 
             field = new CommunityChest()
@@ -256,6 +268,7 @@ namespace GameServer.GameLogic
                 Group = _board.Groups["orange"]
             };
             field.FieldEventOccurred += OnFieldEventOccurred;
+            _board.Groups["orange"].Properties.Add((PropertyField)field);
             _board.AddField(field);
 
             field = new Site()
@@ -267,6 +280,7 @@ namespace GameServer.GameLogic
                 Group = _board.Groups["orange"]
             };
             field.FieldEventOccurred += OnFieldEventOccurred;
+            _board.Groups["orange"].Properties.Add((PropertyField)field);
             _board.AddField(field);
 
             field = new FreeParking()
@@ -285,6 +299,7 @@ namespace GameServer.GameLogic
                 Group = _board.Groups["red"]
             };
             field.FieldEventOccurred += OnFieldEventOccurred;
+            _board.Groups["red"].Properties.Add((PropertyField)field);
             _board.AddField(field);
 
             field = new Chance()
@@ -303,6 +318,7 @@ namespace GameServer.GameLogic
                 Group = _board.Groups["red"]
             };
             field.FieldEventOccurred += OnFieldEventOccurred;
+            _board.Groups["red"].Properties.Add((PropertyField)field);
             _board.AddField(field);
 
             field = new Site()
@@ -314,6 +330,7 @@ namespace GameServer.GameLogic
                 Group = _board.Groups["red"]
             };
             field.FieldEventOccurred += OnFieldEventOccurred;
+            _board.Groups["red"].Properties.Add((PropertyField)field);
             _board.AddField(field);
 
             field = new Station()
@@ -323,6 +340,7 @@ namespace GameServer.GameLogic
                 Group = _board.Groups["station"]
             };
             field.FieldEventOccurred += OnFieldEventOccurred;
+            _board.Groups["station"].Properties.Add((PropertyField)field);
             _board.AddField(field);
 
             field = new Site()
@@ -334,6 +352,7 @@ namespace GameServer.GameLogic
                 Group = _board.Groups["yellow"]
             };
             field.FieldEventOccurred += OnFieldEventOccurred;
+            _board.Groups["yellow"].Properties.Add((PropertyField)field);
             _board.AddField(field);
 
             field = new Site()
@@ -345,6 +364,7 @@ namespace GameServer.GameLogic
                 Group = _board.Groups["yellow"]
             };
             field.FieldEventOccurred += OnFieldEventOccurred;
+            _board.Groups["yellow"].Properties.Add((PropertyField)field);
             _board.AddField(field);
 
             field = new Utility()
@@ -354,6 +374,7 @@ namespace GameServer.GameLogic
                 RolledDice = 0
             };
             field.FieldEventOccurred += OnFieldEventOccurred;
+            _board.Groups["utility"].Properties.Add((PropertyField)field);
             _board.AddField(field);
 
             field = new Site()
@@ -365,6 +386,7 @@ namespace GameServer.GameLogic
                 Group = _board.Groups["yellow"]
             };
             field.FieldEventOccurred += OnFieldEventOccurred;
+            _board.Groups["yellow"].Properties.Add((PropertyField)field);
             _board.AddField(field);
 
             field = new GoToJail()
@@ -383,6 +405,7 @@ namespace GameServer.GameLogic
                 Group = _board.Groups["green"]
             };
             field.FieldEventOccurred += OnFieldEventOccurred;
+            _board.Groups["green"].Properties.Add((PropertyField)field);
             _board.AddField(field);
 
             field = new Site()
@@ -394,6 +417,7 @@ namespace GameServer.GameLogic
                 Group = _board.Groups["green"]
             };
             field.FieldEventOccurred += OnFieldEventOccurred;
+            _board.Groups["green"].Properties.Add((PropertyField)field);
             _board.AddField(field);
 
             field = new CommunityChest()
@@ -412,6 +436,7 @@ namespace GameServer.GameLogic
                 Group = _board.Groups["green"]
             };
             field.FieldEventOccurred += OnFieldEventOccurred;
+            _board.Groups["green"].Properties.Add((PropertyField)field);
             _board.AddField(field);
 
             field = new Station()
@@ -421,6 +446,7 @@ namespace GameServer.GameLogic
                 Group = _board.Groups["station"]
             };
             field.FieldEventOccurred += OnFieldEventOccurred;
+            _board.Groups["station"].Properties.Add((PropertyField)field);
             _board.AddField(field);
 
             field = new Chance()
@@ -439,6 +465,7 @@ namespace GameServer.GameLogic
                 Group = _board.Groups["blue"]
             };
             field.FieldEventOccurred += OnFieldEventOccurred;
+            _board.Groups["blue"].Properties.Add((PropertyField)field);
             _board.AddField(field);
 
             field = new Tax()
@@ -458,6 +485,7 @@ namespace GameServer.GameLogic
                 Group = _board.Groups["blue"]
             };
             field.FieldEventOccurred += OnFieldEventOccurred;
+            _board.Groups["blue"].Properties.Add((PropertyField)field);
             _board.AddField(field);
         }
 
