@@ -39,6 +39,7 @@ namespace GameServer.Handlers
 			_packetFunctions.Add("END_TURN", _gameHandler.HandleEndTurnPacket);
             _packetFunctions.Add("USE_CARD", _gameHandler.HandleUseCardPacket);
             _packetFunctions.Add("READY", _gameHandler.HandleReadyPacket);
+            _packetFunctions.Add("JAIL_PAYOUT", _gameHandler.HandleJailPayoutPacket);
             _connectionMapping = connectionMapping;
         }
 
