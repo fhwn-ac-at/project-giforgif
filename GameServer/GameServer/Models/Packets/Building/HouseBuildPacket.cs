@@ -3,7 +3,6 @@
 	public class HouseBuiltPacket : Packet
 	{
 		public override string Type => "HOUSE_BUILT";
-
-		public int? FieldId;
+		public int? FieldId { get; set; }
 	}
 }
