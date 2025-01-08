@@ -61,9 +61,327 @@ namespace GameServer.GameLogic
 
             field.FieldEventOccurred += OnFieldEventOccurred;
 
-            _board.AddField(field);
+            FillBoardWithWarhammerTheme();
 
             // _board.AddCard(new Card() { Name = "Get Out Of Jail Free!" }); Load the cards somehow
+        }
+
+        private void FillBoardWithWarhammerTheme()
+        {
+            if (_board == null)
+            {
+                throw new ArgumentNullException("The instance of the gameBoard must not be null");
+            }
+
+            _board.Groups.Add("purple", new PropertyGroup());
+            _board.Groups.Add("white", new PropertyGroup());
+            _board.Groups.Add("pink", new PropertyGroup());
+            _board.Groups.Add("orange", new PropertyGroup());
+            _board.Groups.Add("red", new PropertyGroup());
+            _board.Groups.Add("yellow", new PropertyGroup());
+            _board.Groups.Add("green", new PropertyGroup());
+            _board.Groups.Add("blue", new PropertyGroup());
+            _board.Groups.Add("utility", new PropertyGroup());
+            _board.Groups.Add("station", new PropertyGroup());
+
+            _board.AddField(new Go() { Name = "GO" });
+
+            _board.AddField(new Site()
+            {
+                Name = "Drakwald Forest",
+                BuyingPrice = 60,
+                RentPrices = new int[6] { 2, 10, 30, 90, 160, 250 },
+                Housecount = 0,
+                Group = _board.Groups["purple"]
+            });
+
+            _board.AddField(new CommunityChest()
+            { 
+                Name = "Community Chest"
+            });
+
+            _board.AddField(new Site()
+            {
+                Name = "Hel Fenn",
+                BuyingPrice = 60,
+                RentPrices = new int[6] { 4, 20, 60, 180, 320, 450 },
+                Housecount = 0,
+                Group = _board.Groups["purple"]
+            });
+
+            _board.AddField(new Tax()
+            {
+                Name = "Income Tax",
+                Amount = 200 // Theoretically should be 200 or 10% of the player's total worth
+            });
+
+            _board.AddField(new Station()
+            {
+                Name = "Altdorf Train",
+                RentPrices = new int[4] { 25, 50, 100, 200 },
+                Group = _board.Groups["station"]
+            });
+
+            _board.AddField(new Site()
+            {
+                Name = "Altdorf Outskirts",
+                BuyingPrice = 100,
+                RentPrices = new int[6] { 6, 30, 90, 270, 400, 550 },
+                Housecount = 0,
+                Group = _board.Groups["white"]
+            });
+
+            _board.AddField(new Chance()
+            {
+                Name = "Chance"
+            });
+
+            _board.AddField(new Site()
+            {
+                Name = "Carroburg Docks",
+                BuyingPrice = 100,
+                RentPrices = new int[6] { 6, 30, 90, 270, 400, 550 },
+                Housecount = 0,
+                Group = _board.Groups["white"]
+            });
+
+            _board.AddField(new Site()
+            {
+                Name = "Reikland Hills",
+                BuyingPrice = 120,
+                RentPrices = new int[6] { 8, 40, 100, 300, 450, 600 },
+                Housecount = 0,
+                Group = _board.Groups["white"]
+            });
+
+            _board.AddField(new Jail()
+            {
+                Name = "Jail"
+            });
+
+            _board.AddField(new Site()
+            {
+                Name = "Middenheim Gate",
+                BuyingPrice = 140,
+                RentPrices = new int[6] { 10, 50, 150, 450, 625, 750 },
+                Housecount = 0,
+                Group = _board.Groups["pink"]
+            });
+
+            _board.AddField(new Utility()
+            {
+                Name = "Dwarfen Jewerly Forges",
+                Group = _board.Groups["utility"],
+                RolledDice = 0 // We need another way of rolling dice here, cant be set at construction time
+            });
+
+            _board.AddField(new Site()
+            {
+                Name = "Nuln Foundry",
+                BuyingPrice = 140,
+                RentPrices = new int[6] { 10, 50, 150, 450, 625, 750 },
+                Housecount = 0,
+                Group = _board.Groups["pink"]
+            });
+
+            _board.AddField(new Site()
+            {
+                Name = "Averheim Market",
+                BuyingPrice = 160,
+                RentPrices = new int[6] { 12, 60, 180, 500, 700, 900 },
+                Housecount = 0,
+                Group = _board.Groups["pink"]
+            });
+
+            _board.AddField(new Station()
+            {
+                Name = "Kislev Train",
+                RentPrices = new int[4] { 25, 50, 100, 200 },
+                Group = _board.Groups["station"]
+            });
+
+            _board.AddField(new Site()
+            {
+                Name = "Marienburg Wharf",
+                BuyingPrice = 180,
+                RentPrices = new int[6] { 14, 70, 200, 550, 750, 950 },
+                Housecount = 0,
+                Group = _board.Groups["orange"]
+            });
+
+            _board.AddField(new CommunityChest()
+            {
+                Name = "Community Chest"
+            });
+
+            _board.AddField(new Site()
+            {
+                Name = "Blackfire Pass",
+                BuyingPrice = 180,
+                RentPrices = new int[6] { 14, 70, 200, 550, 750, 950 },
+                Housecount = 0,
+                Group = _board.Groups["orange"]
+            });
+
+            _board.AddField(new Site()
+            {
+                Name = "Talabheim Road",
+                BuyingPrice = 200,
+                RentPrices = new int[6] { 16, 80, 220, 600, 800, 1000 },
+                Housecount = 0,
+                Group = _board.Groups["orange"]
+            });
+
+            _board.AddField(new FreeParking()
+            {
+                Name = "Free Parking"
+            });
+
+            _board.AddField(new Site()
+            {
+                Name = "Sylvania Crypts",
+                BuyingPrice = 220,
+                RentPrices = new int[6] { 18, 90, 250, 700, 875, 1050 },
+                Housecount = 0,
+                Group = _board.Groups["red"]
+            });
+
+            _board.AddField(new Chance()
+            {
+                Name = "Chance"
+            });
+
+            _board.AddField(new Site()
+            {
+                Name = "Templehof Ruins",
+                BuyingPrice = 220,
+                RentPrices = new int[6] { 18, 90, 250, 700, 875, 1050 },
+                Housecount = 0,
+                Group = _board.Groups["red"]
+            });
+
+            _board.AddField(new Site()
+            {
+                Name = "Drakenhof Castle",
+                BuyingPrice = 240,
+                RentPrices = new int[6] { 20, 100, 300, 750, 925, 1100 },
+                Housecount = 0,
+                Group = _board.Groups["red"]
+            });
+
+            _board.AddField(new Station()
+            {
+                Name = "Northern Warmammoths",
+                RentPrices = new int[4] { 25, 50, 100, 200 },
+                Group = _board.Groups["station"]
+            });
+
+            _board.AddField(new Site()
+            {
+                Name = "Morrslieb's Rise",
+                BuyingPrice = 260,
+                RentPrices = new int[6] { 22, 110, 330, 800, 975, 1150 },
+                Housecount = 0,
+                Group = _board.Groups["yellow"]
+            });
+
+            _board.AddField(new Site()
+            {
+                Name = "Grimhold Mines",
+                BuyingPrice = 260,
+                RentPrices = new int[6] { 22, 110, 330, 800, 975, 1150 },
+                Housecount = 0,
+                Group = _board.Groups["yellow"]
+            });
+
+            _board.AddField(new Utility()
+            {
+                Name = "Imperial Brewery",
+                Group = _board.Groups["utility"],
+                RolledDice = 0 // We need another way of rolling dice here, cant be set at construction time
+            });
+
+            _board.AddField(new Site()
+            {
+                Name = "Ekrund Hold",
+                BuyingPrice = 280,
+                RentPrices = new int[6] { 24, 120, 360, 850, 1025, 1200 },
+                Housecount = 0,
+                Group = _board.Groups["yellow"]
+            });
+
+            _board.AddField(new GoToJail()
+            {
+                Name = "Go To Jail"
+            });
+
+            _board.AddField(new Site()
+            {
+                Name = "Karak Kadrin",
+                BuyingPrice = 300,
+                RentPrices = new int[6] { 26, 130, 390, 900, 1100, 1275 },
+                Housecount = 0,
+                Group = _board.Groups["green"]
+            });
+
+            _board.AddField(new Site()
+            {
+                Name = "Karak Eight Peaks",
+                BuyingPrice = 300,
+                RentPrices = new int[6] { 26, 130, 390, 900, 1100, 1275 },
+                Housecount = 0,
+                Group = _board.Groups["green"]
+            });
+
+            _board.AddField(new CommunityChest()
+            {
+                Name = "Community Chest"
+            });
+
+            _board.AddField(new Site()
+            {
+                Name = "Zharr Naggrund",
+                BuyingPrice = 320,
+                RentPrices = new int[6] { 28, 150, 450, 1000, 1200, 1400 },
+                Housecount = 0,
+                Group = _board.Groups["green"]
+            });
+
+            _board.AddField(new Station()
+            {
+                Name = "Dwarven Tunnels",
+                RentPrices = new int[4] { 25, 50, 100, 200 },
+                Group = _board.Groups["station"]
+            });
+
+            _board.AddField(new Chance()
+            {
+                Name = "Chance"
+            });
+
+            _board.AddField(new Site()
+            {
+                Name = "Naggarond",
+                BuyingPrice = 350,
+                RentPrices = new int[6] { 35, 175, 500, 1100, 1300, 1500 },
+                Housecount = 0,
+                Group = _board.Groups["blue"]
+            });
+
+            _board.AddField(new Tax()
+            {
+                Name = "Luxury Tax",
+                Amount = 75
+            });
+
+            _board.AddField(new Site()
+            {
+                Name = "Ulthuan",
+                BuyingPrice = 400,
+                RentPrices = new int[6] { 50, 200, 600, 1400, 1700, 2000 },
+                Housecount = 0,
+                Group = _board.Groups["blue"]
+            });
         }
 
         public void StartCounter()
