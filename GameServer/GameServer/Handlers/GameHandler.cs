@@ -118,6 +118,18 @@ namespace GameServer.Handlers
 				return;
 			}
 
+			if (e.GetType() == typeof(GoToJailPacket))
+			{
+				Game game = GetGame(context);
+                Player newCurrent = game.GetNextPlayer();
+                PlayersTurnPacket playersTurn = new PlayersTurnPacket();
+                playersTurn.PlayerName = newCurrent.Name;
+
+                string jsonPacket = JsonSerializer.Serialize(playersTurn);
+                await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", jsonPacket);
+				return;
+            }
+
             string pkg = JsonSerializer.Serialize(e, e.GetType());
 			await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", pkg);
 		}

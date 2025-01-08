@@ -174,6 +174,10 @@ namespace GameServer.GameLogic
 			if (isLanding)
 			{
 				_game.SetPlayerPosition(player, 10); // TODO: Find out Jail Field ID; Solved this by hardcoding 10 (Jail Field ID)
+
+				player.RoundsLeftInJail = 3;
+
+				goToJail.RaiseEvent("GO_TO_JAIL", new GoToJailPacket() { PlayerName = player.Name });
 			}
 		}
 
@@ -193,9 +197,9 @@ namespace GameServer.GameLogic
                 return;
 
 			if (!isLanding)
-			{
-				// Yeah idk
-			}
+				return;
+
+			// Maybe add logic here not sure
         }
 
         public void Visit(FreeParking freeParking, Player player, bool isLanding)
