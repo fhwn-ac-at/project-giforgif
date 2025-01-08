@@ -317,13 +317,13 @@ namespace GameServer.Handlers
 			if (player != game.CurrentMover)
 				return;
 
-            await Console.Out.WriteLineAsync($"B4 Next: {game.CurrentMover.Name} with {game.CurrentMover.Currency} dollarus");
+            await Console.Out.WriteLineAsync($"B4 Next: {game.CurrentMover.Name} with {game.CurrentMover.Currency} dollarus and {game.CurrentMover.RoundsLeftInJail} jail time left");
 
             Player newCurrent = game.GetNextPlayer();
 			PlayersTurnPacket playersTurn = new PlayersTurnPacket();
 			playersTurn.PlayerName = newCurrent.Name;
 
-            await Console.Out.WriteLineAsync($"After Next: {game.CurrentMover.Name} with {game.CurrentMover.Currency} dollarus");
+            await Console.Out.WriteLineAsync($"B4 Next: {game.CurrentMover.Name} with {game.CurrentMover.Currency} dollarus and {game.CurrentMover.RoundsLeftInJail} jail time left");
 
             string jsonPacket = JsonSerializer.Serialize(playersTurn);
 			await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", jsonPacket);
@@ -333,11 +333,11 @@ namespace GameServer.Handlers
 				if (game.CurrentMover.RoundsLeftInJail == 1)
 				{
 					// Last round in jail, has to buyout
-					if (player.CanAfford(50))
+					if (newCurrent.CanAfford(50))
 					{
 						await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", JsonSerializer.Serialize(new JailPayoutSucessPacket() { Cost = 50, PlayerName = newCurrent.Name }));
-						player.DeductCurrency(50);
-						player.RoundsLeftInJail = 0;
+                        newCurrent.DeductCurrency(50);
+                        newCurrent.RoundsLeftInJail = 0;
 						return;
 					}
 					else
