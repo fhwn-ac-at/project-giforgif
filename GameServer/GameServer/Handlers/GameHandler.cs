@@ -23,20 +23,34 @@ namespace GameServer.Handlers
 
 		public async Task HandleReadyPacket(Packet packet, HubCallerContext context)
 		{
+			Game game = GetGame(context);
+
+			if (game.ReadyPlayers == 0)
+			{
+				game.Setup();
+			}
+			game.ReadyPlayers++;
             // Integer in Game incrementen
 
 			GameStatePacket pkg = new GameStatePacket();
-            pkg.Me = player;
-            pkg.Players = game.Players.Where(p => p.ConnectionId != player.ConnectionId).ToList();
+            pkg.Me = PlayerStore.GetPlayer(context.ConnectionId);
+            pkg.Players = game.Players.Where(p => p.ConnectionId != pkg.Me.ConnectionId).ToList();
 
             string packetJson = JsonSerializer.Serialize(pkg);
             await _lobbyContext.Clients.Client(context.ConnectionId).SendAsync("ReceivePacket", packetJson);
 
 
             // when integer is amount of players (3 or 4)
-
+			if (game.ReadyPlayers == game.Players.Count)
+			{
+				PlayersTurnPacket playersTurn = new PlayersTurnPacket();
+				playersTurn.PlayerName = game.CurrentMover.Name;
+				
+				packetJson = JsonSerializer.Serialize(playersTurn);
+				await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", packetJson);
+			}
 			// send whos turn it is
-            await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", );
+
         }
 
 
