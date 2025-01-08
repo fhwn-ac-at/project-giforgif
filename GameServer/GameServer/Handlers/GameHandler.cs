@@ -80,22 +80,26 @@ namespace GameServer.Handlers
 			if (game.CurrentMover == null || game.CurrentMover != player)
 				return;
 
-			int rolled = game.RollDice();
+			if (!game.CurrentMoverRolled)
+			{
+				// If player has not rolled yet
+				int rolled = game.RollDice();
 
-			RolledPacket rolledPacket = new RolledPacket();
-			rolledPacket.PlayerName = game.CurrentMover.Name;
-			rolledPacket.RolledNumber = rolled;
+				RolledPacket rolledPacket = new RolledPacket();
+				rolledPacket.PlayerName = game.CurrentMover.Name;
+				rolledPacket.RolledNumber = rolled;
 
-			string packetJson = JsonSerializer.Serialize(rolledPacket);
-			await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", packetJson);
+				string packetJson = JsonSerializer.Serialize(rolledPacket);
+				await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", packetJson);
 
-			game.MovePlayer(game.CurrentMover, rolled);
-			// game.continue after roll 
+				game.MovePlayer(game.CurrentMover, rolled);
+				// game.continue after roll 
 
-			// move player to new field -> and check if passed Go field
-			// check on ownership of field
-			// if not owned sent packet if they want to buy
-			// if owner exists than check field for current rent -> state game -> houses -> rent? -> pay Player2 so und so viel money 
+				// move player to new field -> and check if passed Go field
+				// check on ownership of field
+				// if not owned sent packet if they want to buy
+				// if owner exists than check field for current rent -> state game -> houses -> rent? -> pay Player2 so und so viel money 
+			}
 
 		}
 
