@@ -173,7 +173,7 @@ namespace GameServer.GameLogic
 
 			if (isLanding)
 			{
-				_game.SetPlayerPosition(player, 10); // TODO: Find out Jail Field ID; Solved this by hardcoding 10 (Jail Field ID)
+				_game.SetPlayerPosition(player, 11); // TODO: Find out Jail Field ID; Solved this by hardcoding 11 (Jail Field ID)
 
 				player.RoundsLeftInJail = 3;
 
