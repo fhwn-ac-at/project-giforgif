@@ -15,7 +15,7 @@ namespace GameServer.Handlers
 		private readonly IHubContext<Lobby> _lobbyContext;
 		private readonly ConnectionMapping _connectionMapping;
 
-		public GameHandler(IHubContext<Lobby> lobbyContext, ConnectionMapping connectionMapping)
+        public GameHandler(IHubContext<Lobby> lobbyContext, ConnectionMapping connectionMapping)
 		{
 			_lobbyContext = lobbyContext;
 			_connectionMapping = connectionMapping;
@@ -26,29 +26,29 @@ namespace GameServer.Handlers
 		public async Task HandleReadyPacket(Packet packet, HubCallerContext context)
 		{
 			Game game = GetGame(context);
-            lock (obj)
-            {
-                if (game.ReadyPlayers == 0)
+			lock (obj)
+			{
+				if (game.ReadyPlayers == 0)
 				{
 					game.Setup();
 				}
-			
-			
+
+
 				game.ReadyPlayers++;
 			}
-			
-            // Integer in Game incrementen
+
+			// Integer in Game incrementen
 
 			GameStatePacket pkg = new GameStatePacket();
-            pkg.Me = PlayerStore.GetPlayer(context.ConnectionId);
-            pkg.Players = game.Players.Where(p => p.ConnectionId != pkg.Me.ConnectionId).ToList();
+			pkg.Me = PlayerStore.GetPlayer(context.ConnectionId);
+			pkg.Players = game.Players.Where(p => p.ConnectionId != pkg.Me.ConnectionId).ToList();
 
-            string packetJson = JsonSerializer.Serialize(pkg);
-            await _lobbyContext.Clients.Client(context.ConnectionId).SendAsync("ReceivePacket", packetJson);
+			string packetJson = JsonSerializer.Serialize(pkg);
+			await _lobbyContext.Clients.Client(context.ConnectionId).SendAsync("ReceivePacket", packetJson);
 
 
-            // when integer is amount of players (3 or 4)
-				Console.WriteLine(game.ReadyPlayers);
+			// when integer is amount of players (3 or 4)
+			Console.WriteLine(game.ReadyPlayers);
 			if (game.ReadyPlayers >= game.Players.Count)
 			{
 				new Thread(async () =>
@@ -61,13 +61,13 @@ namespace GameServer.Handlers
 					await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", packetJson);
 				}).Start();
 
-            }
+			}
 			// send whos turn it is
 
-        }
+		}
 
 
-        public async Task HandleRollDicePacket(Packet packet, HubCallerContext context)
+		public async Task HandleRollDicePacket(Packet packet, HubCallerContext context)
 		{
 			RollDicePacket parsedpacket = (RollDicePacket)packet;
 
@@ -83,7 +83,7 @@ namespace GameServer.Handlers
 			if (game.CurrentMoverRolled)
 			{
 				await _lobbyContext.Clients.Client(context.ConnectionId).SendAsync("ReceivePacket", JsonSerializer.Serialize(new ErrorPacket("ALREADY_ROLLED", "You have already rolled the dice.")));
-                return;
+				return;
 			}
 
 			// If player has not rolled yet
@@ -103,12 +103,14 @@ namespace GameServer.Handlers
 			// check on ownership of field
 			// if not owned sent packet if they want to buy
 			// if owner exists than check field for current rent -> state game -> houses -> rent? -> pay Player2 so und so viel money 
-			
+
 
 		}
 
 		private async Task Game_FieldEventOccurredAsync(object? sender, HubCallerContext context, Packet e)
 		{
+			
+
 			if (e.GetType() == typeof(BuyRequestPacket))
 			{
 				string packet = JsonSerializer.Serialize(e);
@@ -116,24 +118,8 @@ namespace GameServer.Handlers
 				return;
 			}
 
-			if (e.GetType() == typeof(PayPlayerPacket))
-			{
-				PayPlayerPacket payPlayerPacket = (PayPlayerPacket)e;
-				payPlayerPacket.From = "JOE BIDEN";
-				payPlayerPacket.To = "BIG CHUNGUS";
-                string packet = JsonSerializer.Serialize(payPlayerPacket);
-                await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", JsonSerializer.Serialize(packet));
-                return;
-            }
-
-			//if (e is StartAuctionPacket startAuctionPacket) // ? TODO: Versteh ich nicht mehr kommt warsch weg
-			//{
-			//	Game game = GetGame(context);
-			//	game.StartAuction(startAuctionPacket.FieldId);
-			//}
-
-			string packetJson = JsonSerializer.Serialize(e);
-			await _lobbyContext.Clients.Client(context.ConnectionId).SendAsync("ReceivePacket", packetJson);
+            string pkg = JsonSerializer.Serialize(e, e.GetType());
+			await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", pkg);
 		}
 
 		public async Task HandlePaymentDecisionPacket(Packet packet, HubCallerContext context)
