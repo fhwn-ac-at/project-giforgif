@@ -21,6 +21,8 @@ namespace GameServer.Handlers
 			_connectionMapping = connectionMapping;
 		}
 
+		private object obj = new object();
+		// umschreiben auf schöner
 		public async Task HandleReadyPacket(Packet packet, HubCallerContext context)
 		{
 			Game game = GetGame(context);
@@ -29,7 +31,12 @@ namespace GameServer.Handlers
 			{
 				game.Setup();
 			}
+			
+			lock(obj)
+			{
 			game.ReadyPlayers++;
+			}
+			
             // Integer in Game incrementen
 
 			GameStatePacket pkg = new GameStatePacket();
@@ -41,14 +48,20 @@ namespace GameServer.Handlers
 
 
             // when integer is amount of players (3 or 4)
-			if (game.ReadyPlayers == game.Players.Count)
+				Console.WriteLine(game.ReadyPlayers);
+			if (game.ReadyPlayers >= game.Players.Count)
 			{
-				PlayersTurnPacket playersTurn = new PlayersTurnPacket();
-				playersTurn.PlayerName = game.CurrentMover.Name;
-				
-				packetJson = JsonSerializer.Serialize(playersTurn);
-				await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", packetJson);
-			}
+				new Thread(async () =>
+				{
+					Thread.Sleep(2000);
+					PlayersTurnPacket playersTurn = new PlayersTurnPacket();
+					playersTurn.PlayerName = game.CurrentMover.Name;
+
+					packetJson = JsonSerializer.Serialize(playersTurn);
+					await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", packetJson);
+				}).Start();
+
+            }
 			// send whos turn it is
 
         }
