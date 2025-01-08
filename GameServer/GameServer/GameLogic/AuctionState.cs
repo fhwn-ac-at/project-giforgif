@@ -39,13 +39,15 @@
 			lock (this)
 			{
 				_timer.Change(_timeout, Timeout.Infinite);
-			}
+                Console.WriteLine("Timer got renewed");
+            }
 		}
 
 		public void StartTimer()
 		{
 			_timer = new Timer(OnAuctionTimeout, null, _timeout, Timeout.Infinite);
-		}
+            Console.WriteLine("Timer started!");
+        }
 
 		private void OnAuctionTimeout(object? state)
 		{
@@ -53,7 +55,8 @@
 			{
 				_timer.Dispose();
 				AuctionEnded?.Invoke(this);
-			}
+                Console.WriteLine("Auction timeouted");
+            }
 		}
 	}
 }
