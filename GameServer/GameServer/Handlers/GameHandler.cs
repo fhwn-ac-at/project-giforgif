@@ -321,6 +321,9 @@ namespace GameServer.Handlers
 			PlayersTurnPacket playersTurn = new PlayersTurnPacket();
 			playersTurn.PlayerName = newCurrent.Name;
 
+			string jsonPacket = JsonSerializer.Serialize(playersTurn);
+			await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", jsonPacket);
+
             if (game.CurrentMover.RoundsLeftInJail > 1)
             {
                 // Player still in jail
@@ -334,17 +337,12 @@ namespace GameServer.Handlers
                 {
                     await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", JsonSerializer.Serialize(new JailPayoutSucessPacket() { Cost = 50, PlayerName = player.Name}));
 					player.RoundsLeftInJail = 0;
-					return;
                 }
                 else
                 {
                     await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", JsonSerializer.Serialize(new BankruptcyPacket() { PlayerName = player.Name }));
-					return;
                 }
             }
-
-			string jsonPacket = JsonSerializer.Serialize(playersTurn);
-			await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", jsonPacket);
 		}
 
 		public async Task HandleUseCardPacket(Packet packet, HubCallerContext context)
