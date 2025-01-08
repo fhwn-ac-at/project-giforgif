@@ -465,6 +465,14 @@ namespace GameServer.GameLogic
             _board.AddField(field);
         }
 
+        public Player GetAuctionHighestBidder()
+        {
+            if (_currentAuction == null)
+                throw new InvalidOperationException("There is no auction running");
+
+            return _currentAuction.HighestBidder;
+        }
+
         public void StartCounter()
         {
             if (_counterStarted)

@@ -179,6 +179,12 @@ namespace GameServer.Handlers
 			
 			Game game = GetGame(context);
 
+			if (game.GetAuctionHighestBidder()?.ConnectionId == player.ConnectionId)
+			{
+                await _lobbyContext.Clients.Client(context.ConnectionId).SendAsync("ReceivePacket", JsonSerializer.Serialize(new ErrorPacket("BID_FAILED", "You are currently the highest bidder.")));
+                return;
+            }
+
             var result = false;
 
             lock (obj)
