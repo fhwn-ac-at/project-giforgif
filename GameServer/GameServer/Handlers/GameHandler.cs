@@ -116,6 +116,16 @@ namespace GameServer.Handlers
 				return;
 			}
 
+			if (e.GetType() == typeof(PayPlayerPacket))
+			{
+				PayPlayerPacket payPlayerPacket = (PayPlayerPacket)e;
+				payPlayerPacket.From = "JOE BIDEN";
+				payPlayerPacket.To = "BIG CHUNGUS";
+                string packet = JsonSerializer.Serialize(payPlayerPacket);
+                await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", JsonSerializer.Serialize(packet));
+                return;
+            }
+
 			//if (e is StartAuctionPacket startAuctionPacket) // ? TODO: Versteh ich nicht mehr kommt warsch weg
 			//{
 			//	Game game = GetGame(context);

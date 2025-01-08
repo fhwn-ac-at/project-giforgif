@@ -530,6 +530,7 @@ namespace GameServer.GameLogic
 
         public int RollDice()
         {
+            return 11;
 			return Rng.Next(1, 7) + Rng.Next(1, 7);
 		}
 
