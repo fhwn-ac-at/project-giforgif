@@ -119,7 +119,7 @@ namespace GameServer.Handlers
 			//}
 
 			string packetJson = JsonSerializer.Serialize(e);
-			await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", packetJson);
+			await _lobbyContext.Clients.Client(context.ConnectionId).SendAsync("ReceivePacket", packetJson);
 		}
 
 		public async Task HandlePaymentDecisionPacket(Packet packet, HubCallerContext context)

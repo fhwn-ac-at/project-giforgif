@@ -14,7 +14,7 @@ namespace GameServer.GameLogic
 
 		public void AddField(IField field)
 		{
-			field.Id = _fields.Count;
+			field.Id = _fields.Count + 1;
 			_fields.Add(field.Id, field);
 		}
 
