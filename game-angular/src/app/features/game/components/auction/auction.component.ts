@@ -2,6 +2,7 @@ import { Component, EventEmitter, inject, Output } from '@angular/core';
 import { TileCardComponent } from '../tile-card/tile-card.component';
 import { GameService } from '../../../../shared/services/game/game.service';
 import { Tile } from '../../../../shared/types/game/tile';
+import { interval, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-auction',
@@ -15,12 +16,18 @@ export class AuctionComponent {
 
   protected visible = false;
   protected disabler = false;
+  protected highestBidder = '';
+  protected currentBid = 0;
   protected tile: Tile | null = null;
+
+  protected timeLeft = 6;
+  private countdownSubscription?: Subscription;
 
   private readonly gameService = inject(GameService);
 
   // constructor() {
   //   this.showBuyOption(33);
+  //   this.startTimer();
   // }
 
   protected noInterest() {
@@ -34,5 +41,37 @@ export class AuctionComponent {
 
   public close() {
     this.visible = false;
+  }
+
+  public setHighestBidder(name: string) {
+    this.highestBidder = name;
+  }
+
+  public setCurrentBid(amount: number) {
+    this.currentBid = amount;
+  }
+
+  public startTimer() {
+    this.stopTimer();
+    this.timeLeft = 10;
+
+    this.countdownSubscription = interval(1000).subscribe(() => {
+      if (this.timeLeft > 0) {
+        this.timeLeft--;
+      } else {
+        this.stopTimer();
+      }
+    });
+  }
+
+  public resetTimer() {
+    this.timeLeft = 10;
+  }
+
+  public stopTimer() {
+    if (this.countdownSubscription) {
+      this.countdownSubscription.unsubscribe();
+      this.countdownSubscription = undefined;
+    }
   }
 }

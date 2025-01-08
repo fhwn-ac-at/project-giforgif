@@ -73,9 +73,6 @@ export class LobbyComponent extends Handler implements OnDestroy {
   }
 
   private handleStartPacket(packet: Packet) {
-
-    console.log("whop whop")
-
     if (this.countdownSubscription) {
       this.countdownSubscription.unsubscribe();
     }

@@ -25,6 +25,7 @@ export abstract class Handler {
   protected startPacketHandler() {}
 
   private handlePacket(message: string) {
+    console.log(message)
     const packet = parsePacket(message);
     const handler = this.handler.get(packet.Type);
 

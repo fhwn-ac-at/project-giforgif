@@ -36,6 +36,6 @@ export const routes: Routes = [
       import('./features/game/pages/game.component').then(
         (c) => c.GameComponent
       ),
-    // canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   },
 ];

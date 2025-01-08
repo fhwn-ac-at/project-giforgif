@@ -22,6 +22,8 @@ export class DiceComponent implements OnChanges, OnDestroy {
 
   public diced: number | null = null;
   public player: Player | null = null;
+  
+  public isDicing: boolean = false;
 
   protected animationNumber = 3;
   protected visible = false;
@@ -54,6 +56,7 @@ export class DiceComponent implements OnChanges, OnDestroy {
     }
 
     this.visible = true;
+    this.isDicing = true;
 
     this.animationSubscription = interval(100).subscribe(() => {
       this.animationNumber = this.getRandomNumber(1, 6);
@@ -69,6 +72,7 @@ export class DiceComponent implements OnChanges, OnDestroy {
     this.onStoppedDicing.emit(this.diced!);
     this.player = null;
     this.diced = null;
+    this.isDicing = false;
     this.visible = false;
   }
 

@@ -1,9 +1,12 @@
 <div class="grid grid-cols-11 grid-rows-11 w-fit bg-gray-900">
-  @for (item of board[0]; track $index) {
-  <div class="col-span-1 size-[70px] relative" [ngClass]="item.style">
+  @for (item of gameService.board[0]; track $index) {
+  <div
+    class="col-span-1 size-[70px] relative cursor-pointer"
+    [ngClass]="item.style"
+    (click)="card.open(item.index)"
+  >
     <div class="absolute h-auto right-0 left-0 bottom-full flex justify-evenly">
       @if (item.owner) {
-
       <div
         class="w-0 h-0 border-l-[20px] border-l-transparent border-b-[20px] border-r-[20px] border-r-transparent"
         [ngClass]="'border-b-' + item.owner.color + '-600'"
@@ -16,65 +19,75 @@
       }
     </div>
     <app-avatar
-      [players]="fields.get(item.index)"
+      [players]="gameService.fields.get(item.index)"
       class="p-1 flex h-full flex-wrap"
     ></app-avatar>
   </div>
   } @for (row of [1, 2, 3, 4, 5, 6, 7, 8, 9]; track $index) {
-  <div class="col-span-1 size-[70px] relative" [ngClass]="board[row][0].style">
+  <div
+    class="col-span-1 size-[70px] relative cursor-pointer"
+    [ngClass]="gameService.board[row][0].style"
+    (click)="card.open(gameService.board[row][0].index)"
+  >
     <app-avatar
-      [players]="fields.get(board[row][0].index)"
+      [players]="gameService.fields.get(gameService.board[row][0].index)"
       class="p-1 flex h-full flex-wrap"
     ></app-avatar>
 
     <div class="absolute right-1 top-0 bottom-0 flex flex-col justify-evenly">
-      @for (building of board[row][0].buildings; track $index) {
+      @for (building of gameService.board[row][0].buildings; track $index) {
       <div class="size-2" [ngClass]="building.style"></div>
       }
     </div>
     <div
       class="absolute right-full bottom-1/2 translate-y-1/2 flex justify-evenly"
     >
-      @if (board[row][0].owner) {
+      @if (gameService.board[row][0].owner) {
 
       <div
         class="w-0 h-0 border-t-[20px] border-t-transparent border-r-[20px] border-b-[20px] border-b-transparent"
-        [ngClass]="'border-r-' + board[row][0].owner.color + '-600'"
+        [ngClass]="'border-r-' + gameService.board[row][0].owner.color + '-600'"
       ></div>
 
       }
     </div>
   </div>
   <div
-    class="col-span-1 col-start-11 size-[70px] relative"
-    [ngClass]="board[row][1].style"
+    class="col-span-1 col-start-11 size-[70px] relative cursor-pointer"
+    [ngClass]="gameService.board[row][1].style"
+    (click)="card.open(gameService.board[row][1].index)"
   >
     <app-avatar
-      [players]="fields.get(board[row][1].index)"
+      [players]="gameService.fields.get(gameService.board[row][1].index)"
       class="p-1 flex h-full flex-wrap w-full items-end justify-end"
     ></app-avatar>
     <div class="absolute left-1 top-0 bottom-0 flex flex-col justify-evenly">
-      @for (building of board[row][1].buildings; track $index) {
+      @for (building of gameService.board[row][1].buildings; track $index) {
       <div class="size-2" [ngClass]="building.style"></div>
       }
     </div>
     <div
       class="absolute left-full bottom-1/2 translate-y-1/2 flex justify-evenly"
     >
-      @if (board[row][1].owner) {
+      @if (gameService.board[row][1].owner) {
 
       <div
-        class="w-0 h-0 border-t-[20px] border-t-transparent border-l-[20px] border-l-green-600 border-b-[20px] border-b-transparent"
-        [ngClass]="'border-l-' + board[row][1].owner.color + '-600'"
+        class="w-0 h-0 border-t-[20px] border-t-transparent border-l-[20px] border-b-[20px] border-b-transparent"
+        [ngClass]="'border-l-' + gameService.board[row][1].owner.color + '-600'"
       ></div>
 
       }
     </div>
   </div>
-  } @for (item of board[board.length -1]; track $index) {
-  <div class="col-span-1 size-[70px] relative" [ngClass]="item.style">
+  } @for (item of gameService.board[gameService.board.length -1]; track $index)
+  {
+  <div
+    class="col-span-1 size-[70px] relative cursor-pointer"
+    [ngClass]="item.style"
+    (click)="card.open(item.index)"
+  >
     <app-avatar
-      [players]="fields.get(item.index)"
+      [players]="gameService.fields.get(item.index)"
       class="p-1 flex items-end justify-end h-full flex-wrap"
     ></app-avatar>
 
@@ -86,7 +99,7 @@
     <div class="absolute h-10 right-0 left-0 top-full flex justify-evenly">
       @if (item.owner) {
       <div
-        class="w-0 h-0 border-l-[20px] border-l-transparent border-t-[20px] border-t-red-600 border-r-[20px] border-r-transparent"
+        class="w-0 h-0 border-l-[20px] border-l-transparent border-t-[20px] border-r-[20px] border-r-transparent"
         [ngClass]="'border-t-' + item.owner.color + '-600'"
       ></div>
       }
@@ -94,3 +107,5 @@
   </div>
   }
 </div>
+
+<app-buy-house #card></app-buy-house>
