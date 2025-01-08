@@ -10,6 +10,7 @@ namespace GameServer.GameLogic
 		public string Name { get; set; }
 		public int Currency { get; set; }
 		public int CurrentPositionFieldId { get; set; }
+		public string Color { get; set; }
 
 		public GameBoard? Board;
 		public List<Card> Cards { get; set; } = new();
