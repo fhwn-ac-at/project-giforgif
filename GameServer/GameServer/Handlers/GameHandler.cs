@@ -335,14 +335,14 @@ namespace GameServer.Handlers
 					// Last round in jail, has to buyout
 					if (player.CanAfford(50))
 					{
-						await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", JsonSerializer.Serialize(new JailPayoutSucessPacket() { Cost = 50, PlayerName = newCurrent }));
+						await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", JsonSerializer.Serialize(new JailPayoutSucessPacket() { Cost = 50, PlayerName = newCurrent.Name }));
 						player.DeductCurrency(50);
 						player.RoundsLeftInJail = 0;
 						return;
 					}
 					else
 					{
-						await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", JsonSerializer.Serialize(new BankruptcyPacket() { PlayerName = newCurrent }));
+						await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", JsonSerializer.Serialize(new BankruptcyPacket() { PlayerName = newCurrent.Name }));
 						return;
 					}
                 }
