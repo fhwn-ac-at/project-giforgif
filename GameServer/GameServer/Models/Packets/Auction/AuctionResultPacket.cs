@@ -6,5 +6,6 @@
 
         public string? WinnerPlayerName { get; set; }
         public int WinningBid { get; set; } 
+        public int PropertyId { get; set; }
     }
 }

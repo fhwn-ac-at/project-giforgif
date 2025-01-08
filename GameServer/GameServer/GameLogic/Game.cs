@@ -559,7 +559,7 @@ namespace GameServer.GameLogic
             if (winner == null)
             {
                 // If the auction failed, because noone has bid
-                OnFieldEventOccurred(this, new AuctionResultPacket() { WinnerPlayerName = null, WinningBid = 0 });
+                OnFieldEventOccurred(this, new AuctionResultPacket() { WinnerPlayerName = null, WinningBid = 0, PropertyId = auctionState.FieldId });
             }
             else 
             {
@@ -571,7 +571,7 @@ namespace GameServer.GameLogic
 
                 winner.BuyField(field, auctionState.HighestBid);
 
-                OnFieldEventOccurred(this, new AuctionResultPacket() { WinnerPlayerName = winner.Name, WinningBid = auctionState.HighestBid }); 
+                OnFieldEventOccurred(this, new AuctionResultPacket() { WinnerPlayerName = winner.Name, WinningBid = auctionState.HighestBid, PropertyId = auctionState.FieldId }); 
             }
 
             _currentAuction = null;
