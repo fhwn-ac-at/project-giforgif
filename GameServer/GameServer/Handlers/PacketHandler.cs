@@ -38,7 +38,8 @@ namespace GameServer.Handlers
             _packetFunctions.Add("BUILD_HOUSE", _gameHandler.HandleBuildingPacket);
 			_packetFunctions.Add("END_TURN", _gameHandler.HandleEndTurnPacket);
             _packetFunctions.Add("USE_CARD", _gameHandler.HandleUseCardPacket);
-			_connectionMapping = connectionMapping;
+            _packetFunctions.Add("READY", _gameHandler.HandleReadyPacket);
+            _connectionMapping = connectionMapping;
         }
 
         public async Task HandleRegisterPacket(Packet packet, HubCallerContext context)

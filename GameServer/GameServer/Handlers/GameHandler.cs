@@ -5,6 +5,8 @@ using System.Text.Json;
 using GameServer.Stores;
 using GameServer.GameLogic;
 using GameServer.Models.Fields;
+using System.Numerics;
+using GameServer.Models.Packets.Game;
 
 namespace GameServer.Handlers
 {
@@ -19,7 +21,26 @@ namespace GameServer.Handlers
 			_connectionMapping = connectionMapping;
 		}
 
-		public async Task HandleRollDicePacket(Packet packet, HubCallerContext context)
+		public async Task HandleReadyPacket(Packet packet, HubCallerContext context)
+		{
+            // Integer in Game incrementen
+
+			GameStatePacket pkg = new GameStatePacket();
+            pkg.Me = player;
+            pkg.Players = game.Players.Where(p => p.ConnectionId != player.ConnectionId).ToList();
+
+            string packetJson = JsonSerializer.Serialize(pkg);
+            await _lobbyContext.Clients.Client(context.ConnectionId).SendAsync("ReceivePacket", packetJson);
+
+
+            // when integer is amount of players (3 or 4)
+
+			// send whos turn it is
+            await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", );
+        }
+
+
+        public async Task HandleRollDicePacket(Packet packet, HubCallerContext context)
 		{
 			RollDicePacket parsedpacket = (RollDicePacket)packet;
 

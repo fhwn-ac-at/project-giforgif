@@ -2,6 +2,7 @@
 using System.Text.Json;
 using GameServer.Models.Packets.Rooms;
 using GameServer.Models.Packets.Lobby;
+using GameServer.Models.Packets.Game;
 
 namespace GameServer.Models.Packets
 {
@@ -22,7 +23,8 @@ namespace GameServer.Models.Packets
             _packetTypeMappings.Add("BUY_HOUSE", typeof(BuildHousePacket));
             _packetTypeMappings.Add("END_TURN", typeof(EndTurnPacket));
 			_packetTypeMappings.Add("USE_CARD", typeof(UseCardPacket));
-		}
+            _packetTypeMappings.Add("READY", typeof(ReadyPacket));
+        }
 
         public override Packet Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
