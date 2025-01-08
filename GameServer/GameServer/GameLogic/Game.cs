@@ -52,7 +52,7 @@ namespace GameServer.GameLogic
 
             FillBoardWithWarhammerTheme();
 
-            for (int i=0; i < _board.GetFieldCount(); i++)
+            for (int i=1; i < _board.GetFieldCount(); i++)
             {
                 if (_board.GetFieldById(i) is PropertyField propertyField)
                 {
