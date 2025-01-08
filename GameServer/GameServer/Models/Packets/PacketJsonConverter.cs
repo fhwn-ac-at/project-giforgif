@@ -25,6 +25,7 @@ namespace GameServer.Models.Packets
             _packetTypeMappings.Add("END_TURN", typeof(EndTurnPacket));
 			_packetTypeMappings.Add("USE_CARD", typeof(UseCardPacket));
             _packetTypeMappings.Add("READY", typeof(ReadyPacket));
+            _packetTypeMappings.Add("JAIL_PAYOUT", typeof(JailPayoutPacket));
         }
 
         public override Packet Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
