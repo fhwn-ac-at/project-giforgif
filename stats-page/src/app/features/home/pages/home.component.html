@@ -1,0 +1,87 @@
+<div class="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-md">
+    <h2
+      class="mt-6 text-center text-2xl/9 font-bold tracking-tight text-gray-900"
+    >
+      Spieler Statistiken
+    </h2>
+  </div>
+  <div class="mt-6 sm:mx-auto sm:w-full sm:max-w-[800px]">
+    <div class="bg-white p-4 shadow sm:rounded-lg flex justify-evenly">
+      <div class="flow-root basis-full">
+        <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div
+            class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8"
+          >
+            <table class="min-w-full divide-y divide-gray-300">
+              <thead>
+                <tr>
+                  <th
+                    scope="col"
+                    class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-3"
+                  >
+                    Spieler
+                  </th>
+                  <th
+                    scope="col"
+                    class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                  >
+                    Gespielt
+                  </th>
+                  <th
+                    scope="col"
+                    class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                  >
+                    Gewonnen
+                  </th>
+                  <th
+                    scope="col"
+                    class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                  >
+                    W/L Ratio
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="bg-white">
+                @for (player of playerPerform.data(); track $index) {
+                <tr class="even:bg-gray-50">
+                  <td class="whitespace-nowrap py-5 pl-4 pr-3 text-sm sm:pl-0">
+                    <div class="flex items-center">
+                      <div class="size-11 shrink-0">
+                        <img
+                          class="size-11 rounded-full"
+                          [src]="
+                            'https://api.dicebear.com/9.x/big-smile/svg?backgroundType=gradientLinear&backgroundColor=b6e3f4,c0aede,d1d4f9&seed=' +
+                            player.name
+                          "
+                          alt="avatar"
+                        />
+                      </div>
+                      <div class="ml-4">
+                        <div class="font-medium text-gray-900">
+                          {{ player.name }}
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                    {{ player.played }}
+                  </td>
+                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                    {{ player.won }}
+                  </td>
+                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                    {{ player.won / (player.played - player.won) }}
+                  </td>
+                </tr>
+                }
+
+                <!-- More people... -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

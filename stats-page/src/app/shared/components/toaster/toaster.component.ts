@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { ToastService } from '../../services/toast/toast.service';
-import { SharedModule } from '../../shared.module';
 import { animations } from './animation';
+import { SharedModule } from '../../shared.module';
 
 @Component({
   selector: 'app-toaster',
