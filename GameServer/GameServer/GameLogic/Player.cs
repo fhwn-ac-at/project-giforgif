@@ -173,7 +173,11 @@ namespace GameServer.GameLogic
 				if (callback != null)
 				{
 					Console.WriteLine("CALLBACK WAS NULL.");
-					callback.RaiseEvent("SELL_PROPERTIES", new SellPropertiesPacket() { Amount = amount - Currency });
+					new Thread(() =>
+					{
+						Thread.Sleep(1000);
+						callback.RaiseEvent("SELL_PROPERTIES", new SellPropertiesPacket() { Amount = amount - Currency });
+					}).Start();
 				}
 
                 return;
