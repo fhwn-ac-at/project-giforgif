@@ -7,7 +7,7 @@
   </div>
   <app-board></app-board>
   @if (gameService.me === gameService.currentMover && !dice.isDicing &&
-  !gameService.me?.isInJail) {
+  !gameService.me?.isInJail && !inDebt) {
   <div>
     <button
       class="mt-4 hidden rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:block"
@@ -37,6 +37,15 @@
     >
       Zug beenden
     </button>
+  </div>
+  }@else if(inDebt) {
+  <div
+    class="bg-white p-4 rounded-md flex flex-col items-center gap-y-2"
+  >
+    <div class="font-semibold">Du bist verschuldet!</div>
+    <div class="text-sm text-center">
+      Verkaufe Häuser oder Grundstücke um <br/> deine Schulden zu begleichen.
+    </div>
   </div>
   }@else {
   <div class="size-10"></div>

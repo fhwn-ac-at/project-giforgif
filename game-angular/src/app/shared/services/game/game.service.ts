@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { Tile } from '../../types/game/tile';
 import { Player } from '../../types/game/player';
 import { House } from '../../types/game/house';
-import { Title } from '@angular/platform-browser';
 import { Hotel } from '../../types/game/hotel';
+import { BoardConfig } from '../../themes/types/board-config';
+import { US_VERSION } from '../../themes/us-version';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +15,7 @@ export class GameService {
   public players: Player[] = [];
   public me: Player | null = null;
   public fields = new Map<number, string[]>();
-
+  public theme: BoardConfig = US_VERSION;
   public currentMover: Player | null = null;
 
   constructor() {
@@ -35,6 +36,53 @@ export class GameService {
     } else {
       tile.buildings = [new Hotel('bg-red-900')];
     }
+
+    this.tiles = new Map(this.tiles);
+  }
+
+  public removeHouse(index: number) {
+    const tile = this.tiles.get(index);
+
+    if (!tile) {
+      return;
+    }
+
+    if (tile.buildings[0] instanceof Hotel) {
+      tile.buildings = [
+        new House('bg-green-900'),
+        new House('bg-green-900'),
+        new House('bg-green-900'),
+        new House('bg-green-900'),
+      ];
+    } else {
+      tile.buildings = tile.buildings.splice(0, 1);
+    }
+
+    this.tiles = new Map(this.tiles);
+  }
+
+  public giveToPlayer(index: number, from: Player, to: Player) {
+    const tile = this.tiles.get(index);
+
+    if (!tile) {
+      return;
+    }
+
+    from.owns.splice(from.owns.findIndex(t => t === index), 1);
+    tile.owner = to;
+    tile.buildings = [];
+    this.tiles = new Map(this.tiles);
+  }
+
+  public giveToBank(index: number) {
+    const tile = this.tiles.get(index);
+
+    if (!tile) {
+      return;
+    }
+
+    tile.owner = undefined;
+    tile.buildings = [];
 
     this.tiles = new Map(this.tiles);
   }
@@ -65,7 +113,7 @@ export class GameService {
     }
   }
 
-  public setOwner(player: Player, fieldId: number) {
+  public setOwner(player: Player | undefined, fieldId: number) {
     const tile = this.tiles.get(fieldId);
 
     if (!tile) {
@@ -73,6 +121,7 @@ export class GameService {
     }
 
     tile.owner = player;
+    player?.owns.push(fieldId);
     this.tiles = new Map(this.tiles);
   }
 
@@ -125,10 +174,10 @@ export class GameService {
   private setupDefaultTiles() {
     this.tiles.set(21, new Tile(21, 'bg-black', []));
     this.tiles.set(22, new Tile(22, 'bg-red-300', []));
-    this.tiles.set(23, new Tile(23, 'bg-gray-500', []));
+    this.tiles.set(23, new Tile(23, "bg-[url('/chance.png')]", []));
     this.tiles.set(24, new Tile(24, 'bg-red-400 ', []));
     this.tiles.set(25, new Tile(25, 'bg-red-500', []));
-    this.tiles.set(26, new Tile(26, 'bg-slate-300', []));
+    this.tiles.set(26, new Tile(26, "bg-[url('/train.png')]", []));
     this.tiles.set(27, new Tile(27, 'bg-yellow-300', []));
     this.tiles.set(28, new Tile(28, 'bg-yellow-400', []));
     this.tiles.set(29, new Tile(29, 'bg-indigo-300', []));
@@ -141,17 +190,17 @@ export class GameService {
     this.tiles.set(19, new Tile(19, 'bg-orange-400', []));
     this.tiles.set(33, new Tile(33, 'bg-green-400', []));
 
-    this.tiles.set(18, new Tile(18, 'bg-fuchsia-500', []));
-    this.tiles.set(34, new Tile(34, 'bg-fuchsia-500', []));
+    this.tiles.set(18, new Tile(18, "bg-[url('/chest.png')]", []));
+    this.tiles.set(34, new Tile(34, "bg-[url('/chest.png')]", []));
 
     this.tiles.set(17, new Tile(17, 'bg-orange-300', []));
     this.tiles.set(35, new Tile(35, 'bg-green-500', []));
 
-    this.tiles.set(16, new Tile(16, 'bg-slate-300', []));
-    this.tiles.set(36, new Tile(36, 'bg-slate-300', []));
+    this.tiles.set(16, new Tile(16, "bg-[url('/train.png')]", []));
+    this.tiles.set(36, new Tile(36, "bg-[url('/train.png')]", []));
 
     this.tiles.set(15, new Tile(15, 'bg-pink-500', []));
-    this.tiles.set(37, new Tile(37, 'bg-gray-500', []));
+    this.tiles.set(37, new Tile(37, "bg-[url('/chance.png')]", []));
 
     this.tiles.set(14, new Tile(14, 'bg-pink-400', []));
     this.tiles.set(38, new Tile(38, 'bg-blue-600', []));
@@ -165,12 +214,12 @@ export class GameService {
     this.tiles.set(11, new Tile(11, 'bg-black', []));
     this.tiles.set(10, new Tile(10, 'bg-sky-500', []));
     this.tiles.set(9, new Tile(9, 'bg-sky-400', []));
-    this.tiles.set(8, new Tile(8, 'bg-gray-500', []));
+    this.tiles.set(8, new Tile(8, "bg-[url('/chance.png')]", []));
     this.tiles.set(7, new Tile(7, 'bg-sky-300', []));
-    this.tiles.set(6, new Tile(6, 'bg-slate-300', []));
+    this.tiles.set(6, new Tile(6, "bg-[url('/train.png')]", []));
     this.tiles.set(5, new Tile(5, 'bg-gray-600', []));
     this.tiles.set(4, new Tile(4, 'bg-orange-950', []));
-    this.tiles.set(3, new Tile(3, 'bg-fuchsia-50', []));
+    this.tiles.set(3, new Tile(3, "bg-[url('/chest.png')]", []));
     this.tiles.set(2, new Tile(2, 'bg-orange-900', []));
     this.tiles.set(1, new Tile(1, 'bg-black', []));
   }

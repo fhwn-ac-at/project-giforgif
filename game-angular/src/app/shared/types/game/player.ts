@@ -4,4 +4,5 @@ export type Player = {
   color: 'red' | 'green' | 'yellow' | 'blue';
   currentPosition: number,
   isInJail: boolean,
+  owns: number[],
 };

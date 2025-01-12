@@ -30,6 +30,13 @@ import { HouseBuiltPacket } from '../../../shared/packets/game/house/house-built
 import { GoToJailPacket } from '../../../shared/packets/game/jail/go-to-jail';
 import { JailPayoutPacket } from '../../../shared/packets/game/jail/jail-payout';
 import { PayoutSucessPacket } from '../../../shared/packets/game/jail/payout-sucess';
+import { AddMoneyPacket } from '../../../shared/packets/game/actions/add-money';
+import { RemoveMoneyPacket } from '../../../shared/packets/game/actions/remove-money';
+import { BankurptcyPacket } from '../../../shared/packets/game/util/bankruptcy';
+import { SellPropertiesPacket } from '../../../shared/packets/game/util/sell-properties';
+import { PropertySoldPacket } from '../../../shared/packets/game/sites/property-sold';
+import { HouseSoldPacket } from '../../../shared/packets/game/house/house-sold';
+import { TransferPropertiesPacket } from '../../../shared/packets/game/sites/transfer-properties';
 
 @Component({
   selector: 'app-game',
@@ -59,6 +66,9 @@ export class GameComponent extends Handler implements OnDestroy {
   @ViewChild(AuctionComponent)
   protected auctionComponent!: AuctionComponent;
 
+  protected inDebt: boolean = false;
+  protected debt: number = 0;
+
   public gameService = inject(GameService);
 
   // protected players = this.gameService.players;
@@ -82,12 +92,113 @@ export class GameComponent extends Handler implements OnDestroy {
     this.handler.set('HOUSE_BUILT', this.handleHouseBuilt.bind(this));
     this.handler.set('GO_TO_JAIL', this.handleGoToJail.bind(this));
     this.handler.set('PAYOUT_SUCESS', this.handlePayoutSucess.bind(this));
+    this.handler.set('ADD_MONEY', this.handleAddMoney.bind(this));
+    this.handler.set('REMOVE_MONEY', this.handleRemoveMoney.bind(this));
+    this.handler.set('BANKRUPTCY', this.handleBankruptcy.bind(this));
+    this.handler.set('SELL_PROPERTIES', this.handleSellProperties.bind(this));
+    this.handler.set(
+      'PLAYER_OUT_OF_DEBT',
+      this.handlePlayerOutOfDebt.bind(this)
+    );
+    this.handler.set('PROPERTY_SOLD', this.handlePropertySold.bind(this));
+    this.handler.set('HOUSE_SOLD', this.handleHouseSold.bind(this));
+    this.handler.set(
+      'TRANSFER_PROPERTIES',
+      this.handleTransferProperties.bind(this)
+    );
 
     this.signalRService.sendPacket(new ReadyPacket());
   }
 
   public ngOnDestroy(): void {
     this.stopHandler();
+  }
+
+  protected handleTransferProperties(packet: Packet) {
+    const parsed = packet as TransferPropertiesPacket;
+    const player = this.gameService.getPlayerByName(parsed.From);
+
+    if (!player) {
+      return;
+    }
+
+    if (parsed.To === null) {
+      for (let tile of player.owns) {
+        this.gameService.giveToBank(tile);
+      }
+
+      return;
+    }
+
+    const to = this.gameService.getPlayerByName(parsed.To);
+
+    if (!to) {
+      return;
+    }
+
+    for (let tile of player.owns) {
+      this.gameService.giveToPlayer(tile, player, to);
+    }
+  }
+
+  protected handleHouseSold(packet: Packet) {
+    const parsed = packet as HouseSoldPacket;
+
+    this.gameService.removeHouse(parsed.FieldId);
+  }
+
+  protected handlePropertySold(packet: Packet) {
+    const parsed = packet as PropertySoldPacket;
+
+    this.gameService.setOwner(undefined, parsed.FieldId);
+  }
+
+  protected handlePlayerOutOfDebt(packet: Packet) {
+    this.inDebt = false;
+    this.debt = 0;
+  }
+
+  protected handleSellProperties(packet: Packet) {
+    const parsed = packet as SellPropertiesPacket;
+
+    if (parsed.PlayerName !== this.gameService.me?.name) {
+      return;
+    }
+
+    this.inDebt = true;
+    this.debt = parsed.Amount;
+  }
+
+  protected handleBankruptcy(packet: Packet) {
+    const parsed = packet as BankurptcyPacket;
+
+    console.log('TOT');
+  }
+
+  protected handleAddMoney(packet: Packet) {
+    const parsed = packet as AddMoneyPacket;
+
+    const player = this.gameService.getPlayerByName(parsed.PlayerName);
+
+    if (!player) {
+      return;
+    }
+
+    player.currency += parsed.Amount;
+  }
+
+  protected handleRemoveMoney(packet: Packet) {
+    const parsed = packet as RemoveMoneyPacket;
+
+    console.log('THISIS MY PP');
+
+    const player = this.gameService.getPlayerByName(parsed.PlayerName);
+
+    if (!player) {
+      return;
+    }
+
+    player.currency -= parsed.Amount;
   }
 
   protected handlePayoutSucess(packet: Packet) {
@@ -208,6 +319,11 @@ export class GameComponent extends Handler implements OnDestroy {
   protected async handleBuyRequest(packet: Packet) {
     const parsed = packet as BuyRequestPacket;
     await this.waitUntilDiceAnimationEnds();
+
+    if (parsed.PlayerName !== this.gameService.me?.name) {
+      return;
+    }
+
     this.buyTileComponent.showBuyOption(parsed.FieldId);
   }
 
@@ -232,6 +348,7 @@ export class GameComponent extends Handler implements OnDestroy {
       currentPosition: parsed.Me.CurrentPositionFieldId,
       name: parsed.Me.Name,
       isInJail: false,
+      owns: [],
     };
 
     this.gameService.players = parsed.Players.map((p) => {
@@ -241,6 +358,7 @@ export class GameComponent extends Handler implements OnDestroy {
         currentPosition: p.CurrentPositionFieldId,
         name: p.Name,
         isInJail: false,
+        owns: [],
       };
     });
 

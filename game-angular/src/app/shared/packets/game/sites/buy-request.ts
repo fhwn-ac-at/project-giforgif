@@ -6,6 +6,7 @@ export class BuyRequestPacket extends Packet {
   }
   
   public FieldId!: number;
+  public PlayerName!: string;
 }
 
 export type TBuyRequestPacket = BuyRequestPacket;
