@@ -71,6 +71,10 @@ namespace GameServer.GameLogic
 
 			Currency -= amount;
 			recipient.Currency += amount;
+
+			if (callback != null)
+				callback.RaiseEvent("TRANSFER_MONEY", new PayPlayerPacket() { From = Name, To = recipient.Name, Amount = amount });
+
 			return true;
 		}
 
@@ -181,7 +185,12 @@ namespace GameServer.GameLogic
 
 
 			Currency -= amount;
-		}
+
+            if (callback != null)
+			{
+				callback.RaiseEvent("REMOVE_MONEY", new RemoveMoneyPacket() { PlayerName = Name, Amount = amount, Description = "Paid money" });
+			}
+        }
 
 		public int CalculateNetWorth()
 		{
