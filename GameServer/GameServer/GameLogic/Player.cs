@@ -16,6 +16,8 @@ namespace GameServer.GameLogic
 		public Player? OwesMoney { get; set; }
 		public int AmountOwed { get; set; }
 
+		public bool IsBankrupt = false;
+
 		public GameBoard? Board;
 		public List<Card> Cards { get; set; } = new();
 
