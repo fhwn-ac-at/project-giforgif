@@ -52,13 +52,13 @@ namespace GameServer.GameLogic
 
             FillBoardWithWarhammerTheme();
 
-            for (int i=1; i < _board.GetFieldCount(); i++)
-            {
-                if (_board.GetFieldById(i) is PropertyField propertyField)
-                {
-                    propertyField.Owner = Players[0];
-                }
-            }
+            //for (int i=1; i < _board.GetFieldCount(); i++)
+            //{
+            //    if (_board.GetFieldById(i) is PropertyField propertyField)
+            //    {
+            //        propertyField.Owner = Players[0];
+            //    }
+            //}
 
             // _board.AddCard(new Card() { Name = "Get Out Of Jail Free!" }); Load the cards somehow
         }
@@ -589,7 +589,6 @@ namespace GameServer.GameLogic
 
         public int RollDice()
         {
-            return 30;
 			return Rng.Next(1, 7) + Rng.Next(1, 7);
 		}
 
