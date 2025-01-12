@@ -26,6 +26,8 @@ namespace GameServer.Models.Packets
 			_packetTypeMappings.Add("USE_CARD", typeof(UseCardPacket));
             _packetTypeMappings.Add("READY", typeof(ReadyPacket));
             _packetTypeMappings.Add("JAIL_PAYOUT", typeof(JailPayoutPacket));
+            _packetTypeMappings.Add("SELL_HOUSE", typeof(SellHousePacket));
+            _packetTypeMappings.Add("SELL_PROPERTY", typeof(SellPropertyPacket));
         }
 
         public override Packet Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
