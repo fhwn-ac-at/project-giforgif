@@ -121,7 +121,7 @@ namespace GameServer.Handlers
 
 			if (e.GetType() == typeof(BuyRequestPacket))
 			{
-				string packet = JsonSerializer.Serialize(e);
+				string packet = JsonSerializer.Serialize(e, e.GetType());
 				await _lobbyContext.Clients.Client(context.ConnectionId).SendAsync("ReceivePacket", packet);
 				return;
 			}
