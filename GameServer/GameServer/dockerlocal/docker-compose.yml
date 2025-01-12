@@ -1,0 +1,11 @@
+services:
+  postgres:
+    image: postgres
+    container_name: perropoly-postgres
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: example
+    volumes:
+      - /tmp/perropoly-data:/var/lib/postgresql/data
