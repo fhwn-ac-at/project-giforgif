@@ -13,6 +13,9 @@ namespace GameServer.GameLogic
 		public string Color { get; set; }
 		public int RoundsLeftInJail { get; set; }
 
+		public Player? OwesMoney { get; set; }
+		public int AmountOwed { get; set; }
+
 		public GameBoard? Board;
 		public List<Card> Cards { get; set; } = new();
 
@@ -38,7 +41,7 @@ namespace GameServer.GameLogic
 
 		public bool CanAfford(int amount)
 		{
-			return Currency >= amount;
+			return (Currency - AmountOwed) >= amount;
 		}
 
 		public bool BuyField(PropertyField field, int price)
@@ -106,5 +109,71 @@ namespace GameServer.GameLogic
 		{
 			Currency -= amount;
 		}
+
+		public int CalculateNetWorth()
+		{
+            int netWorth = Currency;
+
+            var properties = Board.GetPropertyFieldsOf(this);
+
+            if (properties == null)
+                return netWorth;
+
+            foreach (PropertyField property in properties)
+			{
+                if (property is Site site)
+				{
+                    netWorth += (site.BuildingPrice / 2) * site.Housecount;
+                }
+
+                netWorth += property.BuyingPrice;
+            }
+
+            return netWorth - AmountOwed;
+        }
+
+		public int SellProperty(PropertyField property)
+		{
+			if (property.Owner != this)
+			{
+                return 0;
+            }
+
+			int sellvalue = 0;
+
+            if (property is Site site)
+			{
+				if (site.Housecount > 0)
+				{
+					return 0;
+				}
+
+                sellvalue += site.Housecount * (site.BuildingPrice / 2);
+            }
+
+            sellvalue += property.BuyingPrice;
+            Currency += sellvalue;
+            property.Owner = null;
+
+			return sellvalue;
+        }
+
+		public int SellHouse(Site site)
+		{
+            if (site.Owner != this)
+			{
+                return 0;
+            }
+
+            if (site.Housecount == 0)
+			{
+                return 0;
+            }
+
+            Currency += site.BuildingPrice / 2;
+            site.Housecount--;
+
+            return site.BuildingPrice / 2;
+        }
 	}
 }
