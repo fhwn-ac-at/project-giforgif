@@ -217,7 +217,7 @@ namespace GameServer.GameLogic
 			{
 				player.DeductCurrency(tax.Amount);
 
-				// tax.RaiseEvent("TAX_PAY", new TaxPayPacket() { PlayerName = player.Name, Amount = tax.Amount });
+				tax.RaiseEvent("TAX_PAY", new RemoveMoneyPacket() { PlayerName = player.Name, Amount = tax.Amount, Description = "Landed on tax field"});
 			}
         }
     }
