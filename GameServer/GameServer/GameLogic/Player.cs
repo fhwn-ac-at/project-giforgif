@@ -64,7 +64,7 @@ namespace GameServer.GameLogic
                 AmountOwed = amount;
 				
 				if (callback != null)
-					callback.RaiseEvent("SELL_PROPERTIES", new SellPropertiesPacket() { Amount = amount - Currency });
+					callback.RaiseEvent("SELL_PROPERTIES", new SellPropertiesPacket() { Amount = amount - Currency, PlayerName = Name });
 
                 return false;
 			}
@@ -173,7 +173,7 @@ namespace GameServer.GameLogic
 				if (callback != null)
 				{
 					Console.WriteLine("CALLBACK WAS NULL.");
-					callback.RaiseEvent("SELL_PROPERTIES", new SellPropertiesPacket() { Amount = amount - Currency });
+					callback.RaiseEvent("SELL_PROPERTIES", new SellPropertiesPacket() { Amount = amount - Currency, PlayerName = Name });
 				}
 
                 return;
