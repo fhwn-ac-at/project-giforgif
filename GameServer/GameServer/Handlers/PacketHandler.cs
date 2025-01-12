@@ -40,6 +40,8 @@ namespace GameServer.Handlers
             _packetFunctions.Add("USE_CARD", _gameHandler.HandleUseCardPacket);
             _packetFunctions.Add("READY", _gameHandler.HandleReadyPacket);
             _packetFunctions.Add("JAIL_PAYOUT", _gameHandler.HandleJailPayoutPacket);
+            _packetFunctions.Add("SELL_HOUSE", _gameHandler.HandleSellHousePacket);
+            _packetFunctions.Add("SELL_PROPERTY", _gameHandler.HandleSellPropertyPacket);
             _connectionMapping = connectionMapping;
         }
 

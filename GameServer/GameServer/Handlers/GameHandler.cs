@@ -347,7 +347,7 @@ namespace GameServer.Handlers
 					if (newCurrent.CanAfford(50))
 					{
 						await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", JsonSerializer.Serialize(new JailPayoutSucessPacket() { Cost = 50, PlayerName = newCurrent.Name }));
-                        newCurrent.DeductCurrency(50);
+                        newCurrent.DeductCurrency(50, null);
                         newCurrent.RoundsLeftInJail = 0;
 						return;
 					}
@@ -392,7 +392,7 @@ namespace GameServer.Handlers
 			if (player.CanAfford(50))
 			{
 				await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", JsonSerializer.Serialize(new JailPayoutSucessPacket() { Cost = 50, PlayerName = player.Name }));
-                player.DeductCurrency(50);
+                player.DeductCurrency(50, null);
                 player.RoundsLeftInJail = 0;
 			}
 			else
@@ -424,13 +424,14 @@ namespace GameServer.Handlers
 
             if (sellValue != 0)
 			{
-				// House sucessfully sold
+                // House sucessfully sold
+                await _lobbyContext.Clients.Client(context.ConnectionId).SendAsync("ReceivePacket", JsonSerializer.Serialize(new HouseSoldPacket() { FieldId = field.Id }));
                 await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", JsonSerializer.Serialize(new AddMoneyPacket() { PlayerName = player.Name, Amount = sellValue, Description = "Sold House" }));
 
 				if (player.OwesMoney != null && player.AmountOwed - player.Currency <= 0)
 				{
 					// Player is currently in debt and Player is out of debt after selling house
-					player.TransferCurrency(player.OwesMoney, player.AmountOwed);
+					player.TransferCurrency(player.OwesMoney, player.AmountOwed, null);
 
                     await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", JsonSerializer.Serialize(new PayPlayerPacket() { Amount = player.AmountOwed, From = player.Name, To = player.OwesMoney.Name }));
 
@@ -438,7 +439,7 @@ namespace GameServer.Handlers
 					player.OwesMoney = null;
 
                     await _lobbyContext.Clients.Client(context.ConnectionId).SendAsync("ReceivePacket", JsonSerializer.Serialize(new PlayerOutOfDebt() { }));
-                    return;
+					return;
 				}
             }
             else
@@ -468,13 +469,14 @@ namespace GameServer.Handlers
 
             if (sellValue != 0)
 			{
-                // House sucessfully sold
+                // Property sucessfully sold
+                await _lobbyContext.Clients.Client(context.ConnectionId).SendAsync("ReceivePacket", JsonSerializer.Serialize(new PropertySoldPacket() { FieldId = field.Id }));
                 await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", JsonSerializer.Serialize(new AddMoneyPacket() { PlayerName = player.Name, Amount = sellValue, Description = "Sold Property" }));
 
                 if (player.OwesMoney != null && player.AmountOwed - player.Currency <= 0)
                 {
                     // Player is currently in debt and Player is out of debt after selling property
-                    player.TransferCurrency(player.OwesMoney, player.AmountOwed);
+                    player.TransferCurrency(player.OwesMoney, player.AmountOwed, null);
 
 					await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", JsonSerializer.Serialize(new PayPlayerPacket() { Amount = player.AmountOwed, From = player.Name, To = player.OwesMoney.Name }));
 
@@ -482,7 +484,7 @@ namespace GameServer.Handlers
                     player.OwesMoney = null;
 
                     await _lobbyContext.Clients.Client(context.ConnectionId).SendAsync("ReceivePacket", JsonSerializer.Serialize(new PlayerOutOfDebt() { }));
-                    return;
+					return;
                 }
             }
 			else

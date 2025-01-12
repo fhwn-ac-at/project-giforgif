@@ -40,7 +40,7 @@ namespace GameServer.Models.Fields
 			if (!CanBuildHouse(player)) 
 				return false;
 
-			player.DeductCurrency(BuildingPrice);
+			player.DeductCurrency(BuildingPrice, null);
 			Housecount++;
 			return true;
 		}

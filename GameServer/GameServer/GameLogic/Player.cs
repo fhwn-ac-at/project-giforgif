@@ -1,5 +1,8 @@
-﻿using GameServer.Models;
+﻿using GameServer.Data.Models;
+using GameServer.Models;
 using GameServer.Models.Fields;
+using GameServer.Models.Packets;
+using GameServer.Models.Packets.SellPossesions.Outgoing;
 
 namespace GameServer.GameLogic
 {
@@ -28,16 +31,45 @@ namespace GameServer.GameLogic
 			CurrentPositionFieldId = 1;
 		}
 
-		public bool TransferCurrency(Player recipient, int amount)
+		public bool TransferCurrency(Player recipient, int amount, PropertyField callback)
 		{
-			if (!CanAfford(amount))
-			{
-				return false;
+            // Callback is used to send events to frontend, can be null, will just not send the events if thats the case
+
+            if (!CanAfford(amount))
+            {
+				// Player cant afford to Transfer the currency, has to go into "debt mode"
+                Console.WriteLine($"Player {Name} can not pay the amount of {amount}. His networth is {CalculateNetWorth()}");
+
+                if (CalculateNetWorth() < amount)
+                {
+                    // If Player is not able to pay the owned rent, not even "debt mode" saves him
+					if (callback != null)
+						DeclareBankruptcyToPlayer(callback.Owner);
+
+					if (callback != null)
+					{
+						callback.RaiseEvent("BANKRUPTCY", new BankruptcyPacket() { PlayerName = Name });
+						callback.RaiseEvent("TRANSFER_PROPERTIES", new TransferPropertiesPacket() { From = Name, To = callback.Owner.Name });
+					}
+
+                    Console.WriteLine($"Player {Name} declared Bankrupcty to {callback.Owner.Name}. All Properties got transferred.");
+                    IsBankrupt = true;
+
+                    return false;
+                }
+
+                //Player can still sell properties to pay the rent -> goes into "debt mode"
+                OwesMoney = callback.Owner;
+                AmountOwed = amount;
+				
+				if (callback != null)
+					callback.RaiseEvent("SELL_PROPERTIES", new SellPropertiesPacket() { Amount = amount - Currency });
+
+                return false;
 			}
 
 			Currency -= amount;
 			recipient.Currency += amount;
-
 			return true;
 		}
 
@@ -107,8 +139,42 @@ namespace GameServer.GameLogic
 			Cards.Clear(); // Or return do deck if there is only a specific number of cards, and cards have to be returned
 		}
 
-		public void DeductCurrency(int amount)
+		public void DeductCurrency(int amount, IField callback)
 		{
+			if (Currency < amount)
+			{
+                // Player cant afford to Transfer the currency, has to go into "debt mode"
+                Console.WriteLine($"Player {Name} can not pay the amount of {amount}. His networth is {CalculateNetWorth()}");
+
+                if (CalculateNetWorth() < amount)
+				{
+                    // If Player is not able to pay the owned rent, not even "debt mode" saves him
+                    if (callback != null)
+                        DeclareBankruptcyToBank();
+
+					if (callback != null)
+					{
+						callback.RaiseEvent("BANKRUPTCY", new BankruptcyPacket() { PlayerName = Name });
+						callback.RaiseEvent("TRANSFER_PROPERTIES", new TransferPropertiesPacket() { From = Name, To = null });
+					}
+					
+                    Console.WriteLine($"Player {Name} declared Bankrupcty to Bank. All Properties got transferred.");
+                    IsBankrupt = true;
+
+                    return;
+                }
+
+                //Player can still sell properties to pay the rent -> goes into "debt mode"
+                AmountOwed = amount;
+				OwesMoney = new Player("Bank", "Bank"); // tmp for checks
+
+                if (callback != null)
+                    callback.RaiseEvent("SELL_PROPERTIES", new SellPropertiesPacket() { Amount = amount - Currency });
+
+                return;
+            }
+
+
 			Currency -= amount;
 		}
 
