@@ -188,7 +188,7 @@ namespace GameServer.GameLogic
 
             player.Currency += 200;
 
-			// Maybe add an event here not sure
+			go.RaiseEvent("PASSED_GO", new AddMoneyPacket() { PlayerName = player.Name, Amount = 200, Description = "Passed Go"});
         }
 
         public void Visit(Jail jail, Player player, bool isLanding)
