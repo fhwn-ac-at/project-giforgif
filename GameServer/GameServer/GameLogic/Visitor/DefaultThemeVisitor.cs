@@ -56,7 +56,8 @@ namespace GameServer.GameLogic
 							site.RaiseEvent("BANKRUPTCY", new BankruptcyPacket() { PlayerName = player.Name });
 
                             Console.WriteLine($"Player {player.Name} declared Bankrupcty to {site.Owner.Name}. All Properties got transferred.");
-							// May need to add something to count player out of the game
+                            player.IsBankrupt = true;
+                            // May need to add something to count player out of the game
                             return;
 						}
 
@@ -108,6 +109,7 @@ namespace GameServer.GameLogic
                             station.RaiseEvent("BANKRUPTCY", new BankruptcyPacket() { PlayerName = player.Name });
 
                             Console.WriteLine($"Player {player.Name} declared Bankrupcty to {station.Owner.Name}. All Properties got transferred.");
+                            player.IsBankrupt = true;
                             return;
                         }
 
@@ -168,8 +170,10 @@ namespace GameServer.GameLogic
                             player.DeclareBankruptcyToPlayer(utility.Owner);
                             utility.RaiseEvent("BANKRUPTCY", new BankruptcyPacket() { PlayerName = player.Name });
 
-                            Console.WriteLine($"Player {player.Name} declared Bankrupcty to {utility.Owner.Name}. All Properties got transferred.");
-                            return;
+                            Console.WriteLine($"Player {player.Name} declared Bankruptcy to {utility.Owner.Name}. All Properties got transferred.");
+                            player.IsBankrupt = true;
+							
+							return;
                         }
 
                         //Otherwise player can still sell properties to pay the rent
