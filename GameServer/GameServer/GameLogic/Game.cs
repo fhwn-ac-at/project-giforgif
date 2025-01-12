@@ -574,7 +574,7 @@ namespace GameServer.GameLogic
                 throw new InvalidOperationException("Current player is not in the list of players.");
             }
 
-            int nextPlayerIdx = 0;
+            int nextPlayerIdx;
 
             do
             {
