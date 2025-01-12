@@ -7,6 +7,7 @@ using GameServer.GameLogic;
 using GameServer.Models.Fields;
 using System.Numerics;
 using GameServer.Models.Packets.Game;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace GameServer.Handlers
 {
@@ -142,6 +143,13 @@ namespace GameServer.Handlers
 				string jsonPacket = JsonSerializer.Serialize(playersTurn);
 				await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", jsonPacket);
 				return;
+            }
+
+			if (e.GetType() == typeof(SellPropertiesPacket))
+			{
+                string packet = JsonSerializer.Serialize(e);
+                await _lobbyContext.Clients.Client(context.ConnectionId).SendAsync("ReceivePacket", packet);
+                return;
             }
 
             string pkg = JsonSerializer.Serialize(e, e.GetType());
@@ -317,13 +325,16 @@ namespace GameServer.Handlers
 			if (player != game.CurrentMover)
 				return;
 
-            await Console.Out.WriteLineAsync($"B4 Next: {game.CurrentMover.Name} with {game.CurrentMover.Currency} dollarus and {game.CurrentMover.RoundsLeftInJail} jail time left");
+			if (player.AmountOwed > 0 && player.OwesMoney != null)
+			{
+                await _lobbyContext.Clients.Client(context.ConnectionId).SendAsync("ReceivePacket", JsonSerializer.Serialize(new ErrorPacket("CANT_END_TURN", "You still owe some money.")));
+				return;
+            }
 
             Player newCurrent = game.GetNextPlayer();
 			PlayersTurnPacket playersTurn = new PlayersTurnPacket();
 			playersTurn.PlayerName = newCurrent.Name;
 
-            await Console.Out.WriteLineAsync($"B4 Next: {game.CurrentMover.Name} with {game.CurrentMover.Currency} dollarus and {game.CurrentMover.RoundsLeftInJail} jail time left");
 
             string jsonPacket = JsonSerializer.Serialize(playersTurn);
 			await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", jsonPacket);
@@ -388,6 +399,96 @@ namespace GameServer.Handlers
 			{
 				await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", JsonSerializer.Serialize(new BankruptcyPacket() { PlayerName = player.Name}));
 			}
+        }
+
+        public async Task HandleSellHousePacket(Packet packet, HubCallerContext context)
+        {
+            Player player = PlayerStore.GetPlayer(context.ConnectionId);
+			Game game = GetGame(context);
+
+			if (player != game.CurrentMover)
+				return;
+
+			SellHousePacket sellHousePacket = (SellHousePacket)packet;
+
+
+			IField? field = player.Board.GetFieldById(sellHousePacket.FieldId);
+            if (field.GetType() != typeof(Site))
+			{
+                await _lobbyContext.Clients.Client(context.ConnectionId).SendAsync("ReceivePacket", JsonSerializer.Serialize(new ErrorPacket("NO_SITE", "This field does not support houses.")));
+            }
+
+			Site site = (Site)field;
+
+			int sellValue = player.SellHouse(site);
+
+            if (sellValue != 0)
+			{
+				// House sucessfully sold
+                await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", JsonSerializer.Serialize(new AddMoneyPacket() { PlayerName = player.Name, Amount = sellValue, Description = "Sold House" }));
+
+				if (player.OwesMoney != null && player.AmountOwed - player.Currency <= 0)
+				{
+					// Player is currently in debt and Player is out of debt after selling house
+					player.TransferCurrency(player.OwesMoney, player.AmountOwed);
+
+                    await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", JsonSerializer.Serialize(new PayPlayerPacket() { Amount = player.AmountOwed, From = player.Name, To = player.OwesMoney.Name }));
+
+                    player.AmountOwed = 0;
+					player.OwesMoney = null;
+
+                    await _lobbyContext.Clients.Client(context.ConnectionId).SendAsync("ReceivePacket", JsonSerializer.Serialize(new PlayerOutOfDebt() { }));
+                    return;
+				}
+            }
+            else
+            {
+                await _lobbyContext.Clients.Client(context.ConnectionId).SendAsync("ReceivePacket", JsonSerializer.Serialize(new ErrorPacket("CANT_SELL", "You cannot sell this House.")));
+            }
+        }
+
+        public async Task HandleSellPropertyPacket(Packet packet, HubCallerContext context)
+        {
+            Player player = PlayerStore.GetPlayer(context.ConnectionId);
+            Game game = GetGame(context);
+
+            if (player != game.CurrentMover)
+                return;
+
+            SellPropertyPacket sellPropPacket = (SellPropertyPacket)packet;
+
+			IField? field = player.Board.GetFieldById(sellPropPacket.FieldId);
+
+            if (field.GetType() != typeof(PropertyField))
+            {
+                await _lobbyContext.Clients.Client(context.ConnectionId).SendAsync("ReceivePacket", JsonSerializer.Serialize(new ErrorPacket("NO_PROPERTY", "This field can not be sold.")));
+            }
+
+			int sellValue = player.SellProperty((PropertyField)field);
+
+            if (sellValue != 0)
+			{
+                // House sucessfully sold
+                await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", JsonSerializer.Serialize(new AddMoneyPacket() { PlayerName = player.Name, Amount = sellValue, Description = "Sold Property" }));
+
+                if (player.OwesMoney != null && player.AmountOwed - player.Currency <= 0)
+                {
+                    // Player is currently in debt and Player is out of debt after selling property
+                    player.TransferCurrency(player.OwesMoney, player.AmountOwed);
+
+					await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", JsonSerializer.Serialize(new PayPlayerPacket() { Amount = player.AmountOwed, From = player.Name, To = player.OwesMoney.Name }));
+
+                    player.AmountOwed = 0;
+                    player.OwesMoney = null;
+
+                    await _lobbyContext.Clients.Client(context.ConnectionId).SendAsync("ReceivePacket", JsonSerializer.Serialize(new PlayerOutOfDebt() { }));
+                    return;
+                }
+            }
+			else
+			{
+                await _lobbyContext.Clients.Client(context.ConnectionId).SendAsync("ReceivePacket", JsonSerializer.Serialize(new ErrorPacket("CANT_SELL", "You cannot sell this Property.")));
+            }
         }
     }
 }
