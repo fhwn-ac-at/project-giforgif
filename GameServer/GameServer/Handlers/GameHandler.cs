@@ -117,15 +117,6 @@ namespace GameServer.Handlers
 
 		private async Task Game_FieldEventOccurredAsync(object? sender, HubCallerContext context, Packet e)
 		{
-			
-
-			if (e.GetType() == typeof(BuyRequestPacket))
-			{
-				string packet = JsonSerializer.Serialize(e);
-				await _lobbyContext.Clients.Client(context.ConnectionId).SendAsync("ReceivePacket", packet);
-				return;
-			}
-
 			if (e.GetType() == typeof(GoToJailPacket))
 			{
                 // First send Package that player is going to jail
@@ -143,13 +134,6 @@ namespace GameServer.Handlers
 				string jsonPacket = JsonSerializer.Serialize(playersTurn);
 				await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", jsonPacket);
 				return;
-            }
-
-			if (e.GetType() == typeof(SellPropertiesPacket))
-			{
-                string packet = JsonSerializer.Serialize(e, e.GetType());
-                await _lobbyContext.Clients.Client(context.ConnectionId).SendAsync("ReceivePacket", packet);
-                return;
             }
 
             string pkg = JsonSerializer.Serialize(e, e.GetType());
