@@ -4,6 +4,7 @@ using GameServer.Models.Packets;
 using System.Text.Json;
 using GameServer.Handlers;
 using GameServer.Models;
+using GameServer.Data;
 
 namespace GameServer.Hubs
 {
@@ -11,27 +12,18 @@ namespace GameServer.Hubs
     {
         private readonly PacketHandler _packetHandler;
         private readonly ConnectionMapping _connectionMapping;
+        private readonly DatabaseContext _databaseContext;
 
-        public Lobby(PacketHandler packetHandler, ConnectionMapping connectionMapping)
+        public Lobby(PacketHandler packetHandler, ConnectionMapping connectionMapping, DatabaseContext databaseContext)
         {
             _packetHandler = packetHandler;
             _connectionMapping = connectionMapping;
-        }
-
-        public async Task LeaveRoom(string roomName)
-        {
-            await Groups.RemoveFromGroupAsync(Context.ConnectionId, roomName);
-            await Clients.Group(roomName).SendAsync("ShowWhoLeft", $"{Context.ConnectionId} has left '{roomName}'.");
-            _connectionMapping.Remove(Context.ConnectionId);
+            _databaseContext = databaseContext;
         }
 
         public override async Task OnDisconnectedAsync(Exception exception)
         {
-            if (_connectionMapping.TryGetRoomName(Context.ConnectionId, out string roomName))
-            {
-                await LeaveRoom(roomName);
-            }
-
+            // Add logic
             await base.OnDisconnectedAsync(exception);
         }
 
