@@ -59,6 +59,7 @@ namespace GameServer.GameLogic
                 }
 
                 //Player can still sell properties to pay the rent -> goes into "debt mode"
+                Console.WriteLine($"Player {Name} entered Debt Mode.");
                 OwesMoney = callback.Owner;
                 AmountOwed = amount;
 				
