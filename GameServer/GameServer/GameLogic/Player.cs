@@ -59,7 +59,7 @@ namespace GameServer.GameLogic
                 }
 
                 //Player can still sell properties to pay the rent -> goes into "debt mode"
-                Console.WriteLine($"Player {Name} entered Debt Mode.");
+                Console.WriteLine($"Player {Name} entered Debt Mode with {amount} in debt and to player {callback.Owner.Name}.");
                 OwesMoney = callback.Owner;
                 AmountOwed = amount;
 				
@@ -166,12 +166,15 @@ namespace GameServer.GameLogic
                 }
 
                 //Player can still sell properties to pay the rent -> goes into "debt mode"
-				Console.WriteLine($"Player {Name} entered Debt Mode with {amount} in debt.");
+				Console.WriteLine($"Player {Name} entered Debt Mode with {amount} in debt and to player BANK.");
                 AmountOwed = amount;
 				OwesMoney = new Player("Bank", "Bank"); // tmp for checks
 
-                if (callback != null)
-                    callback.RaiseEvent("SELL_PROPERTIES", new SellPropertiesPacket() { Amount = amount - Currency });
+				if (callback != null)
+				{
+					Console.WriteLine("CALLBACK WAS NULL.");
+					callback.RaiseEvent("SELL_PROPERTIES", new SellPropertiesPacket() { Amount = amount - Currency });
+				}
 
                 return;
             }
