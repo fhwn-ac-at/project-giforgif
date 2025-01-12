@@ -147,7 +147,7 @@ namespace GameServer.Handlers
 
 			if (e.GetType() == typeof(SellPropertiesPacket))
 			{
-                string packet = JsonSerializer.Serialize(e);
+                string packet = JsonSerializer.Serialize(e, e.GetType());
                 await _lobbyContext.Clients.Client(context.ConnectionId).SendAsync("ReceivePacket", packet);
                 return;
             }
@@ -413,11 +413,7 @@ namespace GameServer.Handlers
 
 
 			IField? field = player.Board.GetFieldById(sellHousePacket.FieldId);
-            if (field.GetType() != typeof(Site))
-			{
-                await _lobbyContext.Clients.Client(context.ConnectionId).SendAsync("ReceivePacket", JsonSerializer.Serialize(new ErrorPacket("NO_SITE", "This field does not support houses.")));
-            }
-
+  
 			Site site = (Site)field;
 
 			int sellValue = player.SellHouse(site);
@@ -459,11 +455,6 @@ namespace GameServer.Handlers
             SellPropertyPacket sellPropPacket = (SellPropertyPacket)packet;
 
 			IField? field = player.Board.GetFieldById(sellPropPacket.FieldId);
-
-            if (field.GetType() != typeof(PropertyField))
-            {
-                await _lobbyContext.Clients.Client(context.ConnectionId).SendAsync("ReceivePacket", JsonSerializer.Serialize(new ErrorPacket("NO_PROPERTY", "This field can not be sold.")));
-            }
 
 			int sellValue = player.SellProperty((PropertyField)field);
 
