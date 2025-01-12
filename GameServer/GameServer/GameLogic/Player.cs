@@ -76,7 +76,7 @@ namespace GameServer.GameLogic
 
 		public bool CanAfford(int amount)
 		{
-			return (Currency - AmountOwed) >= amount;
+			return Currency >= amount;
 		}
 
 		public bool BuyField(PropertyField field, int price)
