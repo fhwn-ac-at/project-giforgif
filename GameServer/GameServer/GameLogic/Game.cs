@@ -574,7 +574,12 @@ namespace GameServer.GameLogic
                 throw new InvalidOperationException("Current player is not in the list of players.");
             }
 
-            int nextPlayerIdx = (currentIndex + 1) % Players.Count;
+            int nextPlayerIdx = 0;
+
+            do
+            {
+                nextPlayerIdx = (currentIndex + 1) % Players.Count;
+            } while (Players[nextPlayerIdx].IsBankrupt);
 
             CurrentMover = Players[nextPlayerIdx];
 
