@@ -47,8 +47,23 @@ namespace GameServer.GameLogic
 					}
 					else
 					{
-						site.RaiseEvent("BANKRUPTCY", new BankruptcyPacket() { PlayerName = player.Name });
-						player.DeclareBankruptcyToPlayer(site.Owner);
+                        Console.WriteLine($"Player {player.Name} can not pay the amount of {amount}. His networth is {player.CalculateNetWorth()}");
+
+                        if (player.CalculateNetWorth() < amount)
+						{
+							// If Player is not able to pay the owned rent
+							player.DeclareBankruptcyToPlayer(site.Owner);
+							site.RaiseEvent("BANKRUPTCY", new BankruptcyPacket() { PlayerName = player.Name });
+
+                            Console.WriteLine($"Player {player.Name} declared Bankrupcty to {site.Owner.Name}. All Properties got transferred.");
+							// May need to add something to count player out of the game
+                            return;
+						}
+
+						//Otherwise player can still sell properties to pay the rent
+						player.OwesMoney = site.Owner;
+						player.AmountOwed = amount;
+						site.RaiseEvent("SELL_PROPERTIES", new SellPropertiesPacket() {Amount = amount - player.Currency});
 					}
 
 					return;
@@ -84,9 +99,23 @@ namespace GameServer.GameLogic
 					}
 					else
 					{
-						station.RaiseEvent("BANKRUPTCY", new BankruptcyPacket() { PlayerName = player.Name });
-						player.DeclareBankruptcyToPlayer(station.Owner);
-					}
+                        Console.WriteLine($"Player {player.Name} can not pay the amount of {amount}. His networth is {player.CalculateNetWorth()}");
+
+                        if (player.CalculateNetWorth() < amount)
+                        {
+                            // If Player is not able to pay the owned rent
+                            player.DeclareBankruptcyToPlayer(station.Owner);
+                            station.RaiseEvent("BANKRUPTCY", new BankruptcyPacket() { PlayerName = player.Name });
+
+                            Console.WriteLine($"Player {player.Name} declared Bankrupcty to {station.Owner.Name}. All Properties got transferred.");
+                            return;
+                        }
+
+                        //Otherwise player can still sell properties to pay the rent
+                        player.OwesMoney = station.Owner;
+                        player.AmountOwed = amount;
+                        station.RaiseEvent("SELL_PROPERTIES", new SellPropertiesPacket() {Amount = amount - player.Currency });
+                    }
 
 					return;
 				}
@@ -131,9 +160,23 @@ namespace GameServer.GameLogic
 					}
 					else
 					{
-						utility.RaiseEvent("BANKRUPTCY", new BankruptcyPacket() { PlayerName = player.Name });
-						player.DeclareBankruptcyToPlayer(utility.Owner);
-					}
+                        Console.WriteLine($"Player {player.Name} can not pay the amount of {amount}. His networth is {player.CalculateNetWorth()}");
+
+                        if (player.CalculateNetWorth() < amount)
+                        {
+                            // If Player is not able to pay the owned rent
+                            player.DeclareBankruptcyToPlayer(utility.Owner);
+                            utility.RaiseEvent("BANKRUPTCY", new BankruptcyPacket() { PlayerName = player.Name });
+
+                            Console.WriteLine($"Player {player.Name} declared Bankrupcty to {utility.Owner.Name}. All Properties got transferred.");
+                            return;
+                        }
+
+                        //Otherwise player can still sell properties to pay the rent
+                        player.OwesMoney = utility.Owner;
+                        player.AmountOwed = amount;
+                        utility.RaiseEvent("SELL_PROPERTIES", new SellPropertiesPacket() {Amount = amount - player.Currency });
+                    }
 
 					return;
 				}
