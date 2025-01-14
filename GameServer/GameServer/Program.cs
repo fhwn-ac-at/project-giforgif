@@ -25,7 +25,7 @@ builder.Services.AddCors(options =>
         policy.WithOrigins(
             "http://localhost:4200", 
             "http://iscoggo08wk0cswokckckc0w.116.203.80.175.sslip.io", 
-            "http://dwcookos0wogw8s80s80scgo.116.203.80.175.sslip.io", 
+            "http://dwcookos0wogw8s80s80scgo.116.203.80.175.sslip.io:9000", 
             "https://api.trucklix.at", 
             "https://stats.trucklix.at", 
             "https://perropoly.trucklix.at")
