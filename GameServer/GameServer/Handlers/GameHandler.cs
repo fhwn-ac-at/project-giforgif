@@ -143,7 +143,10 @@ namespace GameServer.Handlers
 			if (e.GetType() == typeof(BankruptcyPacket))
 			{
 				Game game = GetGame(context);
+
 				game.CheckForWinner();
+
+				await HandleEndTurnPacket(null, context);
 			}
 		}
 
