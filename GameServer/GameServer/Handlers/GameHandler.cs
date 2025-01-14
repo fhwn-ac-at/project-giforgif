@@ -144,7 +144,7 @@ namespace GameServer.Handlers
 
 			if (e.GetType() == typeof(PlayerWonPacket))
 			{
-				InvokeGameOver(new GameOverEventArgs() { WinnerName = game.CheckForWinner(), Players = game.Players.Select(p => p.Name).ToList() }) ;
+				InvokeGameOver(new GameOverEventArgs() { WinnerName = game.Players.Where(p => !p.IsBankrupt).First().Name, Players = game.Players.Select(p => p.Name).ToList() }) ;
 			}
 
             string pkg = JsonSerializer.Serialize(e, e.GetType());
