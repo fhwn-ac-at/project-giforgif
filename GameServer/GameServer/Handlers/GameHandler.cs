@@ -147,8 +147,13 @@ namespace GameServer.Handlers
 
 				game.CheckForWinner();
 
-				await HandleEndTurnPacket(null, context);
-			}
+                Player newCurrent = game.GetNextPlayer();
+                PlayersTurnPacket playersTurn = new PlayersTurnPacket();
+                playersTurn.PlayerName = newCurrent.Name;
+
+                string jsonPacket = JsonSerializer.Serialize(playersTurn);
+                await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", jsonPacket);
+            }
 		}
 
 		public async Task HandlePaymentDecisionPacket(Packet packet, HubCallerContext context)
@@ -335,7 +340,6 @@ namespace GameServer.Handlers
             Player newCurrent = game.GetNextPlayer();
 			PlayersTurnPacket playersTurn = new PlayersTurnPacket();
 			playersTurn.PlayerName = newCurrent.Name;
-
 
             string jsonPacket = JsonSerializer.Serialize(playersTurn);
 			await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", jsonPacket);
