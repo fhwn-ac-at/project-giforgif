@@ -42,8 +42,9 @@ namespace GameServer.GameLogic
 
                 if (CalculateNetWorth() < amount)
                 {
+                    IsBankrupt = true;
                     // If Player is not able to pay the owned rent, not even "debt mode" saves him
-					if (callback != null)
+                    if (callback != null)
 						DeclareBankruptcyToPlayer(callback.Owner);
 
 					if (callback != null)
@@ -53,7 +54,6 @@ namespace GameServer.GameLogic
 					}
 
                     Console.WriteLine($"Player {Name} declared Bankrupcty to {callback.Owner.Name}. All Properties got transferred.");
-                    IsBankrupt = true;
 
                     return false;
                 }
