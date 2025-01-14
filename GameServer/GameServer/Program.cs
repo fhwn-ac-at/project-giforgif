@@ -22,7 +22,13 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAllOrigins", policy =>
     {
-        policy.WithOrigins("http://localhost:4200", "http://iscoggo08wk0cswokckckc0w.116.203.80.175.sslip.io")
+        policy.WithOrigins(
+            "http://localhost:4200", 
+            "http://iscoggo08wk0cswokckckc0w.116.203.80.175.sslip.io", 
+            "http://dwcookos0wogw8s80s80scgo.116.203.80.175.sslip.io", 
+            "https://api.trucklix.at", 
+            "https://stats.trucklix.at", 
+            "https://perropoly.trucklix.at")
               .AllowAnyHeader()
               .AllowAnyMethod()
               .AllowCredentials();
