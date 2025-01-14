@@ -4,7 +4,7 @@
 >> http://ksc84sgwwgcs4kooc888cs8w.116.203.80.175.sslip.io:3000/stats
 
 # GAME
->> http://dwcookos0wogw8s80s80scgo.116.203.80.175.sslip.io
+>> http://dwcookos0wogw8s80s80scgo.116.203.80.175.sslip.io:9000
 
 # Stats-Page
 >> http://iscoggo08wk0cswokckckc0w.116.203.80.175.sslip.io
