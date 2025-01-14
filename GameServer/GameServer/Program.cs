@@ -22,7 +22,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAllOrigins", policy =>
     {
-        policy.WithOrigins("http://localhost:4200")
+        policy.WithOrigins("http://localhost:4200", "http://iscoggo08wk0cswokckckc0w.116.203.80.175.sslip.io")
               .AllowAnyHeader()
               .AllowAnyMethod()
               .AllowCredentials();
