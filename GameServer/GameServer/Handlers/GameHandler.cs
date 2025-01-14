@@ -8,6 +8,8 @@ using GameServer.Models.Fields;
 using System.Numerics;
 using GameServer.Models.Packets.Game;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+using GameServer.Models.Packets.Game.Outgoing;
+using GameServer.GameLogic.EventArgs;
 
 namespace GameServer.Handlers
 {
@@ -15,6 +17,8 @@ namespace GameServer.Handlers
 	{
 		private readonly IHubContext<Lobby> _lobbyContext;
 		private readonly ConnectionMapping _connectionMapping;
+
+		public event EventHandler<GameOverEventArgs> GameOver;
 
         public GameHandler(IHubContext<Lobby> lobbyContext, ConnectionMapping connectionMapping)
 		{
@@ -117,7 +121,9 @@ namespace GameServer.Handlers
 
 		private async Task Game_FieldEventOccurredAsync(object? sender, HubCallerContext context, Packet e)
 		{
-			if (e.GetType() == typeof(GoToJailPacket))
+            Game game = GetGame(context);
+
+            if (e.GetType() == typeof(GoToJailPacket))
 			{
                 // First send Package that player is going to jail
                 string goToJail = JsonSerializer.Serialize(e, e.GetType());
@@ -126,7 +132,7 @@ namespace GameServer.Handlers
 				Thread.Sleep(1000);
 
 				// Then send package that next player is up
-                Game game = GetGame(context);
+                
 				Player newCurrent = game.GetNextPlayer();
 				PlayersTurnPacket playersTurn = new PlayersTurnPacket();
 				playersTurn.PlayerName = newCurrent.Name;
@@ -136,6 +142,11 @@ namespace GameServer.Handlers
 				return;
             }
 
+			if (e.GetType() == typeof(PlayerWonPacket))
+			{
+				InvokeGameOver(new GameOverEventArgs() { WinnerName = game.CheckForWinner(), Players = game.Players.Select(p => p.Name).ToList() }) ;
+			}
+
             string pkg = JsonSerializer.Serialize(e, e.GetType());
 			await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", pkg);
 			
@@ -143,7 +154,7 @@ namespace GameServer.Handlers
 			if (e.GetType() == typeof(BankruptcyPacket))
 			{
                 await Console.Out.WriteLineAsync("Bankrupcty has been sent, game now checks for winners.");
-                Game game = GetGame(context);
+                game = GetGame(context);
 
 				game.CheckForWinner();
 
@@ -492,5 +503,13 @@ namespace GameServer.Handlers
                 await _lobbyContext.Clients.Client(context.ConnectionId).SendAsync("ReceivePacket", JsonSerializer.Serialize(new ErrorPacket("CANT_SELL", "You cannot sell this Property.")));
             }
         }
+
+		private void InvokeGameOver(GameOverEventArgs args)
+		{
+			if (GameOver != null)
+			{
+                GameOver.Invoke(this, args);
+            }
+		}
     }
 }

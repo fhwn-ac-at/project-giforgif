@@ -1,5 +1,6 @@
 ﻿using GameServer.Data;
 using GameServer.GameLogic;
+using GameServer.GameLogic.EventArgs;
 using GameServer.Hubs;
 using GameServer.Models;
 using GameServer.Models.Packets;
@@ -28,6 +29,8 @@ namespace GameServer.Handlers
             _gameHandler = new GameHandler(lobbyContext, connectionMapping);
             _serviceProvider = serviceProvider;
 
+            _gameHandler.GameOver += OnGameOver;
+
             // Hier ein neues packet registrieren
             _packetFunctions.Add("SAMPLE", HandleSamplePacket);
             _packetFunctions.Add("REGISTER", HandleRegisterPacket);
@@ -47,6 +50,16 @@ namespace GameServer.Handlers
             _packetFunctions.Add("SELL_HOUSE", _gameHandler.HandleSellHousePacket);
             _packetFunctions.Add("SELL_PROPERTY", _gameHandler.HandleSellPropertyPacket);
             _connectionMapping = connectionMapping;
+        }
+
+        private async void OnGameOver(object? sender, GameOverEventArgs e)
+        {
+            foreach (var player in e.Players)
+            {
+                await IncreasePlayerPlayed(player);
+            }
+
+            await IncreasePlayerWon(e.WinnerName);
         }
 
         public async Task IncreasePlayerPlayed(string playerName)

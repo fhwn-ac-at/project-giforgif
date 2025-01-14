@@ -720,7 +720,7 @@ namespace GameServer.GameLogic
             return true;
 		}
 
-        public void CheckForWinner()
+        public string CheckForWinner()
         {
             Console.WriteLine($"GAME CHECKS FOR WINNERS: {Players.Where(p => !p.IsBankrupt).Count()} non bankrupt players found.");
 
@@ -728,7 +728,11 @@ namespace GameServer.GameLogic
             {
                 Player winner = Players.Where(p => !p.IsBankrupt).First();
                 OnFieldEventOccurred(this, new PlayerWonPacket() { PlayerName = winner.Name });
+
+                return winner.Name;
             }
+
+            return string.Empty;
         }
     }
 }
