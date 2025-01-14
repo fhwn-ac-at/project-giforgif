@@ -142,7 +142,8 @@ namespace GameServer.Handlers
 			// Check for winner if bankruptcy packet is sent
 			if (e.GetType() == typeof(BankruptcyPacket))
 			{
-				Game game = GetGame(context);
+                await Console.Out.WriteLineAsync("Bankrupcty has been sent, game now checks for winners.");
+                Game game = GetGame(context);
 
 				game.CheckForWinner();
 

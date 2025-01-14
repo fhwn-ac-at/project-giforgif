@@ -722,6 +722,8 @@ namespace GameServer.GameLogic
 
         public void CheckForWinner()
         {
+            Console.WriteLine($"GAME CHECKS FOR WINNERS: {Players.Where(p => !p.IsBankrupt).Count()} bankrupt players found.");
+
             if (Players.Where(p => !p.IsBankrupt).Count() == 1)
             {
                 Player winner = Players.Where(p => !p.IsBankrupt).First();
