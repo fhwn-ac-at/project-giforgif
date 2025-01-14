@@ -1,6 +1,7 @@
 ﻿using GameServer.Models;
 using GameServer.Models.Fields;
 using GameServer.Models.Packets;
+using GameServer.Models.Packets.Game.Outgoing;
 using System.Net.Sockets;
 using System.Xml.Linq;
 
@@ -718,5 +719,14 @@ namespace GameServer.GameLogic
 
             return true;
 		}
-	}
+
+        public void CheckForWinner()
+        {
+            if (Players.Where(p => !p.IsBankrupt).Count() == 1)
+            {
+                Player winner = Players.Where(p => !p.IsBankrupt).First();
+                OnFieldEventOccurred(this, new PlayerWonPacket() { PlayerName = winner.Name });
+            }
+        }
+    }
 }

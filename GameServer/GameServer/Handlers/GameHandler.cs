@@ -138,6 +138,16 @@ namespace GameServer.Handlers
 
             string pkg = JsonSerializer.Serialize(e, e.GetType());
 			await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", pkg);
+			
+			// Check for winner if bankruptcy packet is sent
+			if (e.GetType() == typeof(BankruptcyPacket))
+			{
+				Game game = GetGame(context);
+
+				game.CheckForWinner();
+
+				await HandleEndTurnPacket(null, context);
+			}
 		}
 
 		public async Task HandlePaymentDecisionPacket(Packet packet, HubCallerContext context)
