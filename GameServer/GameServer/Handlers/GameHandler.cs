@@ -147,6 +147,7 @@ namespace GameServer.Handlers
 
 				game.CheckForWinner();
 
+                await Console.Out.WriteLineAsync("Next Player after bankrupty");
                 Player newCurrent = game.GetNextPlayer();
                 PlayersTurnPacket playersTurn = new PlayersTurnPacket();
                 playersTurn.PlayerName = newCurrent.Name;
