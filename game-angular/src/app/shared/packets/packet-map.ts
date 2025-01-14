@@ -17,6 +17,7 @@ import { TTransferPropertiesPacket } from './game/sites/transfer-properties';
 import { TBankurptcyPacket } from './game/util/bankruptcy';
 import { TPlayerOutOfDebtPacket } from './game/util/out-of-debt';
 import { TSellPropertiesPacket } from './game/util/sell-properties';
+import { TWonPacket } from './game/util/won';
 import { TStartPacket } from './lobby/start';
 import { TStatusPacket } from './lobby/status';
 import { Packet } from './packet';
@@ -55,6 +56,7 @@ const packetTypeMap: { [key: string]: PacketParserFunction } = {
   PROPERTY_SOLD: (obj: any) => obj as TPropertySoldPacket,
   HOUSE_SOLD: (obj: any) => obj as THouseSoldPacket,
   TRANSFER_PROPERTIES: (obj: any) => obj as TTransferPropertiesPacket,
+  WON: (obj: any) => obj as TWonPacket,
   // Add entries for other packet types
 };
 
