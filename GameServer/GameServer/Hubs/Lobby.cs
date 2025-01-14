@@ -12,14 +12,13 @@ namespace GameServer.Hubs
     {
         private readonly PacketHandler _packetHandler;
         private readonly ConnectionMapping _connectionMapping;
-        private readonly DatabaseContext _databaseContext;
 
-        public Lobby(PacketHandler packetHandler, ConnectionMapping connectionMapping, DatabaseContext databaseContext)
+        public Lobby(PacketHandler packetHandler, ConnectionMapping connectionMapping)
         {
             _packetHandler = packetHandler;
             _connectionMapping = connectionMapping;
-            _databaseContext = databaseContext;
         }
+
 
         public override async Task OnDisconnectedAsync(Exception exception)
         {

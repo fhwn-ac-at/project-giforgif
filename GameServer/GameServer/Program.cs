@@ -14,8 +14,9 @@ builder.Services.AddDbContext<DatabaseContext>(options =>
 
 builder.Services.AddControllers();
 builder.Services.AddSignalR();
-builder.Services.AddSingleton<ConnectionMapping>();
+builder.Services.AddSingleton<ConnectionMapping>(); 
 builder.Services.AddSingleton<PacketHandler>();
+
 
 builder.Services.AddCors(options =>
 {

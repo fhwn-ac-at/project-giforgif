@@ -1,4 +1,5 @@
-﻿using GameServer.GameLogic;
+﻿using GameServer.Data;
+using GameServer.GameLogic;
 using GameServer.Hubs;
 using GameServer.Models;
 using GameServer.Models.Packets;
@@ -7,6 +8,7 @@ using GameServer.Models.Packets.Rooms;
 using GameServer.Stores;
 using GameServer.Util;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 
@@ -18,11 +20,13 @@ namespace GameServer.Handlers
         private readonly IHubContext<Lobby> _lobbyContext;
         private readonly ConnectionMapping _connectionMapping;
         private readonly GameHandler _gameHandler;
+        private readonly IServiceProvider _serviceProvider;
 
-        public PacketHandler(IHubContext<Lobby> lobbyContext, ConnectionMapping connectionMapping)
+        public PacketHandler(IHubContext<Lobby> lobbyContext, ConnectionMapping connectionMapping, IServiceProvider serviceProvider)
         {
             _lobbyContext = lobbyContext;
             _gameHandler = new GameHandler(lobbyContext, connectionMapping);
+            _serviceProvider = serviceProvider;
 
             // Hier ein neues packet registrieren
             _packetFunctions.Add("SAMPLE", HandleSamplePacket);
@@ -43,6 +47,67 @@ namespace GameServer.Handlers
             _packetFunctions.Add("SELL_HOUSE", _gameHandler.HandleSellHousePacket);
             _packetFunctions.Add("SELL_PROPERTY", _gameHandler.HandleSellPropertyPacket);
             _connectionMapping = connectionMapping;
+        }
+
+        public async Task IncreasePlayerPlayed(string playerName)
+        {
+            await UseDatabaseContext(async dbContext =>
+            {
+                var player = await dbContext.Players.FirstOrDefaultAsync(p => p.Name == playerName);
+
+                if (player != null)
+                {
+                    player.Played++;
+                }
+                else
+                {
+                    player = new Data.Models.Player
+                    {
+                        Name = playerName,
+                        Played = 1,
+                        Won = 0
+                    };
+
+                    await dbContext.Players.AddAsync(player);
+                }
+
+                await dbContext.SaveChangesAsync();
+            });
+        }
+
+        public async Task IncreasePlayerWon(string playerName)
+        {
+            await UseDatabaseContext(async dbContext =>
+            {
+                var player = await dbContext.Players.FirstOrDefaultAsync(p => p.Name == playerName);
+
+                if (player != null)
+                {
+                    player.Won++;
+                }
+                else
+                {
+                    player = new Data.Models.Player
+                    {
+                        Name = playerName,
+                        Played = 1,
+                        Won = 1
+                    };
+                    await dbContext.Players.AddAsync(player);
+                }
+
+                await dbContext.SaveChangesAsync();
+            });
+        }
+
+
+        private async Task UseDatabaseContext(Func<DatabaseContext, Task> action)
+        {
+            using (var scope = _serviceProvider.CreateScope())
+            {
+                var dbContext = scope.ServiceProvider.GetRequiredService<DatabaseContext>();
+                await action(dbContext);
+            }
         }
 
         public async Task HandleRegisterPacket(Packet packet, HubCallerContext context)
