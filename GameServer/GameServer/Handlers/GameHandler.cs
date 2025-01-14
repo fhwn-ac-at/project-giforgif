@@ -309,6 +309,12 @@ namespace GameServer.Handlers
 			if (player != game.CurrentMover)
 				return;
 
+			if (game.CurrentMoverRolled == false)
+			{
+                await _lobbyContext.Clients.Client(context.ConnectionId).SendAsync("ReceivePacket", JsonSerializer.Serialize(new ErrorPacket("NO_ROLL", "You have not rolled the dice yet.")));
+                return;
+            }
+
 			if (player.AmountOwed > 0 && player.OwesMoney != null)
 			{
                 await _lobbyContext.Clients.Client(context.ConnectionId).SendAsync("ReceivePacket", JsonSerializer.Serialize(new ErrorPacket("CANT_END_TURN", "You still owe some money.")));
