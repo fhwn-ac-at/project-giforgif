@@ -4,8 +4,8 @@
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 USER app
 WORKDIR /app
-EXPOSE 3000
-EXPOSE 3001
+EXPOSE 8080
+EXPOSE 8081
 
 
 # Diese Stufe wird zum Erstellen des Dienstprojekts verwendet.

@@ -2,11 +2,12 @@
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 USER app
 WORKDIR /app
-EXPOSE 3000
-EXPOSE 3001
+EXPOSE 8080
+EXPOSE 8081
 
 # Build image
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 
 # Copy everything into the container's build context
@@ -17,11 +18,12 @@ RUN dotnet restore "GameServer/GameServer.csproj"
 
 # Build the application
 WORKDIR "/src/GameServer"
-RUN dotnet build "GameServer.csproj" -o /app/build
+RUN dotnet build "GameServer.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # Publish image
 FROM build AS publish
-RUN dotnet publish "GameServer.csproj" -o /app/publish
+ARG BUILD_CONFIGURATION=Release
+RUN dotnet publish "GameServer.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 # Final runtime image
 FROM base AS final
