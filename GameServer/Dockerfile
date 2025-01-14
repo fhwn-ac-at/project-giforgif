@@ -23,7 +23,7 @@ RUN dotnet build "GameServer.csproj" -c $BUILD_CONFIGURATION -o /app/build
 # Publish image
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "GameServer.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "GameServer.csproj" -c $BUILD_CONFIGURATION -o /app/publish
 
 # Final runtime image
 FROM base AS final
