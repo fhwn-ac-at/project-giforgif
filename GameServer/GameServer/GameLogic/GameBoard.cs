@@ -18,7 +18,7 @@ namespace GameServer.GameLogic
 			_fields.Add(field.Id, field);
 		}
 
-		public IField? GetFieldById(int id)
+		public IField GetFieldById(int id)
 		{
             if (_fields.ContainsKey(id) == false)
                 throw new System.Exception($"Field with id {id} not found");
@@ -39,9 +39,9 @@ namespace GameServer.GameLogic
 			return _fields.Count();
         }
 
-        //public PropertyField? GetPropertyByName(string name)
-        //{
-        //	return _fields.OfType<PropertyField>().Where(p => p.Name == name).FirstOrDefault();
-        //}
+		public IEnumerable<IField> GetFields()
+		{
+			   return _fields.Values;
+		}
     }
 }
