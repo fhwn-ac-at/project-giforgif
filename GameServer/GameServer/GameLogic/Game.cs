@@ -156,7 +156,7 @@ namespace GameServer.GameLogic
         public void MovePlayer(Player player, int rolled)
         {
             CurrentMoverRolled = true;
-            MovePlayerInternal(player, rolled);
+            MovePlayerInternal(player, player.CurrentPositionFieldId + rolled, false);
         }
 
         public void SetPlayerPosition(Player player, int FieldId, bool isDirectMove)
@@ -196,7 +196,7 @@ namespace GameServer.GameLogic
             _currentAuction = null;
 		}
 
-        private void MovePlayerInternal(Player player, int stepsOrFieldId, bool isDirectMove = false)
+        private void MovePlayerInternal(Player player, int FieldId, bool isDirectMove)
         {
             if (_board == null)
             {
@@ -217,33 +217,37 @@ namespace GameServer.GameLogic
             }
 
             int totalFields = _board.GetFieldCount();
-            int newPositionIndex;
+            int newPositionIndex = FieldId;
 
-            if (isDirectMove)
+            if (newPositionIndex > totalFields)
             {
-                // Move directly to the specified field ID
-                newPositionIndex = stepsOrFieldId;
+                newPositionIndex -= totalFields;
             }
-            else
+
+            if (!isDirectMove)
             {
+                // Move is not direct, so calculate all passed fields
+
                 // Calculate new position based on dice roll
-                newPositionIndex = currentPositionIndex + stepsOrFieldId;
 
-                if (newPositionIndex > totalFields)
+                if (newPositionIndex > currentPositionIndex)
                 {
-                    newPositionIndex -= totalFields;
-                }
-
-                for (int i = 1; i <= stepsOrFieldId; i++)
-                {
-                    int passPositionIndex = currentPositionIndex + i;
-
-                    if (passPositionIndex > totalFields)
+                    for (int i = currentPositionIndex + 1; i <= newPositionIndex; i++)
                     {
-                        passPositionIndex -= totalFields;
+                        _board.GetFieldById(i).Accept(_fieldVisitor, player, false);
+                    }
+                }
+                else
+                {
+                    for (int i = currentPositionIndex + 1; i <= totalFields; i++)
+                    {
+                        _board.GetFieldById(i).Accept(_fieldVisitor, player, false);
                     }
 
-                    _board.GetFieldById(passPositionIndex).Accept(_fieldVisitor, player, false);
+                    for (int i = 1; i < newPositionIndex; i++)
+                    {
+                        _board.GetFieldById(i).Accept(_fieldVisitor, player, false);
+                    }
                 }
             }
 
@@ -258,7 +262,7 @@ namespace GameServer.GameLogic
                 Utility utility = (Utility)newPosition;
                 if (!isDirectMove) // Only set rolled dice for non-direct moves
                 {
-                    utility.RolledDice = stepsOrFieldId;
+                    utility.RolledDice = FieldId;
                 }
                 utility.Accept(_fieldVisitor, player, true);
                 return;
