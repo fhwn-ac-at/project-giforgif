@@ -1,5 +1,6 @@
 ﻿using GameServer.Models.Fields;
 using GameServer.Models.Packets;
+using GameServer.Models.Packets.GenericGameActions.Outgoing;
 
 namespace GameServer.GameLogic
 {
@@ -127,13 +128,13 @@ namespace GameServer.GameLogic
 			{
 				var drawnCard = player.Board.Dealer.DrawCommunityCard();
 
+				communityChest.RaiseEvent("DRAW_CHEST", new DrawCommunityCardPacket(player.Name, drawnCard.Id));
+				
 				if (drawnCard.Effect.IsInstant)
 				{
 					drawnCard.Effect.Effect.Invoke(player, _game, communityChest);
 					return;
 				}
-
-				communityChest.RaiseEvent("DRAW_CARD", new DrawCardPacket(player.Name, drawnCard.Id));
 			}
 		}
 
@@ -145,14 +146,14 @@ namespace GameServer.GameLogic
 			if (isLanding)
 			{
                 var drawnCard = player.Board.Dealer.DrawChanceCard();
+                
+				chance.RaiseEvent("DRAW_CARD", new DrawChanceCardPacket(player.Name, drawnCard.Id));
 
                 if (drawnCard.Effect.IsInstant)
                 {
                     drawnCard.Effect.Effect.Invoke(player, _game, chance);
                     return;
                 }
-
-                chance.RaiseEvent("DRAW_CARD", new DrawCardPacket(player.Name, drawnCard.Id));
             }
         }
 
