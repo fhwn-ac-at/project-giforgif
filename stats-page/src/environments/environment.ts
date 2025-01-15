@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://api.trucklix.at',
+  apiUrl: 'https://api.trucklix.at',
 };
