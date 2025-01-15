@@ -38,7 +38,7 @@ namespace GameServer.GameLogic.Politics
 
         public void RollForGod()
         {
-            if (Rng.Next(0, 1 + _chanceToGetGod) == 0)
+            if (true || Rng.Next(0, 1 + _chanceToGetGod) == 0)
             {
                 God god = _gods[Rng.Next(0, _gods.Count)];
 
