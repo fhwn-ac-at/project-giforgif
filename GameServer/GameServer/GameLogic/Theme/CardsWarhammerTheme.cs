@@ -50,8 +50,6 @@ namespace GameServer.GameLogic.Theme
             {
                 foreach(var player in g.Players.Where(player => !player.IsBankrupt && player != p))
                 {
-                    f.RaiseEvent("PAY_PLAYER", new PayPlayerPacket() { Amount = 50, From = p.Name, To = player.Name });
-                    
                     p.TransferCurrency(player, 50, f);
                 }
             }))));
@@ -74,10 +72,8 @@ namespace GameServer.GameLogic.Theme
 
             // Pay 15
             cards.Add(new Card(cards.Count, new CardEffect(true, new Action<Player, Game, ActionField>((p, g, f) =>
-            {
-                f.RaiseEvent("REMOVE_MONEY", new RemoveMoneyPacket() { PlayerName = p.Name, Amount = 50, Description = "Pay 50" });
-                
-                p.DeductCurrency(50, f);
+            {   
+                p.DeductCurrency(15, f);
             }))));
 
             // Advance to nearest Railroad and pay the normal rental
@@ -160,8 +156,6 @@ namespace GameServer.GameLogic.Theme
                         : 100 + (4 * 25);
                     }
                 }
-
-                f.RaiseEvent("REMOVE_MONEY", new RemoveMoneyPacket() { PlayerName = p.Name, Amount = count, Description = "Pay 25 for each house and 100 for each hotel" });
                 
                 p.DeductCurrency(count, f);
             }))));
@@ -187,8 +181,6 @@ namespace GameServer.GameLogic.Theme
                         : 115 + (4 * 40);
                     }
                 }
-
-                f.RaiseEvent("REMOVE_MONEY", new RemoveMoneyPacket() { PlayerName = p.Name, Amount = count, Description = "Pay 40 for each house and 115 for each hotel" });
 
                 p.DeductCurrency(count, f);
             }))));
@@ -236,9 +228,7 @@ namespace GameServer.GameLogic.Theme
 
             // Pay 150
             cards.Add(new Card(cards.Count, new CardEffect(true, new Action<Player, Game, ActionField>((p, g, f) =>
-            {
-                f.RaiseEvent("REMOVE_MONEY", new RemoveMoneyPacket() { PlayerName = p.Name, Amount = 150, Description = "Pay 150" });
-                
+            {   
                 p.DeductCurrency(150, f);
             }))));
 
@@ -255,8 +245,6 @@ namespace GameServer.GameLogic.Theme
             {
                 foreach (var player in g.Players.Where(player => !player.IsBankrupt && player != p))
                 {
-                    f.RaiseEvent("PAY_PLAYER", new PayPlayerPacket() { Amount = 50, From = player.Name, To = p.Name });
-
                     player.TransferCurrency(p, 50, f);
                 }
             }))));
@@ -264,16 +252,12 @@ namespace GameServer.GameLogic.Theme
             // Pay 50
             cards.Add(new Card(cards.Count, new CardEffect(true, new Action<Player, Game, ActionField>((p, g, f) =>
             {
-                f.RaiseEvent("REMOVE_MONEY", new RemoveMoneyPacket() { PlayerName = p.Name, Amount = 50, Description = "Pay 50" });
-
                 p.DeductCurrency(50, f);
             }))));
 
             // Pay 100
             cards.Add(new Card(cards.Count, new CardEffect(true, new Action<Player, Game, ActionField>((p, g, f) =>
             {
-                f.RaiseEvent("REMOVE_MONEY", new RemoveMoneyPacket() { PlayerName = p.Name, Amount = 100, Description = "Pay 100" });
-
                 p.DeductCurrency(100, f);
             }))));
 
