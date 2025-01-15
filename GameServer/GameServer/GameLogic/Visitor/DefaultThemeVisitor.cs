@@ -42,7 +42,7 @@ namespace GameServer.GameLogic
 						amount = site.RentPrices[0];
 					}
 
-					player.TransferCurrency(site.Owner, amount, site);
+					player.TransferCurrency(site.Owner, amount * site.GodRentModifier, site);
 
 					return;
 				}
@@ -67,7 +67,7 @@ namespace GameServer.GameLogic
 				{
 					int amount = station.RentPrices[station.Group.AmountOfWOwnedProperties(station.Owner) - 1];
 
-					player.TransferCurrency(station.Owner, amount, station);
+					player.TransferCurrency(station.Owner, amount * station.GodRentModifier, station);
 					return;
 				}
 
@@ -105,7 +105,7 @@ namespace GameServer.GameLogic
 						amount = utility.RolledDice * 10;
 					}
 
-					player.TransferCurrency(utility.Owner, amount, utility);
+					player.TransferCurrency(utility.Owner, amount * utility.GodRentModifier, utility);
 
 					return;
 				}
