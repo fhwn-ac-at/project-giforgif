@@ -78,6 +78,7 @@ namespace GameServer.GameLogic.Theme
             field = new Station()
             {
                 Name = "Altdorf Train",
+                BuyingPrice = 100,
                 RentPrices = new int[4] { 25, 50, 100, 200 },
                 Group = _board.Groups["station"]
             };
@@ -154,6 +155,7 @@ namespace GameServer.GameLogic.Theme
             field = new Utility()
             {
                 Name = "Dwarfen Jewerly Forges",
+                BuyingPrice = 100,
                 Group = _board.Groups["utility"],
                 RolledDice = 0
             };
@@ -190,6 +192,7 @@ namespace GameServer.GameLogic.Theme
             field = new Station()
             {
                 Name = "Kislev Train",
+                BuyingPrice = 100,
                 RentPrices = new int[4] { 25, 50, 100, 200 },
                 Group = _board.Groups["station"]
             };
@@ -299,6 +302,7 @@ namespace GameServer.GameLogic.Theme
             field = new Station()
             {
                 Name = "Northern Warmammoths",
+                BuyingPrice = 100,
                 RentPrices = new int[4] { 25, 50, 100, 200 },
                 Group = _board.Groups["station"]
             };
@@ -335,6 +339,7 @@ namespace GameServer.GameLogic.Theme
             field = new Utility()
             {
                 Name = "Imperial Brewery",
+                BuyingPrice = 100,
                 Group = _board.Groups["utility"],
                 RolledDice = 0
             };
@@ -411,6 +416,7 @@ namespace GameServer.GameLogic.Theme
             field = new Station()
             {
                 Name = "Dwarven Tunnels",
+                BuyingPrice = 100,
                 RentPrices = new int[4] { 25, 50, 100, 200 },
                 Group = _board.Groups["station"]
             };
