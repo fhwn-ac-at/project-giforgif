@@ -1,5 +1,6 @@
 ﻿
 
+using GameServer.Models.Fields;
 using GameServer.Models.Packets;
 
 namespace GameServer.GameLogic.Politics
@@ -12,15 +13,15 @@ namespace GameServer.GameLogic.Politics
         {
             base.Activate(board, players, rng);
 
-            var eligibleFields = board.GetPropertyFieldsOf(null);
+            var eligibleFields = board.GetFields().Where(p => p is PropertyField field && field.Owner == null);
 
-            if (eligibleFields.Count == 0)
+            if (eligibleFields.Count() == 0)
             {
                 // There is no empty property
                 return;
             }
 
-            var randomField = eligibleFields[rng.Next(eligibleFields.Count)];
+            var randomField = (PropertyField)eligibleFields.ToList()[rng.Next(eligibleFields.Count())];
             var randomPlayer = players[rng.Next(players.Where(p => !p.IsBankrupt).Count())];
             randomField.Owner = randomPlayer;
 
