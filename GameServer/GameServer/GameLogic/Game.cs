@@ -1,4 +1,5 @@
-﻿using GameServer.GameLogic.Theme;
+﻿using GameServer.GameLogic.Politics;
+using GameServer.GameLogic.Theme;
 using GameServer.Models;
 using GameServer.Models.Fields;
 using GameServer.Models.Packets;
@@ -17,6 +18,7 @@ namespace GameServer.GameLogic
         private IFieldVisitor? _fieldVisitor;
         private AuctionState? _currentAuction;
         private bool _counterStarted = false;
+        private Politic? _politic;
 
         public event EventHandler<Game>? OnGameStarted;
         public bool Started { get; set; }
@@ -54,12 +56,14 @@ namespace GameServer.GameLogic
 
             IBoardTheme boardTheme = new BoardWarhammerTheme(_board);
 
-            boardTheme.LoadBoardTheme(this.OnFieldEventOccurred);
+            boardTheme.LoadBoardTheme(OnFieldEventOccurred);
 
             ICardTheme cardTheme = new CardsWarhammerTheme(_board.Dealer);
 
             cardTheme.LoadChanceCards();
             cardTheme.LoadCommunityCards();
+
+            _politic = new Politic(_board, Players, OnFieldEventOccurred);
         }
 
         public Player GetAuctionHighestBidder()
@@ -123,6 +127,12 @@ namespace GameServer.GameLogic
             if (currentIndex == -1)
             {
                 throw new InvalidOperationException("Current player is not in the list of players.");
+            }
+
+            if (currentIndex + 1 >= Players.Count)
+            {
+                //One whole round has been completed
+                _politic?.TurnEnd();
             }
 
             int nextPlayerIdx;
