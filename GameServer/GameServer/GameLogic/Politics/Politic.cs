@@ -45,7 +45,7 @@ namespace GameServer.GameLogic.Politics
                 _currentGodDuration = _godDuration;
                 _currentGod = god;
 
-                god.Perform(_board, _players, Rng);
+                god.Revert(_board, _players, Rng);
             }
         }
 

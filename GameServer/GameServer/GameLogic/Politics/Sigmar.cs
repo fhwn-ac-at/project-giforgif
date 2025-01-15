@@ -10,11 +10,6 @@ namespace GameServer.GameLogic.Politics
 
         private static readonly int BonusCurrency = 200;
 
-        public new void Deactivate(GameBoard board, List<Player> players, Random rng)
-        {
-            return;
-        }
-
         public override void Perform(GameBoard board, List<Player> players, Random rng)
         {
             this.Activate(board, players, rng);
@@ -25,6 +20,11 @@ namespace GameServer.GameLogic.Politics
 
                 RaiseEvent("PlayerCurrencyUpdate", new AddMoneyPacket() { PlayerName = player.Name, Amount = BonusCurrency, Description = "The imperator has blessed you." });
             }
+        }
+
+        public override void Revert(GameBoard board, List<Player> players, Random rng)
+        {
+            return;
         }
     }
 }

@@ -9,11 +9,6 @@ namespace GameServer.GameLogic.Politics
     {
         public override int Id => 3;
 
-        public new void Deactivate(GameBoard board, List<Player> players, Random rng)
-        {
-            return;
-        }
-
         public override void Perform(GameBoard board, List<Player> players, Random rng)
         {
             this.Activate(board, players, rng);
@@ -31,6 +26,11 @@ namespace GameServer.GameLogic.Politics
             randomField.Owner = randomPlayer;
 
             RaiseEvent("GotProperty", new BoughtFieldPacket() { FieldId = randomField.Id, PlayerName = randomPlayer.Name, ReducedBy = 0 });
+        }
+
+        public override void Revert(GameBoard board, List<Player> players, Random rng)
+        {
+            return;
         }
     }
 }

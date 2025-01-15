@@ -10,19 +10,6 @@ namespace GameServer.GameLogic.Politics
 
         private static readonly int BuyModifier = 2;
 
-        public new void Deactivate(GameBoard board, List<Player> players, Random rng)
-        {
-            RaiseEvent("POLITIC_RESET", new PoliticResetPacket());
-
-            var eligibleFiels = board.GetFields().Where(f => f is PropertyField).ToList();
-
-            eligibleFiels.ForEach(f =>
-            {
-                var field = (PropertyField)f;
-                field.BuyingPrice = field.BuyingPrice / BuyModifier;
-            });
-        }
-
         public override void Perform(GameBoard board, List<Player> players, Random rng)
         {
             this.Activate(board, players, rng);
@@ -36,6 +23,19 @@ namespace GameServer.GameLogic.Politics
             });
 
             RaiseEvent("BUYING_INCREASE", new BuyingPriceChangedPacket() { NewMultiplier = BuyModifier });
+        }
+
+        public override void Revert(GameBoard board, List<Player> players, Random rng)
+        {
+            this.Deactivate(board, players, rng);
+
+            var eligibleFiels = board.GetFields().Where(f => f is PropertyField).ToList();
+
+            eligibleFiels.ForEach(f =>
+            {
+                var field = (PropertyField)f;
+                field.BuyingPrice = field.BuyingPrice / BuyModifier;
+            });
         }
     }
 }
