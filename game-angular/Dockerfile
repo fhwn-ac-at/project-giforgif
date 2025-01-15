@@ -8,4 +8,4 @@ RUN npm install -g @angular/cli
 
 RUN npm install
 
-CMD ["ng", "serve", "--configuration=production", "--host", "0.0.0.0"]
+CMD ["ng", "serve", "--configuration=production", "--port=9000", "--host", "0.0.0.0"]
