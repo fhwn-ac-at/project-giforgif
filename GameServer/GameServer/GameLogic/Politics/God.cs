@@ -20,6 +20,11 @@ namespace GameServer.GameLogic.Politics
 
         protected void RaiseEvent(string messageType, Packet data)
         {
+            Console.WriteLine("HAMBURGER BIG MAC CHEESEBURGER WHOPPER");
+
+            if (FieldEventOccurred == null)
+                Console.WriteLine("FIELDEVENTOCCURRED IS NULL MAN WTF IS THIS IMBATAKUM");
+
             FieldEventOccurred?.Invoke(this, data);
         }
     }
