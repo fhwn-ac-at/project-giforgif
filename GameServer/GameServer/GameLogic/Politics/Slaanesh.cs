@@ -1,7 +1,6 @@
 ﻿
 using GameServer.Models.Fields;
 using GameServer.Models.Packets;
-using GameServer.Models.Packets.Gods.Outgoing;
 
 namespace GameServer.GameLogic.Politics
 {
