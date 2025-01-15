@@ -19,7 +19,7 @@ namespace GameServer.GameLogic
             // Handle use case that there are no cards left
 
             int index = _random.Next(0, _chanceCards.Count);
-
+            return _chanceCards[1];
             return _chanceCards[index];
         }
 
