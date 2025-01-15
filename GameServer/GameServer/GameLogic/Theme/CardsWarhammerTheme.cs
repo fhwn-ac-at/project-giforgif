@@ -126,20 +126,20 @@ namespace GameServer.GameLogic.Theme
                 f.RaiseEvent("MOVE_PLAYER", new MovePlayerPacket() { PlayerName = p.Name, FieldId = closestUtility.Id });
             }))));
 
-            // Move to Field ID 21
+            // Move to Field ID 22
             cards.Add(new Card(cards.Count, new CardEffect(true, new Action<Player, Game, ActionField>((p, g, f) =>
             {
-                g.SetPlayerPosition(p, 21, false);
+                g.SetPlayerPosition(p, 22, false);
 
-                f.RaiseEvent("MOVE_PLAYER", new MovePlayerPacket() { PlayerName = p.Name, FieldId = 21 });
+                f.RaiseEvent("MOVE_PLAYER", new MovePlayerPacket() { PlayerName = p.Name, FieldId = 22 });
             }))));
 
-            // Move to Field ID 39
+            // Move to Field ID 40
             cards.Add(new Card(cards.Count, new CardEffect(true, new Action<Player, Game, ActionField>((p, g, f) =>
             {
-                g.SetPlayerPosition(p, 39, false);
+                g.SetPlayerPosition(p, 40, true);
 
-                f.RaiseEvent("MOVE_PLAYER", new MovePlayerPacket() { PlayerName = p.Name, FieldId = 39 });
+                f.RaiseEvent("MOVE_PLAYER", new MovePlayerPacket() { PlayerName = p.Name, FieldId = 40 });
             }))));
 
             // Pay 25 for each house and 100 for each hotel
