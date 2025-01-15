@@ -31,7 +31,7 @@ namespace GameServer.GameLogic
 			CurrentPositionFieldId = 1;
 		}
 
-		public bool TransferCurrency(Player recipient, int amount, PropertyField callback)
+		public bool TransferCurrency(Player recipient, int amount, IField callback)
 		{
             // Callback is used to send events to frontend, can be null, will just not send the events if thats the case
 
@@ -46,22 +46,22 @@ namespace GameServer.GameLogic
 
                     // If Player is not able to pay the owned rent, not even "debt mode" saves him
                     if (callback != null)
-						DeclareBankruptcyToPlayer(callback.Owner);
+						DeclareBankruptcyToPlayer(recipient);
 
 					if (callback != null)
 					{
 						callback.RaiseEvent("BANKRUPTCY", new BankruptcyPacket() { PlayerName = Name });
-						callback.RaiseEvent("TRANSFER_PROPERTIES", new TransferPropertiesPacket() { From = Name, To = callback.Owner.Name });
+						callback.RaiseEvent("TRANSFER_PROPERTIES", new TransferPropertiesPacket() { From = Name, To = recipient.Name });
 					}
 
-                    Console.WriteLine($"Player {Name} declared Bankrupcty to {callback.Owner.Name}. All Properties got transferred.");
+                    Console.WriteLine($"Player {Name} declared Bankrupcty to {recipient.Name}. All Properties got transferred.");
 
                     return false;
                 }
 
                 //Player can still sell properties to pay the rent -> goes into "debt mode"
-                Console.WriteLine($"Player {Name} entered Debt Mode with {amount} in debt and to player {callback.Owner.Name}.");
-                OwesMoney = callback.Owner;
+                Console.WriteLine($"Player {Name} entered Debt Mode with {amount} in debt and to player {recipient.Name}.");
+                OwesMoney = recipient;
                 AmountOwed = amount;
 				
 				if (callback != null)
