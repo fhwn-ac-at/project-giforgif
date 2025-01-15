@@ -14,6 +14,8 @@ namespace GameServer.Models.Fields
 		public PropertyGroup? Group { get; set; } // muss halt noch befüllt werden
 		public int Id { get; set; }
 
+		public int GodRentModifier { get; set; } = 1;
+
 		public event EventHandler<Packet>? FieldEventOccurred;
 
 		public abstract void Accept(IFieldVisitor visitor, Player player, bool isLanding);
