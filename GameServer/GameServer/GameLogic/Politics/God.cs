@@ -15,16 +15,12 @@ namespace GameServer.GameLogic.Politics
 
         public void Deactivate(GameBoard board, List<Player> players, Random rng)
         {
-            RaiseEvent("POLITIC_RESET", new PoliticResetPacket());
         }
+
+        public abstract void Perform(GameBoard board, List<Player> players, Random rng);
 
         protected void RaiseEvent(string messageType, Packet data)
         {
-            Console.WriteLine("HAMBURGER BIG MAC CHEESEBURGER WHOPPER");
-
-            if (FieldEventOccurred == null)
-                Console.WriteLine("FIELDEVENTOCCURRED IS NULL MAN WTF IS THIS IMBATAKUM");
-
             FieldEventOccurred?.Invoke(this, data);
         }
     }

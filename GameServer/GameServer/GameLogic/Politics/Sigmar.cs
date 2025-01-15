@@ -10,21 +10,21 @@ namespace GameServer.GameLogic.Politics
 
         private static readonly int BonusCurrency = 200;
 
-        public new void Activate(GameBoard board, List<Player> players, Random rng)
+        public new void Deactivate(GameBoard board, List<Player> players, Random rng)
         {
-            base.Activate(board, players, rng);
+            return;
+        }
+
+        public override void Perform(GameBoard board, List<Player> players, Random rng)
+        {
+            this.Activate(board, players, rng);
 
             foreach (var player in players.Where(p => !p.IsBankrupt))
             {
                 player.Currency += BonusCurrency;
 
-                this.RaiseEvent("PlayerCurrencyUpdate", new AddMoneyPacket() { PlayerName = player.Name, Amount = BonusCurrency, Description = "The imperator has blessed you." });
+                RaiseEvent("PlayerCurrencyUpdate", new AddMoneyPacket() { PlayerName = player.Name, Amount = BonusCurrency, Description = "The imperator has blessed you." });
             }
-        }
-
-        public new void Deactivate(GameBoard board, List<Player> players, Random rng)
-        {
-            return;
         }
     }
 }

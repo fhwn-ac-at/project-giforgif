@@ -9,9 +9,14 @@ namespace GameServer.GameLogic.Politics
     {
         public override int Id => 3;
 
-        public new void Activate(GameBoard board, List<Player> players, Random rng)
+        public new void Deactivate(GameBoard board, List<Player> players, Random rng)
         {
-            base.Activate(board, players, rng);
+            return;
+        }
+
+        public override void Perform(GameBoard board, List<Player> players, Random rng)
+        {
+            this.Activate(board, players, rng);
 
             var eligibleFields = board.GetFields().Where(p => p is PropertyField field && field.Owner == null);
 
@@ -26,11 +31,6 @@ namespace GameServer.GameLogic.Politics
             randomField.Owner = randomPlayer;
 
             RaiseEvent("GotProperty", new BoughtFieldPacket() { FieldId = randomField.Id, PlayerName = randomPlayer.Name, ReducedBy = 0 });
-        }
-
-        public new void Deactivate(GameBoard board, List<Player> players, Random rng)
-        {
-            return;
         }
     }
 }
