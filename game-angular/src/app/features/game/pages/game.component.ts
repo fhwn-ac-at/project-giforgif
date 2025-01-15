@@ -1,42 +1,54 @@
 import { Component, inject, OnDestroy, ViewChild } from '@angular/core';
-import { SharedModule } from '../../../shared/shared.module';
 import { BoardComponent } from '../components/board/board.component';
 import { PlayerCardComponent } from '../components/player-card/player-card.component';
 import { DiceComponent } from '../components/dice/dice.component';
-import { Packet } from '../../../shared/packets/packet';
 import { BuyTileComponent } from '../components/buy-tile/buy-tile.component';
 import { AuctionComponent } from '../components/auction/auction.component';
 import { EventCardComponent } from '../components/event-card/event-card.component';
 import { NextTurnComponent } from '../components/next-turn/next-turn.component';
-import { RolledDicePacket } from '../../../shared/packets/game/dice/rolled-dice';
-import { GameService } from '../../../shared/services/game/game.service';
-import { PacketService } from '../../../shared/services/packet/packet.service';
-import { RollDicePacket } from '../../../shared/packets/game/dice/roll-dice';
-import { PlayersTurnPacket } from '../../../shared/packets/game/player/player-turn';
-import { ReadyPacket } from '../../../shared/packets/game/util/ready';
-import { Handler } from '../../../shared/class/handler';
-import { ToastService } from '../../../shared/services/toast/toast.service';
-import { GameStatePacket } from '../../../shared/packets/game/game-state';
-import { EndTurnPacket } from '../../../shared/packets/game/util/end-turn';
-import { BuyRequestPacket } from '../../../shared/packets/game/sites/buy-request';
-import { PaymentDecisionPacket } from '../../../shared/packets/game/sites/payment-decision';
-import { BoughtFieldPacket } from '../../../shared/packets/game/sites/bought-field';
-import { PayPlayerPacket } from '../../../shared/packets/game/player/pay-player';
-import { AuctionStartPacket } from '../../../shared/packets/game/auction/auction-start';
-import { AuctionBidPacket } from '../../../shared/packets/game/auction/auction-bid';
-import { AuctionUpdatePacket } from '../../../shared/packets/game/auction/auction-update';
-import { AuctionResultPacket } from '../../../shared/packets/game/auction/auction-result';
-import { HouseBuiltPacket } from '../../../shared/packets/game/house/house-built';
-import { GoToJailPacket } from '../../../shared/packets/game/jail/go-to-jail';
-import { JailPayoutPacket } from '../../../shared/packets/game/jail/jail-payout';
-import { PayoutSucessPacket } from '../../../shared/packets/game/jail/payout-sucess';
-import { AddMoneyPacket } from '../../../shared/packets/game/actions/add-money';
-import { RemoveMoneyPacket } from '../../../shared/packets/game/actions/remove-money';
-import { BankurptcyPacket } from '../../../shared/packets/game/util/bankruptcy';
-import { SellPropertiesPacket } from '../../../shared/packets/game/util/sell-properties';
-import { PropertySoldPacket } from '../../../shared/packets/game/sites/property-sold';
-import { HouseSoldPacket } from '../../../shared/packets/game/house/house-sold';
-import { TransferPropertiesPacket } from '../../../shared/packets/game/sites/transfer-properties';
+import { ActionScreenComponent } from '../components/action-screen/action-screen.component';
+import { Router } from '@angular/router';
+import {
+  AddMoneyPacket,
+  AuctionBidPacket,
+  AuctionResultPacket,
+  AuctionStartPacket,
+  AuctionUpdatePacket,
+  BankurptcyPacket,
+  BoughtFieldPacket,
+  BuyingPriceIncreasePacket,
+  BuyRequestPacket,
+  DrawChancePacket,
+  DrawChestPacket,
+  EndTurnPacket,
+  GameStatePacket,
+  GoToJailPacket,
+  HouseBuiltPacket,
+  HouseSoldPacket,
+  JailPayoutPacket,
+  MovePlayerPacket,
+  NewPoliticPacket,
+  Packet,
+  PaymentDecisionPacket,
+  PayoutSucessPacket,
+  PayPlayerPacket,
+  PlayersTurnPacket,
+  PropertySoldPacket,
+  ReadyPacket,
+  RemoveMoneyPacket,
+  RentIncreasePacket,
+  RollDicePacket,
+  RolledDicePacket,
+  SellPropertiesPacket,
+  TransferPropertiesPacket,
+  WonPacket,
+} from '@shared/packets';
+import { ToastService } from '@shared/services/toast/toast.service';
+import { Handler } from '@shared/class/handler';
+import { GameService } from '@shared/services/game/game.service';
+import { PacketService } from '@shared/services/packet/packet.service';
+import { SharedModule } from '@shared/shared.module';
+import { PoliticsScreenComponent } from '../components/politics-screen/politics-screen.component';
 
 @Component({
   selector: 'app-game',
@@ -49,6 +61,8 @@ import { TransferPropertiesPacket } from '../../../shared/packets/game/sites/tra
     AuctionComponent,
     EventCardComponent,
     NextTurnComponent,
+    ActionScreenComponent,
+    PoliticsScreenComponent,
   ],
   templateUrl: './game.component.html',
   styles: ``,
@@ -66,13 +80,20 @@ export class GameComponent extends Handler implements OnDestroy {
   @ViewChild(AuctionComponent)
   protected auctionComponent!: AuctionComponent;
 
+  @ViewChild(EventCardComponent)
+  protected eventCardComponent!: EventCardComponent;
+
+  @ViewChild(ActionScreenComponent)
+  protected actionScreen!: ActionScreenComponent;
+
+  @ViewChild(PoliticsScreenComponent)
+  protected politicScreen!: PoliticsScreenComponent;
+
   protected inDebt: boolean = false;
   protected debt: number = 0;
 
   public gameService = inject(GameService);
-
-  // protected players = this.gameService.players;
-  // implement handler
+  protected router = inject(Router);
 
   constructor(
     private readonly signalRService: PacketService,
@@ -106,12 +127,113 @@ export class GameComponent extends Handler implements OnDestroy {
       'TRANSFER_PROPERTIES',
       this.handleTransferProperties.bind(this)
     );
+    this.handler.set('WON', this.handleWon.bind(this));
+    this.handler.set('MOVE_PLAYER', this.handleMovePlayer.bind(this));
+    this.handler.set('DRAW_CHANCE', this.handleDrawChance.bind(this));
+    this.handler.set('DRAW_CHEST', this.handleDrawChest.bind(this));
+    this.handler.set('NEW_POLITIC', this.handleNewPolitic.bind(this));
+    this.handler.set('POLITIC_RESET', this.handlePoliticReset.bind(this));
+    this.handler.set(
+      'BUYING_PRICE_INCREASE',
+      this.handleBuyingPriceIncrease.bind(this)
+    );
+    this.handler.set('RENT_INCREASE', this.handleRentIncrease.bind(this));
 
     this.signalRService.sendPacket(new ReadyPacket());
   }
 
   public ngOnDestroy(): void {
     this.stopHandler();
+  }
+
+  protected handleBuyingPriceIncrease(packet: Packet) {
+    const parsed = packet as BuyingPriceIncreasePacket;
+
+    this.gameService.priceMultiplier = parsed.NewMultiplier;
+  }
+
+  protected handleRentIncrease(packet: Packet) {
+    const parsed = packet as RentIncreasePacket;
+
+    this.gameService.priceMultiplier = parsed.NewMultiplier;
+  }
+
+  protected handlePoliticReset(packet: Packet) {
+    this.gameService.removePolitic();
+  }
+
+  protected async handleNewPolitic(packet: Packet) {
+    await this.waitUntilDiceAnimationEnds();
+
+    const parsed = packet as NewPoliticPacket;
+
+    this.politicScreen.start();
+
+    setTimeout(() => {
+      this.politicScreen.setWon(parsed.PoliticId);
+    }, 2000);
+  }
+
+  protected async handleDrawChance(packet: Packet) {
+    await this.waitUntilPoliticAnimationEnds();
+    await this.waitUntilDiceAnimationEnds();
+
+    const parsed = packet as DrawChancePacket;
+
+    if (parsed.PlayerName !== this.gameService.me?.name) {
+      return;
+    }
+
+    this.eventCardComponent.open(
+      'Chance',
+      this.gameService.theme.chances[parsed.CardId]
+    );
+  }
+
+  protected async handleDrawChest(packet: Packet) {
+    await this.waitUntilPoliticAnimationEnds();
+    await this.waitUntilDiceAnimationEnds();
+
+    const parsed = packet as DrawChestPacket;
+
+    if (parsed.PlayerName !== this.gameService.me?.name) {
+      return;
+    }
+
+    this.eventCardComponent.open(
+      'Community Chest',
+      this.gameService.theme.chests[parsed.CardId]
+    );
+  }
+
+  protected async handleMovePlayer(packet: Packet) {
+    await this.waitUntilPoliticAnimationEnds();
+    await this.waitUntilDiceAnimationEnds();
+    await this.waitUntilEventCardEnds();
+    const parsed = packet as MovePlayerPacket;
+
+    const player = this.gameService.getPlayerByName(parsed.PlayerName);
+
+    if (!player) {
+      return;
+    }
+
+    this.gameService.setPlayerPosition(player, parsed.FieldId);
+  }
+
+  protected async handleWon(packet: Packet) {
+    await this.waitUntilPoliticAnimationEnds();
+    await this.waitUntilEventCardEnds();
+    await this.waitUntilDiceAnimationEnds();
+    const parsed = packet as WonPacket;
+
+    if (parsed.PlayerName === this.gameService.me?.name) {
+      this.actionScreen.open(this.gameService.theme.winScreen);
+    }
+
+    setTimeout(() => {
+      this.router.navigate(['menu']);
+    }, 3000);
   }
 
   protected handleTransferProperties(packet: Packet) {
@@ -169,10 +291,15 @@ export class GameComponent extends Handler implements OnDestroy {
     this.debt = parsed.Amount;
   }
 
-  protected handleBankruptcy(packet: Packet) {
-    const parsed = packet as BankurptcyPacket;
+  protected async handleBankruptcy(packet: Packet) {
+    await this.waitUntilPoliticAnimationEnds();
+    await this.waitUntilEventCardEnds();
+    await this.waitUntilDiceAnimationEnds();
 
-    console.log('TOT');
+    const parsed = packet as BankurptcyPacket;
+    if (parsed.PlayerName === this.gameService.me?.name) {
+      this.actionScreen.open(this.gameService.theme.bankruptScreen);
+    }
   }
 
   protected handleAddMoney(packet: Packet) {
@@ -215,9 +342,14 @@ export class GameComponent extends Handler implements OnDestroy {
   }
 
   protected async handleGoToJail(packet: Packet) {
+    await this.waitUntilEventCardEnds();
     await this.waitUntilDiceAnimationEnds();
+    await this.waitUntilPoliticAnimationEnds();
     const parsed = packet as GoToJailPacket;
 
+    if (parsed.PlayerName === this.gameService.me?.name) {
+      this.actionScreen.open(this.gameService.theme.jailScreen);
+    }
     const player = this.gameService.getPlayerByName(parsed.PlayerName);
 
     if (!player) {
@@ -317,8 +449,11 @@ export class GameComponent extends Handler implements OnDestroy {
   }
 
   protected async handleBuyRequest(packet: Packet) {
-    const parsed = packet as BuyRequestPacket;
+    await this.waitUntilPoliticAnimationEnds();
     await this.waitUntilDiceAnimationEnds();
+    await this.waitUntilEventCardEnds();
+
+    const parsed = packet as BuyRequestPacket;
 
     if (parsed.PlayerName !== this.gameService.me?.name) {
       return;
@@ -401,7 +536,10 @@ export class GameComponent extends Handler implements OnDestroy {
   }
 
   protected async handlePlayersTurnPacket(packet?: Packet) {
+    await this.waitUntilEventCardEnds();
     await this.waitUntilDiceAnimationEnds();
+    await this.waitUntilActionScreenEnds();
+    await this.waitUntilPoliticAnimationEnds();
     const parsed = packet as PlayersTurnPacket;
 
     const player = this.gameService.getPlayerByName(parsed.PlayerName);
@@ -418,8 +556,26 @@ export class GameComponent extends Handler implements OnDestroy {
     this.gameService.movePlayer(value);
   }
 
+  private async waitUntilEventCardEnds(): Promise<void> {
+    while (this.eventCardComponent.visible) {
+      await new Promise((resolve) => setTimeout(resolve, 100));
+    }
+  }
+
+  private async waitUntilActionScreenEnds(): Promise<void> {
+    while (this.actionScreen?.isShowing) {
+      await new Promise((resolve) => setTimeout(resolve, 100));
+    }
+  }
+
   private async waitUntilDiceAnimationEnds(): Promise<void> {
     while (this.diceComponent?.isDicing) {
+      await new Promise((resolve) => setTimeout(resolve, 100));
+    }
+  }
+
+  private async waitUntilPoliticAnimationEnds(): Promise<void> {
+    while (this.politicScreen.visible) {
       await new Promise((resolve) => setTimeout(resolve, 100));
     }
   }

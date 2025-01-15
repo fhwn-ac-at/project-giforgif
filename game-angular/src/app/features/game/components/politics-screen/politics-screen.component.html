@@ -1,0 +1,59 @@
+@if (visible) {
+<div class="fixed top-0 left-0 right-0 bottom-0 z-[999]">
+  <div
+    class="relative z-10"
+    aria-labelledby="modal-title"
+    role="dialog"
+    aria-modal="true"
+  >
+    <div
+      class="fixed inset-0 bg-gray-900 bg-opacity-75 transition-opacity"
+      aria-hidden="true"
+    ></div>
+
+    <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+      <div
+        class="relative flex flex-col min-h-full justify-center p-4 text-center items-center sm:p-0"
+      >
+        <div class="relative w-[800px] h-[800px] mx-auto">
+          <img
+            [src]="gameService.theme.politics[0]"
+            class="absolute w-48 h-48 top-[8%] left-1/2 -translate-x-1/2 rounded-lg outline-[#FF9800] outline-offset-4"
+            [class.outline]="animationNumber == 0"
+          />
+
+          <img
+            [src]="gameService.theme.politics[4]"
+            class="absolute w-48 h-48 bg-black top-[38%] left-[5%] rounded-lg outline-[#FF9800] outline-offset-4"
+            [class.outline]="animationNumber == 4"
+          />
+
+          <div
+            class="stand-out text-[#FF9800] absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2"
+          >
+            Gott auswahl
+          </div>
+
+          <img
+            [src]="gameService.theme.politics[1]"
+            class="absolute w-48 h-48 bg-black top-[38%] right-[5%] rounded-lg outline-[#FF9800] outline-offset-4"
+            [class.outline]="animationNumber == 1"
+          />
+
+          <img
+            [src]="gameService.theme.politics[3]"
+            class="absolute w-48 h-48 bg-black top-[68%] left-[20%] rounded-lg outline-[#FF9800] outline-offset-4"
+            [class.outline]="animationNumber == 3"
+          />
+
+          <img
+            [src]="gameService.theme.politics[2]"
+            class="absolute w-48 h-48 bg-black top-[68%] right-[20%] rounded-lg outline-[#FF9800] outline-offset-4"
+            [class.outline]="animationNumber == 2"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+}

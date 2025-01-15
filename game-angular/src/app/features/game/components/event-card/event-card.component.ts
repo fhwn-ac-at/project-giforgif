@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-event-card',
@@ -9,12 +9,16 @@ import { Component, Input } from '@angular/core';
 export class EventCardComponent {
   protected title: string = 'Ereigniss';
   protected content: string = '';
-  protected visible = false;
+  public visible = false;
 
   public open(title: string, content: string) {
     this.title = title;
     this.content = content;
     this.visible = true;
+
+    setTimeout(() => {
+      this.close();
+    }, 4000);
   }
 
   public close() {

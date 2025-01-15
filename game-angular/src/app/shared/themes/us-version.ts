@@ -1,6 +1,47 @@
 import { BoardConfig } from './types/board-config';
 
 export const US_VERSION: BoardConfig = {
+  jailScreen: '/warhammer/go-to-jail.png',
+  winScreen: '/warhammer/winner.png',
+  bankruptScreen: '/warhammer/bankrupt.png',
+  politics: [
+    '/warhammer/politic-1.png',
+    '/warhammer/politic-2.png',
+    '/warhammer/politic-3.png',
+    '/warhammer/politic-0.png',
+    '/warhammer/politic-4.png',
+  ],
+  chances: [
+    'Werde in die Kerkerminen des Imperiums geworfen. Gehe direkt dorthin. Gehe nicht über die Stadttore, ziehe keine $ 200 ein.',
+    'Rücke vor bis zur Taverne der Grimmen Axt. Ziehe $ 200 ein, wenn du die Stadttore passierst.',
+    'Du wurdest zum Kommandanten der Stadtwache gewählt. Zahle jedem Mitspieler $ 50 als Tribut.',
+    'Rücke vor bis zu den Hallen der Alten Runenmeister. Ziehe $ 200 ein, wenn du die Stadttore passierst.',
+    'Deine Schatzkammer wurde geplündert. Ziehe $ 150 aus versteckten Reserven ein.',
+    'Zahle eine Abgabe an die Armen des Imperiums in Höhe von $ 15.',
+    'Rücke vor bis zur nächsten Garnison. Ziehe $ 200 ein, wenn du die Stadttore passierst.',
+    'Gehe 3 Felder zurück, während ein Goblin-Schamane dich in die Irre führt.',
+    'Rücke vor bis zur nächsten Garnison. Ziehe $ 200 ein, wenn du die Stadttore passierst.',
+    'Rücke vor bis zum nächsten Handelsposten. Ziehe $ 200 ein, wenn du die Stadttore passierst.',
+    'Mache einen Spaziergang auf der <PLACE>. Ziehe $ 200 ein, wenn du über Los gehst',
+    'Unternehme einen Streifzug durch den Verfluchten Wald. Ziehe $ 200 ein, wenn du die Stadttore passierst.',
+    'Führe Reparaturen an deinem gesamten Besitz durch. Zahle $ 25 für jedes Gehöft und $ 100 für jede Festung.',
+  ],
+  chests: [
+    'Du musst Reparaturen an den Straßen des Imperiums zahlen, $ 40 für jedes Gehöft und $ 115 für jede Festung.',
+    'Werde in die Kerkerminen der Skaven geworfen. Begib dich direkt dorthin. Gehe nicht über die Stadtmauer, ziehe keine $ 200 ein.',
+    'Du erbst $ 100 aus der Schatztruhe eines gefallenen Adligen.',
+    'Aus dem Verkauf von Schmuggelware erhältst du $ 45.',
+    'Deine Lebensversicherung wird fällig, nachdem du einen Chaoskrieger besiegt hast. Ziehe $ 100 ein.',
+    'Erhalte $ 25 als Bezahlung für einen Dienst am Tempel von Sigmar.',
+    'Zahle Schulgebühren an die Akademie der Lichtmagier: $ 150.',
+    'Du hast den zweiten Preis in einem Bogenschießturnier gewonnen. Ziehe $ 10 ein.',
+    'Opernkarten für das Fest der Alten Götter: Sammle $ 50 von jedem Spieler.',
+    'Zahle $ 50 für die Dienste eines Feldchirurgen während der Schlacht.',
+    'Krankenhausrechnung für deine verwundeten Soldaten: Zahle $ 100.',
+    'Eine Steuererstattung der imperialen Schatzkammer gewährt dir $ 20.',
+    'Ein Bankfehler zugunsten deiner Schatzkammer: Ziehe $ 200 ein.',
+    'Dein Wintervorrat wird fällig. Ziehe $ 100 ein.',
+  ],
   fields: [
     {
       type: 'Go',
@@ -33,6 +74,7 @@ export const US_VERSION: BoardConfig = {
       type: 'Station',
       name: 'Altdorf Train',
       rentPrices: [25, 50, 100, 200],
+      buyingPrice: 100,
     },
     {
       type: 'Site',
@@ -73,6 +115,7 @@ export const US_VERSION: BoardConfig = {
     {
       type: 'Utility',
       name: 'Dwarfen Jewerly Forges',
+      buyingPrice: 100,
     },
     {
       type: 'Site',
@@ -92,6 +135,7 @@ export const US_VERSION: BoardConfig = {
       type: 'Station',
       name: 'Kislev Train',
       rentPrices: [25, 50, 100, 200],
+      buyingPrice: 100,
     },
     {
       type: 'Site',
@@ -151,6 +195,7 @@ export const US_VERSION: BoardConfig = {
       type: 'Station',
       name: 'Northern Warmammoths',
       rentPrices: [25, 50, 100, 200],
+      buyingPrice: 100,
     },
     {
       type: 'Site',
@@ -169,6 +214,7 @@ export const US_VERSION: BoardConfig = {
     {
       type: 'Utility',
       name: 'Imperial Brewery',
+      buyingPrice: 100,
     },
     {
       type: 'Site',
@@ -210,6 +256,7 @@ export const US_VERSION: BoardConfig = {
       type: 'Station',
       name: 'Dwarven Tunnels',
       rentPrices: [25, 50, 100, 200],
+      buyingPrice: 100,
     },
     {
       type: 'Chance',

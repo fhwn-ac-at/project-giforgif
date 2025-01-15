@@ -1,35 +1,43 @@
-import { TAddMoneyPacket } from './game/actions/add-money';
-import { TRemoveMoneyPacket } from './game/actions/remove-money';
-import { TAuctionResultPacket } from './game/auction/auction-result';
-import { TAuctionStartPacket } from './game/auction/auction-start';
-import { TAuctionUpdatePacket } from './game/auction/auction-update';
-import { TRolledDicePacket } from './game/dice/rolled-dice';
-import { TGameStatePacket } from './game/game-state';
-import { THouseBuiltPacket } from './game/house/house-built';
-import { THouseSoldPacket } from './game/house/house-sold';
-import { TGoToJailPacket } from './game/jail/go-to-jail';
-import { TPayoutSucessPacket } from './game/jail/payout-sucess';
-import { TPayPlayerPacket } from './game/player/pay-player';
-import { TBoughtFieldPacket } from './game/sites/bought-field';
-import { TBuyRequestPacket } from './game/sites/buy-request';
-import { TPropertySoldPacket } from './game/sites/property-sold';
-import { TTransferPropertiesPacket } from './game/sites/transfer-properties';
-import { TBankurptcyPacket } from './game/util/bankruptcy';
-import { TPlayerOutOfDebtPacket } from './game/util/out-of-debt';
-import { TSellPropertiesPacket } from './game/util/sell-properties';
-import { TWonPacket } from './game/util/won';
-import { TStartPacket } from './lobby/start';
-import { TStatusPacket } from './lobby/status';
-import { Packet } from './packet';
-import { TPlayerJoinedPacket } from './rooms/player-joined';
-import { TPlayerLeftPacket } from './rooms/player-left';
-import { TRoomsUpdatedPacket } from './rooms/rooms-updated';
-import { TErrorPacket } from './util/error';
+import {
+  Packet,
+  TAddMoneyPacket,
+  TAuctionResultPacket,
+  TAuctionStartPacket,
+  TAuctionUpdatePacket,
+  TBankurptcyPacket,
+  TBoughtFieldPacket,
+  TBuyingPriceIncreasePacket,
+  TBuyRequestPacket,
+  TDrawChancePacket,
+  TDrawChestPacket,
+  TErrorPacket,
+  TGameStatePacket,
+  TGoToJailPacket,
+  THouseBuiltPacket,
+  THouseSoldPacket,
+  TMovePlayerPacket,
+  TNewPoliticPacket,
+  TPayoutSucessPacket,
+  TPayPlayerPacket,
+  TPlayerJoinedPacket,
+  TPlayerLeftPacket,
+  TPlayerOutOfDebtPacket,
+  TPropertySoldPacket,
+  TRemoveMoneyPacket,
+  TRentIncreasePacket,
+  TRolledDicePacket,
+  TRoomsUpdatedPacket,
+  TSellPropertiesPacket,
+  TStartPacket,
+  TStatusPacket,
+  TTransferPropertiesPacket,
+  TWonPacket,
+} from '.';
+import { TResetPoliticPacket } from './game/politics/reset-politic';
 
 type PacketParserFunction = (obj: any) => Packet;
 
 const packetTypeMap: { [key: string]: PacketParserFunction } = {
-  // SAMPLE: (obj: any) => obj as SamplePacket,
   ROOMS_UPDATED: (obj: any) => obj as TRoomsUpdatedPacket,
   PLAYER_JOINED: (obj: any) => obj as TPlayerJoinedPacket,
   ERROR: (obj: any) => obj as TErrorPacket,
@@ -57,7 +65,13 @@ const packetTypeMap: { [key: string]: PacketParserFunction } = {
   HOUSE_SOLD: (obj: any) => obj as THouseSoldPacket,
   TRANSFER_PROPERTIES: (obj: any) => obj as TTransferPropertiesPacket,
   WON: (obj: any) => obj as TWonPacket,
-  // Add entries for other packet types
+  MOVE_PLAYER: (obj: any) => obj as TMovePlayerPacket,
+  DRAW_CHANCE: (obj: any) => obj as TDrawChancePacket,
+  DRAW_CHEST: (obj: any) => obj as TDrawChestPacket,
+  NEW_POLITIC: (obj: any) => obj as TNewPoliticPacket,
+  POLITIC_RESET: (obj: any) => obj as TResetPoliticPacket,
+  BUYING_PRICE_INCREASE: (obj: any) => obj as TBuyingPriceIncreasePacket,
+  RENT_INCREASE: (obj: any) => obj as TRentIncreasePacket,
 };
 
 export { packetTypeMap };

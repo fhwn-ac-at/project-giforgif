@@ -18,6 +18,9 @@ export class GameService {
   public theme: BoardConfig = US_VERSION;
   public currentMover: Player | null = null;
 
+  public rentMultiplier = 1;
+  public priceMultiplier = 1;
+
   constructor() {
     this.setupDefaultTiles();
     this.setupBoard();
@@ -68,7 +71,10 @@ export class GameService {
       return;
     }
 
-    from.owns.splice(from.owns.findIndex(t => t === index), 1);
+    from.owns.splice(
+      from.owns.findIndex((t) => t === index),
+      1
+    );
     tile.owner = to;
     tile.buildings = [];
     this.tiles = new Map(this.tiles);
@@ -100,7 +106,7 @@ export class GameService {
     }
 
     this.fields.set(player.currentPosition, [
-      ...current.filter((name) => name !== this.currentMover?.name),
+      ...current.filter((name) => name !== player.name),
     ]);
 
     const field = this.fields.get(position);
@@ -111,6 +117,11 @@ export class GameService {
       this.fields = new Map(this.fields);
       return;
     }
+  }
+
+  public removePolitic() {
+    this.rentMultiplier = 1;
+    this.priceMultiplier = 1;
   }
 
   public setOwner(player: Player | undefined, fieldId: number) {
