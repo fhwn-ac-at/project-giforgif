@@ -1,14 +1,16 @@
-import { Component, inject, Inject, OnDestroy } from '@angular/core';
-import { Handler } from '../../../shared/class/handler';
-import { PacketService } from '../../../shared/services/packet/packet.service';
-import { ToastService } from '../../../shared/services/toast/toast.service';
-import { Packet } from '../../../shared/packets/packet';
-import { WantStatusPacket } from '../../../shared/packets/lobby/want-status';
-import { TStatusPacket } from '../../../shared/packets/lobby/status';
-import { TPlayerJoinedPacket } from '../../../shared/packets/rooms/player-joined';
-import { TPlayerLeftPacket } from '../../../shared/packets/rooms/player-left';
-import { LeaveRoomPacket } from '../../../shared/packets/rooms/leave-room';
+import { Component, inject, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { Handler } from '@shared/class/handler';
+import {
+  WantStatusPacket,
+  Packet,
+  TPlayerJoinedPacket,
+  TStatusPacket,
+  TPlayerLeftPacket,
+} from '@shared/packets';
+import { LeaveRoomPacket } from '@shared/packets/rooms/leave-room';
+import { PacketService } from '@shared/services/packet/packet.service';
+import { ToastService } from '@shared/services/toast/toast.service';
 import { interval, Subscription } from 'rxjs';
 
 @Component({

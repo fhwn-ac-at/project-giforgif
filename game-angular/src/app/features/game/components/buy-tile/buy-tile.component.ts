@@ -1,8 +1,8 @@
 import { Component, EventEmitter, inject, Output } from '@angular/core';
-import { GameService } from '../../../../shared/services/game/game.service';
-import { Tile } from '../../../../shared/types/game/tile';
-import { SharedModule } from '../../../../shared/shared.module';
 import { TileCardComponent } from '../tile-card/tile-card.component';
+import { GameService } from '@shared/services/game/game.service';
+import { SharedModule } from '@shared/shared.module';
+import { Tile } from '@shared/types/game/tile';
 
 @Component({
   selector: 'app-buy-tile',
@@ -19,7 +19,7 @@ export class BuyTileComponent {
 
   protected visible = false;
   protected tile: Tile | null = null;
-  private readonly gameService = inject(GameService);
+  public gameService = inject(GameService);
 
   public showBuyOption(index: number) {
     this.visible = true;

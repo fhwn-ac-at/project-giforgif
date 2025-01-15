@@ -30,7 +30,11 @@
           class="mt-4 hidden rounded-md bg-green-600 px-2.5 py-1.5 text-3xl font-semibold text-white shadow-sm ring-1 ring-inset hover:bg-green-500 sm:block"
           (click)="buyTile.emit(tile?.index)"
         >
-          Kaufen
+          Kaufen $ @if(tile) {
+          {{
+            (gameService.theme.fields[tile.index - 1].buyingPrice ?? 0) *
+              gameService.priceMultiplier
+          }}}
         </button>
       </div>
     </div>

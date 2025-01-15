@@ -1,11 +1,13 @@
 import { Component, inject } from '@angular/core';
-import { GameService } from '../../../../shared/services/game/game.service';
-import { Tile } from '../../../../shared/types/game/tile';
 import { TileCardComponent } from '../tile-card/tile-card.component';
-import { PacketService } from '../../../../shared/services/packet/packet.service';
-import { BuildHousePacket } from '../../../../shared/packets/game/house/build-house';
-import { SellHousePacket } from '../../../../shared/packets/game/house/sell-house';
-import { SellPropertyPacket } from '../../../../shared/packets/game/sites/sell-property';
+import {
+  SellPropertyPacket,
+  SellHousePacket,
+  BuildHousePacket,
+} from '@shared/packets';
+import { GameService } from '@shared/services/game/game.service';
+import { PacketService } from '@shared/services/packet/packet.service';
+import { Tile } from '@shared/types/game/tile';
 
 @Component({
   selector: 'app-buy-house',
@@ -31,7 +33,9 @@ export class BuyHouseComponent {
       this.tile.owner === this.gameService.me &&
       this.gameService.theme.fields[index - 1].type === 'Site';
 
-    // this.canSell = this.tile.owner === this.gameService.me && this.gameService.tiles.get(index)!.buildings.length == 0;
+    this.canSell =
+      this.tile.owner === this.gameService.me &&
+      this.gameService.tiles.get(index)!.buildings.length == 0;
 
     this.canSellHouse = this.gameService.tiles.get(index)!.buildings.length > 0;
   }

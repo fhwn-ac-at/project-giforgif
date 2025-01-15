@@ -1,8 +1,8 @@
 import { Component, EventEmitter, inject, Output } from '@angular/core';
 import { TileCardComponent } from '../tile-card/tile-card.component';
-import { GameService } from '../../../../shared/services/game/game.service';
-import { Tile } from '../../../../shared/types/game/tile';
 import { interval, Subscription } from 'rxjs';
+import { GameService } from '@shared/services/game/game.service';
+import { Tile } from '@shared/types/game/tile';
 
 @Component({
   selector: 'app-auction',

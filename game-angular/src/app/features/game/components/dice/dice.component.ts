@@ -1,14 +1,13 @@
 import {
   Component,
   EventEmitter,
-  Input,
   OnChanges,
   OnDestroy,
   Output,
   SimpleChanges,
 } from '@angular/core';
+import { Player } from '@shared/types/game/player';
 import { interval, Subscription } from 'rxjs';
-import { Player } from '../../../../shared/types/game/player';
 
 @Component({
   selector: 'app-dice',
@@ -22,7 +21,7 @@ export class DiceComponent implements OnChanges, OnDestroy {
 
   public diced: number | null = null;
   public player: Player | null = null;
-  
+
   public isDicing: boolean = false;
 
   protected animationNumber = 3;
@@ -59,7 +58,7 @@ export class DiceComponent implements OnChanges, OnDestroy {
     this.isDicing = true;
 
     this.animationSubscription = interval(100).subscribe(() => {
-      this.animationNumber = this.getRandomNumber(1, 6);
+      this.animationNumber = this.getRandomNumber(1, 12);
     });
   }
 

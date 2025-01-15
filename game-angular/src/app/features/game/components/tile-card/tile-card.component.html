@@ -12,37 +12,37 @@
     <div class="text-sm text-gray-900">
       Miete:
       <div class="float-right">
-        $ {{ theme.fields[tile!.index - 1].rentPrices![0] }}
+        $ {{ theme.fields[tile!.index - 1].rentPrices![0] * gameService.rentMultiplier }}
       </div>
     </div>
     <div class="text-sm text-gray-900">
       Mit 1 Haus:
       <div class="float-right">
-        $ {{ theme.fields[tile!.index - 1].rentPrices![1] }}
+        $ {{ theme.fields[tile!.index - 1].rentPrices![1] * gameService.rentMultiplier  }}
       </div>
     </div>
     <div class="text-sm text-gray-900">
       Mit 2 Häuser:
       <div class="float-right">
-        $ {{ theme.fields[tile!.index - 1].rentPrices![2] }}
+        $ {{ theme.fields[tile!.index - 1].rentPrices![2] * gameService.rentMultiplier  }}
       </div>
     </div>
     <div class="text-sm text-gray-900">
       Mit 3 Häuser:
       <div class="float-right">
-        $ {{ theme.fields[tile!.index - 1].rentPrices![3] }}
+        $ {{ theme.fields[tile!.index - 1].rentPrices![3] * gameService.rentMultiplier  }}
       </div>
     </div>
     <div class="text-sm text-gray-900">
       Mit 4 Häuser:
       <div class="float-right">
-        $ {{ theme.fields[tile!.index - 1].rentPrices![4] }}
+        $ {{ theme.fields[tile!.index - 1].rentPrices![4] * gameService.rentMultiplier  }}
       </div>
     </div>
     <div class="text-sm text-gray-900">
       Mit Hotel:
       <div class="float-right">
-        $ {{ theme.fields[tile!.index - 1].rentPrices![5] }}
+        $ {{ theme.fields[tile!.index - 1].rentPrices![5] * gameService.rentMultiplier  }}
       </div>
     </div>
     <div class="text-sm text-gray-900">

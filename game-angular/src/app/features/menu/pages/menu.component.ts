@@ -1,18 +1,20 @@
 import { Component, inject, OnDestroy } from '@angular/core';
-import { ModalTemplateComponent } from '../../../shared/components/modal-template/modal-template.component';
-import { parsePacket, Perform } from '../../../shared/class';
-import { Room } from '../../../shared/types';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { SharedModule } from '../../../shared/shared.module';
-import { PacketService } from '../../../shared/services/packet/packet.service';
-import { Packet } from '../../../shared/packets/packet';
-import { CreateRoomPacket } from '../../../shared/packets/rooms/create-room';
-import { TRoomsUpdatedPacket } from '../../../shared/packets/rooms/rooms-updated';
-import { TErrorPacket } from '../../../shared/packets/util/error';
-import { ToastService } from '../../../shared/services/toast/toast.service';
-import { JoinRoomPacket } from '../../../shared/packets/rooms/join-room';
-import { Handler } from '../../../shared/class/handler';
 import { Router } from '@angular/router';
+import { Perform } from '@shared/class';
+import { Handler } from '@shared/class/handler';
+import { ModalTemplateComponent } from '@shared/components/modal-template/modal-template.component';
+import {
+  WantRoomsPacket,
+  CreateRoomPacket,
+  JoinRoomPacket,
+  Packet,
+  TRoomsUpdatedPacket,
+} from '@shared/packets';
+import { PacketService } from '@shared/services/packet/packet.service';
+import { ToastService } from '@shared/services/toast/toast.service';
+import { SharedModule } from '@shared/shared.module';
+import { Room } from '@shared/types';
 
 @Component({
   selector: 'app-menu',
@@ -39,6 +41,8 @@ export class MenuComponent extends Handler implements OnDestroy {
 
     this.handler.set('ROOMS_UPDATED', this.handleRoomsUpdatedPacket.bind(this));
     this.handler.set('PLAYER_JOINED', this.handleJoinedRoomPacket.bind(this));
+
+    this.signalRService.sendPacket(new WantRoomsPacket());
   }
 
   public ngOnDestroy(): void {

@@ -1,11 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { AvatarComponent } from '../avatar/avatar.component';
-import { Tile } from '../../../../shared/types/game/tile';
-import { SharedModule } from '../../../../shared/shared.module';
-import { House } from '../../../../shared/types/game/house';
-import { Hotel } from '../../../../shared/types/game/hotel';
-import { GameService } from '../../../../shared/services/game/game.service';
 import { BuyHouseComponent } from '../buy-house/buy-house.component';
+import { GameService } from '@shared/services/game/game.service';
+import { SharedModule } from '@shared/shared.module';
 
 @Component({
   selector: 'app-board',

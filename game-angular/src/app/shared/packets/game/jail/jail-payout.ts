@@ -6,4 +6,4 @@ export class JailPayoutPacket extends Packet {
   }
 }
 
-export type TGoToJailPacket = JailPayoutPacket;
+export type TJailPayoutPacket = JailPayoutPacket;
