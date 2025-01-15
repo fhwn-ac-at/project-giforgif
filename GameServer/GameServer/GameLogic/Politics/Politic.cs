@@ -40,7 +40,8 @@ namespace GameServer.GameLogic.Politics
         {
             if (true || Rng.Next(0, 1 + _chanceToGetGod) == 0)
             {
-                God god = _gods[Rng.Next(0, _gods.Count)];
+                //God god = _gods[Rng.Next(0, _gods.Count)];
+                God god = _gods[4];
 
                 _currentGodDuration = _godDuration;
                 _currentGod = god;
