@@ -10,7 +10,7 @@ namespace GameServer.GameLogic
 
 		private Dictionary<int, IField> _fields { get; set; } = new Dictionary<int, IField>();
 		
-        private CardDealer _cardDealer = new CardDealer();
+        public CardDealer Dealer { get; set; } = new CardDealer();
 
 		public void AddField(IField field)
 		{
@@ -26,22 +26,7 @@ namespace GameServer.GameLogic
             return _fields[id];
         }
 
-		public void AddCard(Card card)
-		{
-			_cardDealer.Add(card);
-		}
-
-		public void AddCards(IEnumerable<Card> cards)
-		{
-            _cardDealer.Add(cards);
-        }
-
-		public Card DrawCard()
-		{
-            return _cardDealer.DrawCard();
-        }
-
-		public List<PropertyField>? GetPropertyFieldsOf(Player player)
+        public List<PropertyField>? GetPropertyFieldsOf(Player player)
 		{
 			if (_fields.Count == 0)
 				return [];
