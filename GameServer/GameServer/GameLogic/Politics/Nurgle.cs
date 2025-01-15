@@ -1,5 +1,6 @@
 ﻿
 using GameServer.Models.Fields;
+using GameServer.Models.Packets;
 
 namespace GameServer.GameLogic.Politics
 {
@@ -20,6 +21,8 @@ namespace GameServer.GameLogic.Politics
                 var field = (PropertyField)f;
                 field.GodRentModifier = RentModifier;
             });
+
+            RaiseEvent("RENT_INCREASE", new RentChangedPacket() { NewMultiplier = RentModifier });
         }
 
         public new void Deactivate(GameBoard board, List<Player> players, Random rng)
