@@ -125,26 +125,45 @@ namespace GameServer.GameLogic
 
 			if (isLanding)
 			{
-				var drawnCard = player.Board.DrawCard();
+				var drawnCard = player.Board.Dealer.DrawCommunityCard();
 
 				if (drawnCard.Effect.IsInstant)
 				{
-					drawnCard.Effect.Effect.Invoke(player);
+					drawnCard.Effect.Effect.Invoke(player, _game, communityChest);
 					return;
 				}
 
-				communityChest.RaiseEvent("DRAW_CARD", new DrawCardPacket(player.Name, drawnCard.Name, drawnCard.Description));
+				communityChest.RaiseEvent("DRAW_CARD", new DrawCardPacket(player.Name, drawnCard.Id));
 			}
 		}
 
-		public void Visit(GoToJail goToJail, Player player, bool isLanding)
+        public void Visit(Chance chance, Player player, bool isLanding)
+        {
+			if (chance == null)
+				return;
+
+			if (isLanding)
+			{
+                var drawnCard = player.Board.Dealer.DrawChanceCard();
+
+                if (drawnCard.Effect.IsInstant)
+                {
+                    drawnCard.Effect.Effect.Invoke(player, _game, chance);
+                    return;
+                }
+
+                chance.RaiseEvent("DRAW_CARD", new DrawCardPacket(player.Name, drawnCard.Id));
+            }
+        }
+
+        public void Visit(GoToJail goToJail, Player player, bool isLanding)
 		{
 			if (goToJail == null)
                 return;
 
 			if (isLanding)
 			{
-				_game.SetPlayerPosition(player, 11); // TODO: Find out Jail Field ID; Solved this by hardcoding 11 (Jail Field ID)
+				_game.SetPlayerPosition(player, 11, true); // TODO: Find out Jail Field ID; Solved this by hardcoding 11 (Jail Field ID)
 
 				player.RoundsLeftInJail = 3;
 
