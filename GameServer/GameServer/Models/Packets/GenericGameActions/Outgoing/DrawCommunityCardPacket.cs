@@ -6,12 +6,12 @@
 
         public string PlayerName { get; set; }
 
-        public int CardID { get; set; }
+        public int CardId { get; set; }
 
         public DrawCommunityCardPacket(string playerName, int cardId)
         {
             PlayerName = playerName;
-            CardID = cardId;
+            CardId = cardId;
         }
     }
 }
