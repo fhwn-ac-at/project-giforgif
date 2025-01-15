@@ -206,13 +206,7 @@ namespace GameServer.GameLogic
 
 			if (isLanding)
 			{
-                Console.WriteLine("PLAYER STEPPED ON TAX FIELD!");
-
                 player.DeductCurrency(tax.Amount, tax);
-
-				tax.RaiseEvent("TAX_PAY", new RemoveMoneyPacket() { PlayerName = player.Name, Amount = tax.Amount, Description = "Landed on tax field"});
-
-                Console.WriteLine("TAX FIELD LOGIC OVER");
             }
         }
     }
