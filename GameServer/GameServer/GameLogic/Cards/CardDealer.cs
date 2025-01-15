@@ -20,7 +20,6 @@ namespace GameServer.GameLogic
 
             int index = _random.Next(0, _chanceCards.Count);
 
-            return _chanceCards[11];
             return _chanceCards[index];
         }
 
