@@ -49,6 +49,7 @@ namespace GameServer.Handlers
             _packetFunctions.Add("JAIL_PAYOUT", _gameHandler.HandleJailPayoutPacket);
             _packetFunctions.Add("SELL_HOUSE", _gameHandler.HandleSellHousePacket);
             _packetFunctions.Add("SELL_PROPERTY", _gameHandler.HandleSellPropertyPacket);
+            _packetFunctions.Add("WANT_ROOMS", HandleWantRooms);
             _connectionMapping = connectionMapping;
         }
 
@@ -138,6 +139,11 @@ namespace GameServer.Handlers
             // checken obs das überhaupt gibt 
 
             await _packetFunctions[packet.Type](packet, context);
+        }
+
+        public async Task HandleWantRooms(Packet packet, HubCallerContext context)
+        {
+            await SendRoomUpdate(context);
         }
 
         public async Task HandleStartPacket(Packet packet, HubCallerContext context)

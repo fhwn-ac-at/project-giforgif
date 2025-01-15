@@ -3,6 +3,7 @@ using System.Text.Json;
 using GameServer.Models.Packets.Rooms;
 using GameServer.Models.Packets.Lobby;
 using GameServer.Models.Packets.Game;
+using GameServer.Models.Packets.Rooms.Incoming;
 
 namespace GameServer.Models.Packets
 {
@@ -28,6 +29,7 @@ namespace GameServer.Models.Packets
             _packetTypeMappings.Add("JAIL_PAYOUT", typeof(JailPayoutPacket));
             _packetTypeMappings.Add("SELL_HOUSE", typeof(SellHousePacket));
             _packetTypeMappings.Add("SELL_PROPERTY", typeof(SellPropertyPacket));
+            _packetTypeMappings.Add("WANT_ROOMS", typeof(WantRoomsPacket));
         }
 
         public override Packet Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
