@@ -45,7 +45,7 @@ namespace GameServer.GameLogic.Politics
                 _currentGodDuration = _godDuration;
                 _currentGod = god;
 
-                god.Revert(_board, _players, Rng);
+                god.Activate(_board, _players, Rng);
             }
         }
 
@@ -56,7 +56,7 @@ namespace GameServer.GameLogic.Politics
                 _currentGodDuration--;
                 if (_currentGodDuration == 0 && _currentGod != null)
                 {
-                    _currentGod.Deactivate(_board, _players, Rng);
+                    _currentGod.Revert(_board, _players, Rng);
 
                     _currentGod = null;
                 }
