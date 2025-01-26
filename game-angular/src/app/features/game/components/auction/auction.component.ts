@@ -36,6 +36,7 @@ export class AuctionComponent {
 
   public showBuyOption(index: number) {
     this.visible = true;
+    this.disabler = false;
     this.tile = this.gameService.tiles.get(index)!;
   }
 
