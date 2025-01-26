@@ -71,7 +71,7 @@
                     {{ player.won }}
                   </td>
                   <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                    {{ player.won / (player.played - player.won) }}
+                    {{ (player.played - player.won) === 0 ? 1 : player.won / (player.played - player.won) }}
                   </td>
                 </tr>
                 }
