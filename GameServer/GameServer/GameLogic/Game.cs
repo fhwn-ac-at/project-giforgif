@@ -50,7 +50,7 @@ namespace GameServer.GameLogic
             for (int i = 0; i < Players.Count; i++)
             {
                 Players[i].Color = colors[i];
-                Players[i].Currency = 1500;
+                Players[i].Currency = 0;
                 Players[i].Board = _board;
             }
 
