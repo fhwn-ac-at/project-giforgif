@@ -438,7 +438,7 @@ namespace GameServer.Handlers
             if (sellValue != 0)
 			{
                 // House sucessfully sold
-                await _lobbyContext.Clients.Client(context.ConnectionId).SendAsync("ReceivePacket", JsonSerializer.Serialize(new HouseSoldPacket() { FieldId = field.Id }));
+                await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", JsonSerializer.Serialize(new HouseSoldPacket() { FieldId = field.Id }));
                 await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", JsonSerializer.Serialize(new AddMoneyPacket() { PlayerName = player.Name, Amount = sellValue, Description = "Sold House" }));
 
 				if (player.OwesMoney != null && player.AmountOwed - player.Currency <= 0)
