@@ -58,7 +58,7 @@ export class GameService {
         new House('bg-green-900'),
       ];
     } else {
-      tile.buildings = tile.buildings.splice(0, 1);
+      tile.buildings =  tile.buildings.slice(0, -1);
     }
 
     this.tiles = new Map(this.tiles);
