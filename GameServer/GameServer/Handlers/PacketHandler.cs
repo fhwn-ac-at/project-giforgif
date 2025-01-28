@@ -182,7 +182,11 @@ namespace GameServer.Handlers
             string packetJson = JsonSerializer.Serialize(pkg);
             await _lobbyContext.Clients.Group(GetRoomName(context)).SendAsync("ReceivePacket", packetJson);
             await _lobbyContext.Groups.RemoveFromGroupAsync(context.ConnectionId, GetRoomName(context));
-            game.StopCounter();
+            if(game.Players.Count < 3)
+            {
+                game.StopCounter();
+            }
+
             await SendRoomUpdate(context);
         }
 
