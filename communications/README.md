@@ -42,5 +42,11 @@
 ## Währungsübertragung – Spieler bankrott
 ![Transfer Currency Player Bankrupt](TransferCurrencyPlayerBankrupt.png)
 
+## Karte wird gezogen
+![Draw Card](DrawCard.png)
+
+## Politic wird geändert
+![Change Poltic](PoliticChanged.png)
+
 ---
 Diese Bilder können verwendet werden, um verschiedene Spielereignisse in einem Perropoly-ähnlichen Spiel darzustellen.
