@@ -265,7 +265,7 @@ namespace GameServer.Handlers
 
             Game game = RoomStore.GetGame(parsed.RoomName);
 
-            if (game.Started || game.Players.Count >= 4)
+            if (game.Started || game.Players.Count >= 5)
             {
                 await _lobbyContext.Clients.Client(connectionId).SendAsync("ReceivePacket", JsonSerializer.Serialize(new ErrorPacket("INTERNAL_ERROR", "Something went wrong while creating the room")));
                 return;
