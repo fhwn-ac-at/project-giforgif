@@ -61,10 +61,10 @@
             }
           </div>
           <div class="mt-1 flex items-center gap-x-2 text-xs/5 text-gray-500">
-            <p class="whitespace-nowrap">{{ room.playerCount }} / 4 Spieler</p>
+            <p class="whitespace-nowrap">{{ room.playerCount }} / 5 Spieler</p>
           </div>
         </div>
-        @if (!room.running && room.playerCount < 4) {
+        @if (!room.running && room.playerCount < 5) {
         <div class="flex flex-none items-center gap-x-4">
           <button
             (click)="joinRoom(room.name)"
