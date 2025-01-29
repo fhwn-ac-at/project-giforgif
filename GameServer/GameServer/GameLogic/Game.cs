@@ -42,7 +42,7 @@ namespace GameServer.GameLogic
             CurrentMover = Players.First();
 			_board = new GameBoard();
 
-            List<string> colors = new List<string>() { "red", "blue", "green", "yellow"};
+            List<string> colors = new List<string>() { "red", "blue", "green", "yellow", "fuchsia"};
 
             if (Players.Count > colors.Count)
                 throw new InvalidOperationException("The number of players must be equal to the number of colors");
